@@ -25,14 +25,13 @@ export default function App() {
     }
     return {};
   });
-
   return (
     <BackendUrlProvider backendUrlData={BACKEND_URL}>
       <Router>
         <Routes>
           <Route
             path="/landing"
-            element={<Landing setUser={setUser} />}
+            element={<Landing user={user}/>}
           />
           <Route
             path="login"
