@@ -40,17 +40,15 @@ const Login = ({ setUser }) => {
     if (email) {
       console.log('email exists!!');
       axios
-        .post(`${backendUrl}/login`, {
+        .post(`${backendUrl}/api/login`, {
           email,
           password,
         })
         .then((response) => {
           console.log('successful login');
-          console.log(response.data);
-          const { user } = response.data;
-
+          console.log(response.data.result)
+          const { user } = response.data.result;
           setUser(user);
-
           if (user) {
             navigate('/landing');
           } else navigate('/login');

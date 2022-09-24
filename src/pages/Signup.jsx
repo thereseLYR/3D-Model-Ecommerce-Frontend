@@ -29,6 +29,8 @@ const Signup = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
+  const [address, setAddress] = useState('');
+  const [phone, setPhone] = useState('');
   const navigate = useNavigate();
   const handleShowClick = () => { setShowPassword(!showPassword)  };
 
@@ -36,16 +38,18 @@ const Signup = () => {
     event.preventDefault();
 
     if (email) {
-      console.log(email, password, firstName, lastName, username);
+      console.log(email, password, firstName, lastName, username, address, phone);
       const data = {
         email,
         password,
         firstName,
         lastName,
         username,
+        address,
+        phone,
       };
       axios
-        .post(`${backendUrl}/register`, data)
+        .post(`${backendUrl}/api/register`, data)
         .then((response) => {
           console.log(response.data);
           navigate('/login');
@@ -100,6 +104,28 @@ const Signup = () => {
                   />
                   <Input type="text" placeholder="Last name" onChange={(event) => {
                     setLastName(event.target.value);
+                  }} />
+                </InputGroup>
+              </FormControl>
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<CFaUserAlt color="gray.300" />}
+                  />
+                  <Input type="text" placeholder="Address" onChange={(event) => {
+                    setAddress(event.target.value);
+                  }} />
+                </InputGroup>
+              </FormControl>
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<CFaUserAlt color="gray.300" />}
+                  />
+                  <Input type="text" placeholder="Phone" onChange={(event) => {
+                    setPhone(event.target.value);
                   }} />
                 </InputGroup>
               </FormControl>

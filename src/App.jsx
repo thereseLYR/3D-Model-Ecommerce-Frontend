@@ -34,10 +34,10 @@ export default function App() {
             element={<Landing user={user}/>}
           />
           <Route
-            path="login"
+            path="/login"
             element={<Login setUser={setUser} />}
           />
-          <Route path="signup" element={<Signup />} />
+          <Route path="/signup" element={<Signup />} />
           <Route element={<PrivateRoutes />}>
             {/* all protected routes here */}
           </Route>
