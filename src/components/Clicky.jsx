@@ -41,6 +41,9 @@ export default function Clicky(props) {
       onPointerLeave={(event) => {
         setIsHovered(false);
       }}
+      onPointerMissed={()=> {
+        sendActiveModelToApp(getModelStateFromComponents(), null)
+      }}
     >
       <mesh
         castShadow

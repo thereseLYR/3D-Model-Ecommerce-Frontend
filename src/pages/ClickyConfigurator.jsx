@@ -35,7 +35,7 @@ function ClickyConfigurator() {
 
   function Picker() {
     return (
-      <div className="picker">
+      <div className="picker" style={{display: modelState.currentItem ? "block":"none"}} >
         <h1> {modelState.currentItem}</h1>
         <SketchPicker
           color={modelState.items[modelState.currentItem]}
