@@ -22,7 +22,23 @@ canvas {
   height: 100%;
 }
 
-#root,
-html {
-  height: 100%;
+html,
+body,
+#root {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  outline: none;
+  width: 100vw;
+  height: 100vh;
 }
+
+/* .picker {
+  currently bugged out - cannot select colour when position is absolute
+  position: absolute !important;
+  top: 74px;
+  left: 70px;
+  width: 90px !important;
+  height: 90px !important;
+} */

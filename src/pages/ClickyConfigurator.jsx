@@ -39,7 +39,7 @@ function ClickyConfigurator() {
         <SketchPicker
           color={modelState.items[modelState.currentItem]}
           onChange={(color) => {
-            console.log(color);
+            // console.log(color);
             modelState.items[modelState.currentItem] = color.hex;
           }}
         />
@@ -66,7 +66,7 @@ function ClickyConfigurator() {
   return (
     <div style={{ width: "100%", height: "100%" }}>
       <Picker />
-      <ColorState />
+      {/* <ColorState /> */}
       <Canvas>
         <PerspectiveCamera makeDefault fov={75} position={[0, 0, 50]} />
         <ambientLight intensity={0.4} />

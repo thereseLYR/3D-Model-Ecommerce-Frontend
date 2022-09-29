@@ -28,9 +28,9 @@ export default function Clicky(props) {
       onPointerLeave={(event) => {
         setIsHovered(false);
       }}
-      onPointerMissed={()=> {
-        sendActiveModelToApp(getModelStateFromComponents(), null)
-      }}
+      // onPointerMissed={()=> {
+      //   sendActiveModelToApp(getModelStateFromComponents(), null)
+      // }}
     >
       <mesh
         castShadow
@@ -75,8 +75,5 @@ export default function Clicky(props) {
     </group>
   );
 }
-
-// okay this has no shadows
-// but we can figure that out later
 
 useGLTF.preload("/clicky.glb");
