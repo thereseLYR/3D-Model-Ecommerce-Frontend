@@ -1,9 +1,7 @@
-import { Suspense, useRef, useState, useEffect } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { useState } from "react";
+import { Canvas } from "@react-three/fiber";
 import {
   ContactShadows,
-  Environment,
-  useGLTF,
   OrbitControls,
   PerspectiveCamera,
 } from "@react-three/drei";
@@ -24,18 +22,19 @@ function ClickyConfigurator() {
   const [modelState, setModelState] = useState(initialModelState);
 
   const getModelStateFromComponents = () => {
-    // console.log('sending model data to app...')
     return modelState;
   };
 
   const sendActiveModelToApp = (stateObj, modelNameStr) => {
     setModelState({ ...stateObj, currentItem: modelNameStr });
-    // console.log('Saved model state from model component to app component')
   };
 
   function Picker() {
     return (
-      <div className="picker" style={{display: modelState.currentItem ? "block":"none"}} >
+      <div
+        className="picker"
+        style={{ display: modelState.currentItem ? "block" : "none" }}
+      >
         <h1> {modelState.currentItem}</h1>
         <SketchPicker
           color={modelState.items[modelState.currentItem]}
@@ -50,7 +49,6 @@ function ClickyConfigurator() {
 
   function ColorState() {
     const objEntries = Object.entries(modelState.items);
-    console.log(objEntries);
 
     return (
       <div>
@@ -94,7 +92,6 @@ function ClickyConfigurator() {
           color="#000000"
         />
 
-        {/* not the right geometry but whatever */}
         <Clicky
           sendActiveModelToApp={sendActiveModelToApp}
           getModelStateFromComponents={getModelStateFromComponents}
