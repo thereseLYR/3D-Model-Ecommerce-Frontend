@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 import Login from './pages/Login.jsx';
 import Landing from './pages/Landing.jsx';
 import Signup from './pages/Signup.jsx';
+import Navbar from './components/Navbar.jsx';
 import { BackendUrlProvider } from './components/BackendUrl.jsx';
 import PrivateRoutes from './components/PrivateRoutes.jsx';
 
@@ -28,6 +29,7 @@ export default function App() {
   return (
     <BackendUrlProvider backendUrlData={BACKEND_URL}>
       <Router>
+        <Navbar/>
         <Routes>
           <Route
             path="/landing"
