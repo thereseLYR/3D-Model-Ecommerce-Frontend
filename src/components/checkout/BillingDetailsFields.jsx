@@ -1,13 +1,13 @@
 // TODO: pass props
-import React from "react";
 import {
-  VStack,
   Box,
+  Input,
   InputGroup,
   InputLeftAddon,
-  Input,
   Text,
+  VStack,
 } from "@chakra-ui/react";
+import React from "react";
 
 const BillingDetailsFields = () => {
   return (

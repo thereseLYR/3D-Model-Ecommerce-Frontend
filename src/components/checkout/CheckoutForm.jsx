@@ -1,9 +1,9 @@
+import { Box, Button, Text, VStack } from "@chakra-ui/react";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useState } from "react";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { VStack, Box, Button, Text } from "@chakra-ui/react";
-import CheckoutErrorContainer from "./CheckoutErrorContainer";
 import { FiCreditCard } from "react-icons/fi";
 import BillingDetailsFields from "./BillingDetailsFields";
+import CheckoutErrorContainer from "./CheckoutErrorContainer";
 
 const CheckoutForm = ({ price, onSuccessfulCheckout, clientSecret }) => {
   const [isProcessing, setProcessingTo] = useState(false);

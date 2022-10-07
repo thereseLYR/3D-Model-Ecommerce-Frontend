@@ -1,17 +1,17 @@
 import {
-  VStack,
-  StackDivider,
   Box,
   HStack,
-  Text,
   Image,
+  StackDivider,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import CheckoutForm from "../components/checkout/CheckoutForm";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import CheckoutForm from "../components/checkout/CheckoutForm";
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const STRIPE_PK = process.env.REACT_APP_STRIPE_PK;
