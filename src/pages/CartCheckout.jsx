@@ -1,15 +1,8 @@
-import {
-  Box,
-  HStack,
-  Image,
-  StackDivider,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, HStack, StackDivider, Text, VStack } from "@chakra-ui/react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CheckoutForm from "../components/checkout/CheckoutForm";
 
@@ -35,10 +28,6 @@ const SingleCartItem = ({ item }) => {
       spacing={25}
       align="stretch"
     >
-      <Box>
-        {/* // TODO: fix image path */}
-        <Image boxSize="150px" src="/public/flower_pot.jpg" alt="Flower Pot" />
-      </Box>
       <Box>
         <Text>{item.model_name}</Text>
         <br />
