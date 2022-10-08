@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { Canvas } from "@react-three/fiber";
 import {
   ContactShadows,
   OrbitControls,
   PerspectiveCamera,
 } from "@react-three/drei";
-import Clicky from "../components/Clicky.jsx";
+import { Canvas } from "@react-three/fiber";
+import { useState } from "react";
 import { SketchPicker } from "react-color";
+import Clicky from "../components/Clicky.jsx";
 
 const initialModelState = {
   currentItem: null,

@@ -1,5 +1,5 @@
-import React from "react";
 import { Container, Text } from "@chakra-ui/react";
+import React from "react";
 
 const SuccessCheckoutPage = () => {
   return (

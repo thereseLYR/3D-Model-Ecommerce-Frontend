@@ -1,4 +1,3 @@
-// TODO: pass props
 import {
   Box,
   Input,
