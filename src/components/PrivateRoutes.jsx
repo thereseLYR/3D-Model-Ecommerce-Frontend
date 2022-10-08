@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import BackendUrlContext from './BackendUrl.jsx';
+import React, { useState, useEffect, useContext } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import axios from "axios";
+import BackendUrlContext from "./BackendUrl.jsx";
 
 const PrivateRoutes = () => {
   const [verification, setVerification] = useState(null);
@@ -18,7 +18,7 @@ const PrivateRoutes = () => {
         if (response.data === true) {
           setVerification(true);
         } else {
-          navigate('/');
+          navigate("/");
         }
       })
       .catch((error) => {
@@ -33,9 +33,7 @@ const PrivateRoutes = () => {
     }
   });
 
-  return (
-    <Outlet />
-  );
+  return <Outlet />;
 };
 
 export default PrivateRoutes;
