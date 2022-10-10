@@ -1,5 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import React from "react";
+import { CookiesProvider } from "react-cookie";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
@@ -7,8 +8,10 @@ import "./index.css";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ChakraProvider>
-      <App />
-    </ChakraProvider>
+    <CookiesProvider>
+      <ChakraProvider>
+        <App />
+      </ChakraProvider>
+    </CookiesProvider>
   </React.StrictMode>
 );

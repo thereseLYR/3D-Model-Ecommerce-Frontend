@@ -11,6 +11,7 @@ import Landing from "./pages/Landing.jsx";
 import Login from "./pages/Login.jsx";
 import Models from "./pages/Models.jsx";
 import Signup from "./pages/Signup.jsx";
+import SingleModel from "./pages/SingleModel.jsx";
 import SuccessCheckoutPage from "./pages/SuccessCheckout.jsx";
 
 // make sure that axios always sends the cookies to the backend server
@@ -39,6 +40,7 @@ export default function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/clicky" element={<ClickyConfigurator />} />
           <Route path="/models" element={<Models />} />
+          <Route path="/model" element={<SingleModel />} />
           <Route path="/cart-checkout" element={<CartCheckoutPage />} />
           <Route path="/success-checkout" element={<SuccessCheckoutPage />} />
           <Route element={<PrivateRoutes />}>
