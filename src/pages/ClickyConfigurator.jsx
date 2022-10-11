@@ -36,19 +36,20 @@ function ClickyConfigurator() {
     let prevCookieValues = cookies["saved-models"]
     // cookies are stored as an object
     // access a specific cookie by using its key/name, e.g. cookies["saved-models"]
-    // general format of the saved-models cookie should be an object
+    // general format of the saved-models cookie should be an object, with first layer key being the model ID
     // e.g.
     // {
-    //   clicky: {
+    //   1: {
     //     Case_A_v3: "#b8e986";
     //     Case_B_v4: "indianred";
     //     Spring_Normal: "darkmagenta";
     //     Wheel_40T: "lightblue";
     //   }
-    //   flowerpot: {
+    //   2: {
     //     pot: "indianred";
     //   }
     // }
+    
     setCookie("saved-models", { ...prevCookieValues, 1: modelState.items }) // assume clicky has a model ID of 1
     // setCookie("saved-models", { ...prevCookieValues, clicky2: modelState.items })
     // the line above is to test saving multiple instances of the same model in the saved-models cookie
@@ -70,6 +71,7 @@ function ClickyConfigurator() {
             modelState.items[modelState.currentItem] = color.hex;
           }}
         />
+        <SaveButton onClickFunction={handleModelSave} />
       </div>
     );
   }
@@ -92,7 +94,6 @@ function ClickyConfigurator() {
   return (
     <div style={{ width: "100%", height: "100%" }}>
       <Picker />
-      <SaveButton onClickFunction={handleModelSave} />
       {/* <ColorState /> */}
       <Canvas>
         <PerspectiveCamera makeDefault fov={75} position={[0, 0, 50]} />
