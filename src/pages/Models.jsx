@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react'
-import { Heading, Box, Grid, GridItem, Text } from '@chakra-ui/react'
-import Navbar from '../components/Navbar.jsx'
-import ModelBox from '../components/ModelBox.jsx'
+import { Box, Grid, GridItem, Heading, Text } from "@chakra-ui/react";
+import React, { useContext, useState } from "react";
+import ModelBox from "../components/ModelBox.jsx";
+import Navbar from "../components/Navbar.jsx";
 
 export default function Models() {
   return (
@@ -13,5 +13,5 @@ export default function Models() {
         </Text>
       </Grid>
     </>
-  )
+  );
 }

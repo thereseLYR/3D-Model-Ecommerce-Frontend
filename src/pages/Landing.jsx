@@ -1,8 +1,7 @@
-import React, { useState, useContext } from 'react'
-import { Heading, Box, Grid, Text } from '@chakra-ui/react'
-import Navbar from '../components/Navbar.jsx'
-import BackendUrlContext from '../components/BackendUrl.jsx'
-import ModelBox from '../components/ModelBox.jsx'
+import { Box, Grid, Heading, Text } from "@chakra-ui/react";
+import React, { useContext, useState } from "react";
+import BackendUrlContext from "../components/BackendUrl.jsx";
+import ModelBox from "../components/ModelBox.jsx";
 
 const Landing = ({ user }) => {
   const { backendUrl } = useContext(BackendUrlContext)
@@ -50,7 +49,7 @@ const Landing = ({ user }) => {
           </Box>
         </Grid>
     </>
-  )
-}
+  );
+};
 
-export default Landing
+export default Landing;

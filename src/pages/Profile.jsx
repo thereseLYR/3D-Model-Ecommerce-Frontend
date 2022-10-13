@@ -1,62 +1,46 @@
 import React, { useState, useContext } from 'react'
-import axios from 'axios'
 import {
   Flex,
   Heading,
-  Input,
   Button,
-  InputGroup,
-  Stack,
-  InputLeftElement,
   chakra,
-  Grid,
-  GridItem,
-  Center,
   Box,
   Text,
   Avatar,
-  FormControl,
-  InputRightElement
+  Link,
+  Input,
 } from '@chakra-ui/react'
-import { FaUserAlt, FaLock } from 'react-icons/fa'
+import axios from "axios";
+import { CgProfile } from 'react-icons/cg'
+import { BiPurchaseTag } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
 import BackendUrlContext from '../components/BackendUrl.jsx'
 
-const CFaUserAlt = chakra(FaUserAlt)
-const CFaLock = chakra(FaLock)
-
-const Signup = ({user}) => {
+const Profile = ({ user, setUser }) => {
   const { backendUrl } = useContext(BackendUrlContext)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [showPassword, setShowPassword] = useState('')
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [fullName, setFullName] = useState(`${user.firstName + user.lastName}`)
-  const [username, setUsername] = useState('')
-  const [address, setAddress] = useState('')
-  const [phone, setPhone] = useState('')
+  const [email, setEmail] = useState(user.email)
+  const [firstName, setFirstName] = useState(user.firstName)
+  const [lastName, setLastName] = useState(user.lastName)
+  const [username, setUsername] = useState(user.username)
+  const [address, setAddress] = useState(user.address)
+  const [phone, setPhone] = useState(user.phone)
+  const [saveState, setSaveState] = useState(true)
   const navigate = useNavigate()
-  const handleShowClick = () => {
-    setShowPassword(!showPassword)
-  }
+  const CProfile = chakra(CgProfile)
+  const CPurchaseTag = chakra(BiPurchaseTag)  
 
-  const handleSubmit = (event) => {
+  const handleEdit = () => {
+    console.log('clicked')
+    setSaveState(false)
+    }
+  
+
+  const handleSave = (event) => {
     event.preventDefault()
 
-    if (email) {
-      console.log(
-        email,
-        password,
-        firstName,
-        lastName,
-        username,
-        address,
-        phone
-      )
       const data = {
+        id: user.id,
         email,
-        password,
         firstName,
         lastName,
         username,
@@ -64,71 +48,168 @@ const Signup = ({user}) => {
         phone
       }
       axios
-        .post(`${backendUrl}/api/register`, data)
+        .post(`${backendUrl}/api/update-profile`, data)
         .then((response) => {
-          console.log(response.data)
-          navigate('/login')
+          console.log("profile update successful");
+          console.log(response.data.result);
+          const { updatedUser } = response.data.result;
+          setUser(updatedUser);
+          setSaveState(true)
+          navigate('/profile')
         })
         .catch((error) => console.log(error))
-    } else {
-      console.log('nothing entered')
-    }
-  }
-
+    } 
+  
   return (
-      <Flex 
-      width='100%'
-      height='100%'
-      backgroundColor='gray.200'
-      alignItems='center'
-      justifyContent='center'
+     <Flex 
+        w='100%'
+        h='100%'
+        backgroundColor='gray.200'
+        justifyContent='center'
+        pt='5%'
       >
-        {/* Left Yellow Box */}
+        {/* Left Box */}
         <Box 
-          h='50%' 
-          w='15%' 
-          bg='yellow'>
-          <Text>My Profile</Text>
+          h={{ md:'50%', base:'80%'}}
+          w='10%' 
+        >   
+            <Flex 
+              // backgroundColor={'orange'}
+              alignItems='center'
+              p={5} 
+              h={{ base:'15%'}}
+              w={{ base: '85%'}}
+              borderBottom='1px' 
+              borderColor={'gray.300'}
+              >
+              <Avatar 
+                  size={{base:'lg'}} 
+                  mr={3} 
+                  name={user.username} 
+                  src='' />
+              <Text as='b'> {user.username}</Text>
+            </Flex>
+            <Flex
+              pt={3}
+              backgroundColor={'gray.200'} 
+              alignItems='center'
+              justifyContent='center'
+              flexDirection={'column'}>
+            <Flex           
+              alignItems='center'
+              justifyContent='center' >
+                <Link
+                  p={2}
+                  fontSize={"sm"}
+                  fontWeight={500}
+                  color={"gray.600"}
+                  href='/profile'
+                  _hover={{
+                  textDecoration: "none",
+                  color: "gray.800",
+                  }}
+                >
+                  {<CProfile color="black" w={10} h={10} />}
+                 </Link>
+                 <Link
+                  w={200}
+                  p={2}
+                  fontSize={"sm"}
+                  fontWeight={500}
+                  color={"gray.600"}
+                  href='/profile'
+                  _hover={{
+                  textDecoration: "none",
+                  color: "gray.800",
+                  }}
+                >
+                  My Profile
+                 </Link>
+              </Flex>
+              <Flex           
+              alignItems='center'
+              justifyContent='center' >
+                <Link
+                  p={2}
+                  fontSize={"sm"}
+                  fontWeight={500}
+                  color={"gray.600"}
+                  href='/profile/purchase'
+                  _hover={{
+                  textDecoration: "none",
+                  color: "gray.800",
+                  }}
+                >
+                  {<CPurchaseTag color="black" w={10} h={10}/>}
+                 </Link>
+                 <Link
+                  w={200}
+                  p={2}
+                  fontSize={"sm"}
+                  fontWeight={500}
+                  color={"gray.600"}
+                  href='/profile/purchase'
+                  _hover={{
+                  textDecoration: "none",
+                  color: "gray.800",
+                  }}
+                >
+                  My Purchases
+                 </Link>
+              </Flex>
+            </Flex>
         </Box>
 
         {/* Right White Box */}
         <Box 
-          h='50%' 
-          w='65%' 
+          h={{ md:'50%', base:'80%'}}
+          w={{ md:'45%', base:'80%'}} 
           bg='white' 
-          px={{ md: 5, base: 5 }}
         >
+          <Flex
+            alignItems='flex-end'
+            justifyContent='center'
+            h={{ base:'15%'}}
+            // backgroundColor={'orange'} 
+          >
           <Box 
-            p={5} 
+            w='95%'
+            pb='1%'
             borderBottom='1px' 
             borderColor={'gray.300'}
+            // backgroundColor={'green.200'} 
           >
-            <Heading as='h1' size='md' >My Profile</Heading>
+            <Heading as='h1' size='md' >
+              My Profile
+            </Heading>
             <Text>Manage your account</Text>
           </Box>
-          
+          </Flex>
             
               <Box 
-                pt='5%' 
-                backgroundColor={'red'} 
-                minW={{ base: '90%' }}
               >
                 <Flex 
                   alignItems='center'
                   justifyContent='center'
                 >
-                  <Box width='20%'>
-                    <Stack
-                      spacing={7}
-                      p='1rem'
-                      backgroundColor='whiteAlpha.900'
-                      pl='40%'
-                    >
-                      <Text>
+                  <Flex 
+                    h={{ md: '300px', base: '400px'}}
+                    w={{ md: '25%', base: '35%'}}
+                    // backgroundColor='red'
+                    pl='3%'
+                    flexDirection={'column'} 
+                    justifyContent='space-evenly'
+                  >
+                      <Text 
+                        // backgroundColor='orange'
+                      >
                           Username: 
                       </Text>
                       <Text>
-                          Name: 
+                          First Name: 
+                      </Text> 
+                       <Text>
+                          Last Name: 
                       </Text>
                       <Text>
                           Email: 
@@ -136,49 +217,119 @@ const Signup = ({user}) => {
                       <Text>
                           Phone: 
                       </Text>
-                      <Text>
+                      <Text> 
                           Address: 
                       </Text>
-                    </Stack>
-                </Box>
-                <Box width='30%'> 
-                    <Stack
-                      spacing={7}
-                      p='1rem'
-                      backgroundColor='whiteAlpha.900'
-                    >
-                      <Text>
-                          {user.username}
-                      </Text>
-                      <Text>
-                          {fullName}
-                      </Text>
-                      <Text>
-                          {user.email}
-                      </Text>
-                      <Text>
-                          {user.phone}
-                      </Text>
-                      <Text>
-                          {user.address}
-                      </Text>
-                    </Stack>
-                </Box>
-                <Box width='30%'>
-                   <Avatar size='lg' mr={3} name={user.username} src='' />
-                </Box>
+                </Flex>
+                <Flex 
+                  h={{ md: '300px', base: '400px'}}
+                  w={{ base: '75%' }} 
+                  // backgroundColor='white'
+                  flexDirection={'column'} 
+                  justifyContent='space-evenly'
+                  > 
+                      { saveState ? (
+                        <>
+                        <Text>
+                            {user.username}
+                        </Text>
+                        <Text>
+                            {user.firstName}
+                        </Text>
+                        <Text>
+                            {user.lastName}
+                        </Text>
+                        <Text>
+                            {user.email}
+                        </Text>
+                        <Text>
+                            {user.phone}
+                        </Text>
+                        <Text>
+                            {user.address}
+                        </Text>
+                        </>
+                      ) : (
+                        <>
+                     <Input
+                        type="text"
+                        w={{ md: '85%' }} 
+                        value={username}
+                        onChange={(event) => {
+                        setUsername(event.target.value);
+                        }}
+                      />
+                     <Input
+                      type="text"
+                      w={{ md: '85%' }} 
+                      value={firstName}
+                      onChange={(event) => {
+                      setFirstName(event.target.value);
+                      }}
+                    />
+                    <Input
+                      type="text"
+                      w={{ md: '85%' }} 
+                      value={lastName}
+                      onChange={(event) => {
+                      setLastName(event.target.value);
+                      }}
+                    />
+                    <Input
+                      type="email"
+                      w={{ md: '85%' }} 
+                      value={email}
+                      onChange={(event) => {
+                      setEmail(event.target.value);
+                      }}
+                     />
+                    <Input
+                      type="text"
+                      w={{ md: '85%' }} 
+                      value={phone}
+                      onChange={(event) => {
+                      setPhone(event.target.value);
+                      }}
+                    />
+                    <Input
+                      type="text"
+                      w={{ md: '85%' }} 
+                      value={address}
+                      onChange={(event) => {
+                      setAddress(event.target.value);
+                      }}
+                    />
+                    </>
+                      ) }
+  
+                </Flex>
                </Flex>
               </Box>
-            
-       
-        
+            <Flex 
+              h={{md:'20%'}}
+              // backgroundColor={'green'}
+              alignItems='center'
+              justifyContent='center'
+            >
+              { saveState ? (
+                <Box 
+                //  backgroundColor={'yellow'}
+                >
+                  <Button onClick={handleEdit}> Edit Profile </Button>
+                </Box>
+              ) : (
+                <Box 
+                //  backgroundColor={'yellow'}
+                >
+                  <Button onClick={handleSave}> Save Profile </Button>
+                </Box>
+              )
+}
+             </Flex>
         </Box>
-
       </Flex>
-
-
-  
-  )
+  ) 
+      
 }
 
-export default Signup
+export default Profile;
