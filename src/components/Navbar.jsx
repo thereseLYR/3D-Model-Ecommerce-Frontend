@@ -13,6 +13,8 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
+import React from "react";
+import CartDrawer from "../components/cart/CartDrawer";
 
 export default function NavBar() {
   const { isOpen, onToggle } = useDisclosure();
@@ -88,6 +90,7 @@ export default function NavBar() {
           direction="row"
           spacing={6}
         >
+          <CartDrawer />
           <Button
             as="a"
             fontSize="sm"

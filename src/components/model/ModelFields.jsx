@@ -50,7 +50,8 @@ export default function ModelFields() {
   const [material, setMaterial] = useState("PLA");
   const [quantity, setQuantity] = useState(0);
   const [successfulAddCart, setSuccessfulAddCart] = useState(false);
-  const [cookies, setCookie] = useCookies(["temp-cart"]);
+  const [cookies, setCookie] = useCookies(["temp_cart"]);
+  let tempCart = [];
 
   const handleAddToCartClick = () => {
     const componentBreakDownCopy = { ...defaultModel.component_breakdown };
@@ -69,9 +70,11 @@ export default function ModelFields() {
     };
 
     console.log(cartModel);
+    tempCart.append(cartModel);
+    console.log(tempCart);
 
     // add updated cartModel in cookies
-    setCookie(defaultModel.model_name, cartModel, { path: "/temp-cart" });
+    setCookie(defaultModel.model_name, tempCart, { path: "/temp_cart" });
     setSuccessfulAddCart(true);
   };
 
