@@ -6,7 +6,9 @@ import {
 import { Canvas } from "@react-three/fiber";
 import { useState } from "react";
 import { SketchPicker } from "react-color";
+import { useCookies } from "react-cookie";
 import Clicky from "../components/Clicky.jsx";
+import SaveButton from "../components/SaveButton.jsx";
 
 const initialModelState = {
   currentItem: null,
@@ -20,6 +22,7 @@ const initialModelState = {
 
 function ClickyConfigurator() {
   const [modelState, setModelState] = useState(initialModelState);
+  const [cookies, setCookie] = useCookies(["saved-models"]);
 
   const getModelStateFromComponents = () => {
     return modelState;
@@ -28,6 +31,31 @@ function ClickyConfigurator() {
   const sendActiveModelToApp = (stateObj, modelNameStr) => {
     setModelState({ ...stateObj, currentItem: modelNameStr });
   };
+
+  function handleModelSave() {
+    let prevCookieValues = cookies["saved-models"]
+    // cookies are stored as an object
+    // access a specific cookie by using its key/name, e.g. cookies["saved-models"]
+    // general format of the saved-models cookie should be an object, with first layer key being the model ID
+    // e.g.
+    // {
+    //   1: {
+    //     Case_A_v3: "#b8e986";
+    //     Case_B_v4: "indianred";
+    //     Spring_Normal: "darkmagenta";
+    //     Wheel_40T: "lightblue";
+    //   }
+    //   2: {
+    //     pot: "indianred";
+    //   }
+    // }
+    
+    setCookie("saved-models", { ...prevCookieValues, 1: modelState.items }) // assume clicky has a model ID of 1
+    // setCookie("saved-models", { ...prevCookieValues, clicky2: modelState.items })
+    // the line above is to test saving multiple instances of the same model in the saved-models cookie
+    console.log("saved-models", cookies["saved-models"]);
+    return;
+  }
 
   function Picker() {
     return (
@@ -43,13 +71,13 @@ function ClickyConfigurator() {
             modelState.items[modelState.currentItem] = color.hex;
           }}
         />
+        <SaveButton onClickFunction={handleModelSave} />
       </div>
     );
   }
 
   function ColorState() {
     const objEntries = Object.entries(modelState.items);
-
     return (
       <div>
         {objEntries.map((subArr) => {
