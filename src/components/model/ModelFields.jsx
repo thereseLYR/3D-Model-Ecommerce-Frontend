@@ -20,7 +20,7 @@ import {
   Tr,
   VStack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 
 // TODO: get this model from db, model can consist of multiple parts, we keep track of them in component_breakdown
@@ -51,8 +51,11 @@ export default function ModelFields() {
   const [quantity, setQuantity] = useState(0);
   const [successfulAddCart, setSuccessfulAddCart] = useState(false);
   const [cookies, setCookie] = useCookies(["temp_cart"]);
-  const tempCartCookies = cookies["temp_cart"] || "";
-  const [cartCookies, setCartCookies] = useState(tempCartCookies);
+  let tempCartCookies = cookies.temp_cart || "";
+
+  useEffect(() => {
+    tempCartCookies = cookies.temp_cart;
+  }, [cookies.temp_cart]);
 
   const handleAddToCartClick = () => {
     const componentBreakDownCopy = { ...defaultModel.component_breakdown };
