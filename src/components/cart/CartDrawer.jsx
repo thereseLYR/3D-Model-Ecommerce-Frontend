@@ -15,9 +15,10 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useCookies } from "react-cookie";
 import { BiCart } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 const CartIcon = () => {
   return <Icon w={6} h={6} as={BiCart} />;
@@ -29,14 +30,16 @@ const EmptyCartText = () => {
 
 export default function CartDrawer() {
   const cartBtnRef = useRef();
+  const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [cookies, setCookie] = useCookies(["temp_cart"]);
-  // console.log(cookies);
-  // console.log(cookies["temp_cart"]);
-  const tempCartCookies = cookies["temp_cart"];
+  let tempCartCookies = cookies.temp_cart || "";
+
+  useEffect(() => {
+    tempCartCookies = cookies.temp_cart;
+  }, [cookies.temp_cart]);
 
   const DrawerCartItem = ({ item }) => {
-    console.log(item);
     return (
       <HStack
         divider={<StackDivider borderColor="gray.200" />}
@@ -92,7 +95,9 @@ export default function CartDrawer() {
               divider={<StackDivider borderColor="gray.200" />}
             >
               {tempCartCookies.length !== 0 ? (
-                <DrawerCartItem item={tempCartCookies[0]} />
+                tempCartCookies.map((item, idx) => (
+                  <DrawerCartItem key={idx} item={tempCartCookies[idx]} />
+                ))
               ) : (
                 <EmptyCartText />
               )}
@@ -105,7 +110,9 @@ export default function CartDrawer() {
                     )
                   : 0}
               </Text>
-              <Button colorScheme="blue">View Cart</Button>
+              <Button colorScheme="blue" onClick={() => navigate("/cart")}>
+                View Cart
+              </Button>
             </VStack>
           </DrawerBody>
         </DrawerContent>

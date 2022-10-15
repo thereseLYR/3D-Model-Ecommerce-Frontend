@@ -51,7 +51,8 @@ export default function ModelFields() {
   const [quantity, setQuantity] = useState(0);
   const [successfulAddCart, setSuccessfulAddCart] = useState(false);
   const [cookies, setCookie] = useCookies(["temp_cart"]);
-  let tempCart = [];
+  const tempCartCookies = cookies["temp_cart"] || "";
+  const [cartCookies, setCartCookies] = useState(tempCartCookies);
 
   const handleAddToCartClick = () => {
     const componentBreakDownCopy = { ...defaultModel.component_breakdown };
@@ -69,12 +70,11 @@ export default function ModelFields() {
       material: material,
     };
 
-    console.log(cartModel);
-    tempCart.append(cartModel);
-    console.log(tempCart);
+    let tempCart = [];
+    tempCart.push(cartModel);
 
     // add updated cartModel in cookies
-    setCookie(defaultModel.model_name, tempCart, { path: "/temp_cart" });
+    setCookie("temp_cart", tempCart, { path: "/" });
     setSuccessfulAddCart(true);
   };
 
@@ -185,7 +185,9 @@ export default function ModelFields() {
           Quantity
         </FormLabel>
         <NumberInput
-          defaultValue={0}
+          defaultValue={
+            tempCartCookies.length > 0 ? tempCartCookies[0].quantity : 0
+          }
           min={1}
           max={5}
           onChange={handleOnQuantityChange}
