@@ -1,8 +1,10 @@
 import { StarIcon } from "@chakra-ui/icons";
 import { Badge, Box, Image } from "@chakra-ui/react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function ModelBox() {
+  const navigate = useNavigate();
   const property = {
     imageUrl:
       "https://img1.cgtrader.com/items/1878019/45d16e73d0/large/teddy-bear-tiny-figurine-for-3d-printing-3d-model-obj-mtl-fbx-stl.jpg",
@@ -13,8 +15,16 @@ export default function ModelBox() {
     rating: 5,
   };
 
+  const handleModelBoxClick = () => navigate("/model");
+
   return (
-    <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
+    <Box
+      maxW="sm"
+      borderWidth="1px"
+      borderRadius="lg"
+      overflow="hidden"
+      onClick={handleModelBoxClick}
+    >
       <Image src={property.imageUrl} alt={property.imageAlt} />
       <Box p="6">
         <Box display="flex" alignItems="baseline">

@@ -7,7 +7,7 @@ import {
   Box,
   Text,
   Avatar,
-  Link,
+  Image,
   Stack,
 } from '@chakra-ui/react'
 import axios from "axios";
@@ -19,30 +19,31 @@ import BackendUrlContext from '../components/BackendUrl.jsx'
 const Profile = ({ user, setUser }) => {
   const { backendUrl } = useContext(BackendUrlContext)
   const [checkState, setCheckState] = useState('submitted')
+  const [profileState, setProfileState] = useState(false)
   const navigate = useNavigate()
   const CProfile = chakra(CgProfile)
   const CPurchaseTag = chakra(BiPurchaseTag)  
 
-  
+    const property = {
+    imageUrl:
+      "https://img1.cgtrader.com/items/1878019/45d16e73d0/large/teddy-bear-tiny-figurine-for-3d-printing-3d-model-obj-mtl-fbx-stl.jpg",
+    imageAlt: "Cute 3D printed dark brown bear",
+    title: "Cute Dark Brown Bear",
+    category: "Animals",
+    reviewCount: 10,
+    rating: 5,
+  };
 
-  const handleSave = (event) => {
-    event.preventDefault()
+    const handleProfileSelect = () => {
+    setProfileState(true)
+    navigate('/profile')
+  }
 
-      const data = {
-        id: user.id,
-      }
-      axios
-        .post(`${backendUrl}/api/update-profile`, data)
-        .then((response) => {
-          console.log("profile update successful");
-          console.log(response.data.result);
-          const { updatedUser } = response.data.result;
-          setUser(updatedUser);
-          navigate('/profile')
-        })
-        .catch((error) => console.log(error))
-    } 
-  
+  const handlePurchaseSelect = () => {
+    setProfileState(false)
+    navigate('/profile/purchase')
+  }
+
   return (
      <Flex 
         w='100%'
@@ -56,91 +57,92 @@ const Profile = ({ user, setUser }) => {
           h={{ md:'50%', base:'80%'}}
           w='10%' 
         >   
-            <Flex 
-              // backgroundColor={'orange'}
-              alignItems='center'
-              p={5} 
-              h={{ base:'15%'}}
-              w={{ base: '85%'}}
-              borderBottom='1px' 
-              borderColor={'gray.300'}
-              >
-              <Avatar 
-                  size={{base:'lg'}} 
-                  mr={3} 
-                  name={user.username} 
-                  src='' />
-              <Text as='b'> {user.username}</Text>
-            </Flex>
-            <Flex
-              pt={3}
-              backgroundColor={'gray.200'} 
-              alignItems='center'
-              justifyContent='center'
-              flexDirection={'column'}>
+          <Flex 
+            // backgroundColor={'orange'}
+            alignItems='center'
+            p={5} 
+            h={{ base:'15%'}}
+            w={{ base: '85%'}}
+            borderBottom='1px' 
+            borderColor={'gray.300'}
+            >
+            <Avatar 
+                size={{base:'lg'}} 
+                mr={3} 
+                name={user.username} 
+                src='' />
+            <Text as='b'> {user.username}</Text>
+          </Flex>
+          <Flex
+            pt={3}
+            backgroundColor={'gray.200'} 
+            alignItems='center'
+            justifyContent='center'
+            flexDirection={'column'}
+          >
             <Flex           
               alignItems='center'
-              justifyContent='center' >
-                <Link
-                  p={2}
-                  fontSize={"sm"}
-                  fontWeight={500}
-                  color={"gray.600"}
-                  href='/profile'
-                  _hover={{
-                  textDecoration: "none",
-                  color: "gray.800",
-                  }}
-                >
-                  {<CProfile color="black" w={10} h={10} />}
-                 </Link>
-                 <Link
-                  w={200}
-                  p={2}
-                  fontSize={"sm"}
-                  fontWeight={500}
-                  color={"gray.600"}
-                  href='/profile'
-                  _hover={{
-                  textDecoration: "none",
-                  color: "gray.800",
-                  }}
-                >
-                  My Profile
-                 </Link>
+              justifyContent='center'
+            >
+              { profileState ? (
+              <Flex
+                w={200}
+                p={2}
+                fontSize={"sm"}
+                fontWeight={500}
+                color={"green"}
+                justifyContent='stretch'
+                alignItems='center'
+                onClick={handleProfileSelect}
+                _hover={{
+                cursor: 'pointer',
+                textDecoration: "none",
+                color: "green",
+                }}
+              >
+                <Box>{<CProfile w={10} h={10} />}</Box>
+                <Box ml={'10%'}>My Profile</Box>
               </Flex>
-              <Flex           
-              alignItems='center'
-              justifyContent='center' >
-                <Link
-                  p={2}
-                  fontSize={"sm"}
-                  fontWeight={500}
-                  color={"gray.600"}
-                  href='/profile/purchase'
-                  _hover={{
-                  textDecoration: "none",
-                  color: "gray.800",
-                  }}
-                >
-                  {<CPurchaseTag color="black" w={10} h={10}/>}
-                 </Link>
-                 <Link
-                  w={200}
-                  p={2}
-                  fontSize={"sm"}
-                  fontWeight={500}
-                  color={"gray.600"}
-                  href='/profile/purchase'
-                  _hover={{
-                  textDecoration: "none",
-                  color: "gray.800",
-                  }}
-                >
-                  My Purchases
-                 </Link>
+              ) : ( 
+              <Flex
+                w={200}
+                p={2}
+                fontSize={"sm"}
+                fontWeight={500}
+                color={"gray.600"}
+                justifyContent='stretch'
+                alignItems='center'
+                onClick={handleProfileSelect}
+                _hover={{
+                cursor: 'pointer',
+                textDecoration: "none",
+                color: "green",
+                }}
+              >
+                <Box>{<CProfile w={10} h={10} />}</Box>
+                <Box ml={'10%'} >My Profile</Box>
               </Flex>
+                 )}
             </Flex>
+              <Flex
+                w={200}
+                p={2}
+                fontSize={"sm"}
+                fontWeight={500}
+                color={"gray.600"}
+                justifyContent='stretch'
+                alignItems='center'
+                onClick={handlePurchaseSelect}
+                _hover={{
+                cursor: 'pointer',
+                textDecoration: "none",
+                color: "green",
+                }}
+              >
+                <Box>{<CPurchaseTag w={10} h={10}/>}</Box>
+                <Box ml={'10%'}>My Purchases</Box>
+              </Flex>
+             </Flex>
         </Box>
 
         {/* Right White Box */}
@@ -153,7 +155,6 @@ const Profile = ({ user, setUser }) => {
             alignItems='flex-end'
             justifyContent='center'
             h={{ base:'15%'}}
-            backgroundColor={'orange'} 
           >
           <Box 
             w='95%'
@@ -227,19 +228,53 @@ const Profile = ({ user, setUser }) => {
                   justifyContent='center'
                   backgroundColor='white'
                 >
+                  <Box  h='300%' w='100%'>
                   <Stack p="4" boxShadow="lg" m="4" borderRadius="sm" backgroundColor='grey'>
                     <Stack
                       direction={{ base: 'column', md: 'row' }}
-                      justifyContent="space-between">
-                        <Box>INSERT PICTURE HERE</Box>
-                      <Text fontSize={{ base: 'sm' }} textAlign={'left'} maxW={'4xl'}>
-                        Title
-                      </Text>
+                      justifyContent="space-between"
+                      backgroundColor={'yellow'}
+                      >
+                      <Stack
+                        direction={{ base: 'column', md: 'row' }}
+                        backgroundColor={'orange'}
+                        >
+                        <Image w={200} src={property.imageUrl} alt={property.imageAlt} />
+                        <Stack direction={{ base: 'column' }}  backgroundColor={'green'}>
+                          {/* Title */}
+                          <Text 
+                            fontSize={{ base: 'md' }} 
+                            textAlign={'left'} 
+                            maxW={'4xl'} 
+                            pt={'1%'}          
+                            fontWeight="semibold"
+                            as="h2"
+                            lineHeight="tight"
+                            noOfLines={1}>
+                            {property.title}
+                          </Text>
+                          <Text 
+                            fontSize={{ base: 'sm' }} 
+                            textAlign={'left'} 
+                            maxW={'4xl'} 
+                            pt={'1%'}          
+                            as="h4"
+                            lineHeight="tight"
+                            noOfLines={1}>
+                            Case_A_v3: coral,
+                            Spring_Normal: darkmagenta,
+                            Wheel_40T: lightblue,
+                            Case_B_v4: indianred,
+                          </Text>
+                        </Stack>
+                      </Stack>
+
                       <Stack direction={{ base: 'column', md: 'row' }}>
                         <Text>$50.00</Text>
                       </Stack>
                     </Stack>
                   </Stack>
+                  </Box>
                </Flex>
               </Box>
              
