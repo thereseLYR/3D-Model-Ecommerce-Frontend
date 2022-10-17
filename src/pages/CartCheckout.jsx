@@ -3,6 +3,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import CheckoutForm from "../components/checkout/CheckoutForm";
 
@@ -51,8 +52,14 @@ const SingleCartItem = ({ item }) => {
 export default function CartCheckoutPage() {
   const navigate = useNavigate();
   const [clientSecret, setClientSecret] = useState("");
+  const [cookies, setCookie] = useCookies(["saved-models"]);
 
   useEffect(() => {
+    const savedModelsObj = cookies["saved-models"];
+    console.log("saved models:", savedModelsObj);
+    // returns key = model id, and nested object with order details
+    // get model name and model description from DB
+    
     axios
       .post(
         `${backendUrl}/api/stripe/payment-intents`,

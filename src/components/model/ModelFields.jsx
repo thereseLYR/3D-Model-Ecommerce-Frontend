@@ -20,10 +20,13 @@ import {
   Tr,
   VStack,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useCookies } from "react-cookie";
 
 // TODO: get this model from db, model can consist of multiple parts, we keep track of them in component_breakdown
+// get colour from cookie
+// query DB for model_name, model_description, and ppu
+
 const defaultModel = {
   id: 1,
   model_name: "Clicky",
@@ -50,12 +53,10 @@ export default function ModelFields() {
   const [material, setMaterial] = useState("PLA");
   const [quantity, setQuantity] = useState(0);
   const [successfulAddCart, setSuccessfulAddCart] = useState(false);
-  const [cookies, setCookie] = useCookies(["temp_cart"]);
-  let tempCartCookies = cookies.temp_cart || "";
-
-  useEffect(() => {
-    tempCartCookies = cookies.temp_cart;
-  }, [cookies.temp_cart]);
+  const [cookies, setCookie] = useCookies(["temp-cart"]);
+  
+  const colourDataFromConfigurator = cookies["saved-models"];
+  console.log(colourDataFromConfigurator)
 
   const handleAddToCartClick = () => {
     const componentBreakDownCopy = { ...defaultModel.component_breakdown };
@@ -73,11 +74,10 @@ export default function ModelFields() {
       material: material,
     };
 
-    let tempCart = [];
-    tempCart.push(cartModel);
+    console.log(cartModel);
 
     // add updated cartModel in cookies
-    setCookie("temp_cart", tempCart, { path: "/" });
+    setCookie(defaultModel.model_name, cartModel, { path: "/temp-cart" });
     setSuccessfulAddCart(true);
   };
 
@@ -188,9 +188,7 @@ export default function ModelFields() {
           Quantity
         </FormLabel>
         <NumberInput
-          defaultValue={
-            tempCartCookies.length > 0 ? tempCartCookies[0].quantity : 0
-          }
+          defaultValue={0}
           min={1}
           max={5}
           onChange={handleOnQuantityChange}

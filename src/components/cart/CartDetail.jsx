@@ -15,25 +15,35 @@ import { useNavigate } from "react-router-dom";
 export default function CartDetail() {
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(["temp_cart"]);
-  let tempCartCookies = cookies.temp_cart;
+  let tempCartCookie = cookies.temp_cart;
+  let colourCartCookie = cookies["saved-models"];
+  console.log("this is from cartDetail");
+  console.log("cookies", cookies);
+  // use tempCartCookie for model ID/material/quantity data
+  // use saved-models for colour options
+  console.log(tempCartCookie);
+  console.log(colourCartCookie);
 
   useEffect(() => {
-    tempCartCookies = cookies.temp_cart;
+    tempCartCookie = cookies.temp_cart;
   }, [cookies.temp_cart]);
+  // ... what is this useEffect doing?
 
   const onEditClick = () => navigate("/model");
   const onDeleteClick = (id) => {
-    for (let i = 0; i < tempCartCookies.length; i += 1) {
-      const currentItem = tempCartCookies[i];
+    for (let i = 0; i < tempCartCookie.length; i += 1) {
+      const currentItem = tempCartCookie[i];
       if (currentItem.id == id) {
-        tempCartCookies.splice(i, 1);
+        tempCartCookie.splice(i, 1);
       }
     }
-    setCookie("temp_cart", tempCartCookies, { path: "/" });
+    setCookie("temp_cart", tempCartCookie, { path: "/" });
   };
 
   const CartItem = ({ item }) => {
     if (item) {
+      console.log("bro wtf is item");
+      console.log(item);
       return (
         <HStack spacing={10} divider={<StackDivider borderColor="gray.200" />}>
           <Image src="https://picsum.photos/150/180"></Image>
@@ -72,7 +82,7 @@ export default function CartDetail() {
 
   return (
     <VStack spacing={10} divider={<StackDivider borderColor="gray.200" />}>
-      <CartItem item={tempCartCookies.length > 0 && tempCartCookies[0]} />
+      <CartItem item={tempCartCookie.length > 0 && tempCartCookie[0]} />
       <Button colorScheme="pink" size="lg" onClick={onCheckoutClick}>
         Checkout
       </Button>
