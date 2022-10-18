@@ -27,24 +27,38 @@ import { useCookies } from "react-cookie";
 // get colour from cookie
 // query DB for model_name, model_description, and ppu
 
-const defaultModel = {
+// const defaultModel = {
+//   id: 1,
+//   model_name: "Clicky",
+//   model_description: "some description",
+//   ppu: 30,
+//   component_breakdown: {
+//     part_id_1: { part_name: "Gear", default_color: "grey", color: null }, // color change in configurator to update this field in cookies
+//     part_id_2: {
+//       part_name: "Front Housing",
+//       default_color: "green",
+//       color: null,
+//     },
+//     part_id_3: {
+//       part_name: "Back Housing",
+//       default_color: "green",
+//       color: null,
+//     },
+//   },
+//   quantity: 0,
+//   material: "",
+// };
+
+const defaultClickyColours = {
+  Case_A_v3: "coral",
+  Spring_Normal: "darkmagenta",
+  Wheel_40T: "lightblue",
+  Case_B_v4: "indianred",
+};
+
+const defaultModelNew = {
   id: 1,
-  model_name: "Clicky",
-  model_description: "some description",
-  ppu: 30,
-  component_breakdown: {
-    part_id_1: { part_name: "Gear", default_color: "grey", color: null }, // color change in configurator to update this field in cookies
-    part_id_2: {
-      part_name: "Front Housing",
-      default_color: "green",
-      color: null,
-    },
-    part_id_3: {
-      part_name: "Back Housing",
-      default_color: "green",
-      color: null,
-    },
-  },
+  component_breakdown: defaultClickyColours,
   quantity: 0,
   material: "",
 };
@@ -54,30 +68,53 @@ export default function ModelFields() {
   const [quantity, setQuantity] = useState(0);
   const [successfulAddCart, setSuccessfulAddCart] = useState(false);
   const [cookies, setCookie] = useCookies(["temp-cart"]);
-  
+
+  // TODO: reset button to remove customized config and restore defaults
+
   const colourDataFromConfigurator = cookies["saved-models"];
-  console.log(colourDataFromConfigurator)
+  // console.log(colourDataFromConfigurator[1]);
 
   const handleAddToCartClick = () => {
-    const componentBreakDownCopy = { ...defaultModel.component_breakdown };
+    const componentBreakDownCopy = { ...defaultModelNew.component_breakdown };
     // set colors
+    // for (const p in componentBreakDownCopy) {
+    //   componentBreakDownCopy[p]["color"] = componentBreakDownCopy[p].color
+    //     ? componentBreakDownCopy[p].color
+    //     : componentBreakDownCopy[p].default_color;
+    // }
     for (const p in componentBreakDownCopy) {
-      componentBreakDownCopy[p]["color"] = componentBreakDownCopy[p].color
-        ? componentBreakDownCopy[p].color
-        : componentBreakDownCopy[p].default_color;
+      console.log("p", p);
+      console.log(componentBreakDownCopy[p]);
+      // componentBreakDownCopy[p] = componentBreakDownCopy[p];
+      // if colourDataFromConfigurator[1] exists, assign that value to componentBreakDownCopy[p]
+      // else, take default colour
+
+      componentBreakDownCopy[p] = colourDataFromConfigurator[1] 
+      ? colourDataFromConfigurator[1][p] 
+      : defaultClickyColours[p];
     }
 
-    const cartModel = {
-      ...defaultModel,
+    // const cartModel = {
+    //   ...defaultModel,
+    //   component_breakdown: componentBreakDownCopy,
+    //   quantity: quantity,
+    //   material: material,
+    // };
+
+    // console.log(cartModel);
+
+    const cartModelNew = {
+      ...defaultModelNew,
       component_breakdown: componentBreakDownCopy,
       quantity: quantity,
       material: material,
     };
-
-    console.log(cartModel);
+    console.log("DING DING DING THIS IS THE cartModelNew");
+    console.log(cartModelNew);
 
     // add updated cartModel in cookies
-    setCookie(defaultModel.model_name, cartModel, { path: "/temp-cart" });
+    // setCookie(defaultModel.model_name, cartModel, { path: "/temp-cart" });
+    setCookie(defaultModelNew.id, cartModelNew, { path: "/temp-cart" });
     setSuccessfulAddCart(true);
   };
 
@@ -117,14 +154,17 @@ export default function ModelFields() {
               </Tr>
             </Thead>
             <Tbody>
-              {Object.keys(defaultModel.component_breakdown).map((m, i) => (
+              {Object.keys(defaultModelNew.component_breakdown).map((m, i) => (
                 <Tr key={i}>
                   <Td>{i + 1}</Td>
-                  <Td>{defaultModel.component_breakdown[m].part_name}</Td>
+                  <Td>{m}</Td>
                   <Td>
-                    {defaultModel.component_breakdown[m].color
-                      ? defaultModel.component_breakdown[m].color
-                      : defaultModel.component_breakdown[m].default_color}
+                    {/* check if saved-items exists for this particular modelID first */}
+                    {/* if yes, read data from cookie */}
+                    {/* else render with default colour values from defaultClickyColours */}
+                    {colourDataFromConfigurator[1]
+                      ? colourDataFromConfigurator[1][m]
+                      : defaultClickyColours[m]}
                   </Td>
                 </Tr>
               ))}
