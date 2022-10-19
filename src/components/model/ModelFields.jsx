@@ -18,10 +18,14 @@ import {
   Th,
   Thead,
   Tr,
+  useEditable,
   VStack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 // TODO: get this model from db, model can consist of multiple parts, we keep track of them in component_breakdown
 // get colour from cookie
@@ -46,6 +50,20 @@ export default function ModelFields() {
   const [quantity, setQuantity] = useState(0);
   const [successfulAddCart, setSuccessfulAddCart] = useState(false);
   const [cookies, setCookie] = useCookies(["temp-cart"]);
+  const modelDataForOrderCookie = {};
+
+  useEffect(() => {
+    // to run an axios GET to retrieve mdel metadata from db
+    // e.g. model_name, model_description, ppu
+    axios.get(`${backendUrl}/api/model-data/1`).then((result) => {
+      // console.log("THIS IS AFTER THE AXIOS GET REQ");
+      const data = result.data["modelData"];
+      modelDataForOrderCookie["model_name"] = data["modelName"];
+      modelDataForOrderCookie["model_description"] = data["modelDescription"];
+      modelDataForOrderCookie["ppu"] = data["pricePerUnit"];
+      // console.log(modelDataForOrderCookie);
+    });
+  });
 
   // TODO: reset button to remove customized config and restore defaults
 
@@ -56,32 +74,34 @@ export default function ModelFields() {
     for (const p in componentBreakDownCopy) {
       // if colourDataFromConfigurator[1] exists, assign that value to componentBreakDownCopy[p]
       // else, take default colour
-      componentBreakDownCopy[p] = colourDataFromConfigurator[1] 
-      ? colourDataFromConfigurator[1][p] 
-      : defaultClickyColours[p];
+      componentBreakDownCopy[p] = colourDataFromConfigurator[1]
+        ? colourDataFromConfigurator[1][p]
+        : defaultClickyColours[p];
     }
 
-    const cartModelNew = {
+    const cartModelNew = [{
       ...defaultModelNew,
       component_breakdown: componentBreakDownCopy,
       quantity: quantity,
       material: material,
-    };
+      model_name: modelDataForOrderCookie["model_name"],
+      model_description: modelDataForOrderCookie["model_description"],
+      ppu: modelDataForOrderCookie["ppu"],
+    }];
     // console.log("DING DING DING THIS IS THE cartModelNew");
     // console.log(cartModelNew);
-    // add updated cartModel in cookies
-    // setCookie(defaultModel.model_name, cartModel, { path: "/temp-cart" });
-    setCookie(defaultModelNew.id, cartModelNew, { path: "/temp-cart" });
+
+    setCookie("temp_cart", cartModelNew, { path: "/" }); 
     setSuccessfulAddCart(true);
   };
 
   const handleOnMaterialChange = (ev) => {
-    console.log("material change event: ", ev.target.value);
+    // console.log("material change event: ", ev.target.value);
     setMaterial(ev.target.value);
   };
 
   const handleOnQuantityChange = (ev) => {
-    console.log("quantity change event: ", ev);
+    // console.log("quantity change event: ", ev);
     setQuantity(ev);
   };
 

@@ -46,6 +46,7 @@ export default function CartDetail() {
       console.log("modelDataItem", modelDataItem);
       // modelDataItem[0][1] is an object with pure colour data from the customized clicky model
       const modelDataItemsList = Object.keys(modelDataItem[0][1]).map((key) => {
+        // this is somewhat broken
         return (
           <li key={key}>
             {" "}
@@ -54,7 +55,7 @@ export default function CartDetail() {
         );
       });
 
-      // console.log(modelDataItemsList);
+      console.log(modelDataItemsList);
 
       return (
         <HStack spacing={10} divider={<StackDivider borderColor="gray.200" />}>
