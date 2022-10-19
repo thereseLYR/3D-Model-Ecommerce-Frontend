@@ -156,129 +156,368 @@ const Profile = ({ user, setUser }) => {
             justifyContent='center'
             h={{ base:'15%'}}
           >
-          <Box 
-            w='95%'
-            pb='1%'
-            borderBottom='1px' 
-            borderColor={'gray.300'}
-            // backgroundColor={'green.200'} 
-          >
-            <Heading as='h1' size='md' >
-              My Purchases
-            </Heading>
-            <Text>Status of Purchases</Text>
-          </Box>
+            <Box 
+              w='95%'
+              pb='1%'
+              borderBottom='1px' 
+              borderColor={'gray.300'}
+              // backgroundColor={'green.200'} 
+            >
+              <Heading 
+                as='h1' 
+                size='md' >
+                My Purchases
+              </Heading>
+              <Text>Status of Purchases</Text>
+            </Box>
           </Flex>
-              <Flex 
-               flexDirection={'row'} 
-               alignItems='center'
-               justifyContent='space-evenly'
-               backgroundColor='gray.200'
-               h={'13%'}
-              >
-                  <Button 
-                    borderBottom='1px' 
-                    borderColor={'gray.300'} 
-                    h={'60%'} 
-                    w={'33%'}
-                    backgroundColor='white'
-                    background= 'none'
-                    _active={{
-                      textDecoration: 'none',
-                    }}
-                    _hover={{
-                    color:'green'
-                    }}
-                    onClick={()=>setCheckState('submitted')}
-                  > Submitted                 
-                  </Button>
-                  <Button                    
-                    borderBottom='1px' 
-                    borderColor={'gray.300'} 
-                    backgroundColor='white'
-                    h={'60%'} 
-                    w={'33%'}
-                    _active={{
-                    textDecoration: 'none',
-                    }}
-                    _hover={{
-                    color:'green'
-                    }}
-                    onClick={()=>setCheckState('progress')}
-                  > In Progress 
-                  </Button>
-                  <Button                  
-                    borderBottom='1px' 
-                    borderColor={'gray.300'} 
-                    backgroundColor='white'
-                    h={'60%'} 
-                    w={'33%'}
-                    _active={{
-                    textDecoration: 'none',
-                    }}
-                    _hover={{
-                    color:'green'
-                    }}
-                    onClick={()=>setCheckState('completed')}
-                  > Completed
-                  </Button>
-              </Flex>
-                <Flex 
-                  alignItems='center'
-                  justifyContent='center'
+          <Flex 
+            flexDirection={'row'} 
+            alignItems='center'
+            justifyContent='space-evenly'
+            backgroundColor='gray.200'
+            h={'13%'}
+          >
+            <Button 
+              borderBottom='1px' 
+              borderColor={'gray.300'} 
+              h={'60%'} 
+              w={'33%'}
+              backgroundColor='white'
+              background= 'none'
+              _active={{
+                textDecoration: 'none',
+              }}
+              _hover={{
+              color:'green'
+              }}
+              onClick={()=>setCheckState('submitted')}
+            > Submitted                 
+            </Button>
+                <Button                    
+                  borderBottom='1px' 
+                  borderColor={'gray.300'} 
                   backgroundColor='white'
-                >
-                  <Box  h='300%' w='100%'>
-                  <Stack p="4" boxShadow="lg" m="4" borderRadius="sm" backgroundColor='grey'>
+                  h={'60%'} 
+                  w={'33%'}
+                  _active={{
+                  textDecoration: 'none',
+                  }}
+                  _hover={{
+                  color:'green'
+                  }}
+                  onClick={()=>setCheckState('progress')}
+                > In Progress 
+                </Button>
+                <Button                  
+                  borderBottom='1px' 
+                  borderColor={'gray.300'} 
+                  backgroundColor='white'
+                  h={'60%'} 
+                  w={'33%'}
+                  _active={{
+                  textDecoration: 'none',
+                  }}
+                  _hover={{
+                  color:'green'
+                  }}
+                  onClick={()=>setCheckState('completed')}
+                > Completed
+                </Button>
+              </Flex>
+              <Flex 
+                alignItems='center'
+                justifyContent='center'
+                direction='column'
+                backgroundColor='white'
+              >
+                {/* First Entry */}
+                <Stack w='100%' p="4" boxShadow="lg" m="4" borderRadius="sm" backgroundColor='grey'>
+                  <Stack
+                    direction={{ base: 'column', md: 'row' }}
+                    justifyContent="space-between"
+                    backgroundColor={'yellow'}
+                    >
+                      <Image w={'20%'} src={property.imageUrl} alt={property.imageAlt} />
+                      <Stack w={'50%'} direction={{ base: 'column' }}  backgroundColor={'green'}>
+                        {/* Title */}
+                        <Text 
+                          fontSize={{ base: 'md' }} 
+                          textAlign={'left'} 
+                          maxW={'4xl'} 
+                          pt={'1%'}          
+                          fontWeight="semibold"
+                          as="h2"
+                          lineHeight="tight"
+                          noOfLines={1}>
+                          {property.title}
+                        </Text>
+                        {/* Description */}
+                        <Text 
+                          fontSize={{ base: 'sm' }} 
+                          textAlign={'left'} 
+                          maxW={'4xl'} 
+                          pt={'1%'}          
+                          as="h4"
+                          lineHeight="tight"
+                          noOfLines={1}>
+                          {property.imageAlt}
+                        </Text>
+                        {/* Components */}
+                        <Text 
+                          fontSize={{ base: 'sm' }} 
+                          textAlign={'left'} 
+                          maxW={'4xl'} 
+                          pt={'1%'}          
+                          as="h4"
+                          lineHeight="tight"
+                          noOfLines={1}>
+                          Case_A_v3: coral,
+                          Spring_Normal: darkmagenta,
+                          Wheel_40T: lightblue,
+                          Case_B_v4: indianred,
+                        </Text>
+                      </Stack>
+                      <Stack w={'30%'} direction={{ base: 'column' }} backgroundColor={'green'}>
+                        <Text
+                          fontSize={{ base: 'md' }} 
+                          textAlign={'left'} 
+                          maxW={'4xl'} 
+                          pt={'1%'}          
+                          fontWeight="semibold"
+                          as="h2"
+                          lineHeight="tight"
+                          noOfLines={1}>
+                          Qty: 50 pcs
+                        </Text>
+                        <Text
+                          fontSize={{ base: 'sm' }} 
+                          textAlign={'left'} 
+                          maxW={'4xl'} 
+                          pt={'1%'}          
+                          as="h4"
+                          lineHeight="tight"
+                          noOfLines={1}
+                          >Total Paid: $50.00</Text>
+                      </Stack> 
+                    </Stack> 
+                  </Stack>
+                   {/* Second Entry */}
+                  <Stack w='100%' p="4" boxShadow="lg" m="4" borderRadius="sm" backgroundColor='grey'>
                     <Stack
                       direction={{ base: 'column', md: 'row' }}
                       justifyContent="space-between"
                       backgroundColor={'yellow'}
                       >
-                      <Stack
-                        direction={{ base: 'column', md: 'row' }}
-                        backgroundColor={'orange'}
-                        >
-                        <Image w={200} src={property.imageUrl} alt={property.imageAlt} />
-                        <Stack direction={{ base: 'column' }}  backgroundColor={'green'}>
-                          {/* Title */}
-                          <Text 
-                            fontSize={{ base: 'md' }} 
-                            textAlign={'left'} 
-                            maxW={'4xl'} 
-                            pt={'1%'}          
-                            fontWeight="semibold"
-                            as="h2"
-                            lineHeight="tight"
-                            noOfLines={1}>
-                            {property.title}
-                          </Text>
-                          <Text 
-                            fontSize={{ base: 'sm' }} 
-                            textAlign={'left'} 
-                            maxW={'4xl'} 
-                            pt={'1%'}          
-                            as="h4"
-                            lineHeight="tight"
-                            noOfLines={1}>
-                            Case_A_v3: coral,
-                            Spring_Normal: darkmagenta,
-                            Wheel_40T: lightblue,
-                            Case_B_v4: indianred,
-                          </Text>
-                        </Stack>
+                      <Image w={'20%'} src={property.imageUrl} alt={property.imageAlt} />
+                      <Stack w={'50%'} direction={{ base: 'column' }}  backgroundColor={'green'}>
+                        {/* Title */}
+                        <Text 
+                          fontSize={{ base: 'md' }} 
+                          textAlign={'left'} 
+                          maxW={'4xl'} 
+                          pt={'1%'}          
+                          fontWeight="semibold"
+                          as="h2"
+                          lineHeight="tight"
+                          noOfLines={1}>
+                          {property.title}
+                        </Text>
+                        {/* Description */}
+                        <Text 
+                          fontSize={{ base: 'sm' }} 
+                          textAlign={'left'} 
+                          maxW={'4xl'} 
+                          pt={'1%'}          
+                          as="h4"
+                          lineHeight="tight"
+                          noOfLines={1}>
+                          {property.imageAlt}
+                        </Text>
+                        {/* Components */}
+                        <Text 
+                          fontSize={{ base: 'sm' }} 
+                          textAlign={'left'} 
+                          maxW={'4xl'} 
+                          pt={'1%'}          
+                          as="h4"
+                          lineHeight="tight"
+                          noOfLines={1}>
+                          Case_A_v3: coral,
+                          Spring_Normal: darkmagenta,
+                          Wheel_40T: lightblue,
+                          Case_B_v4: indianred,
+                        </Text>
                       </Stack>
-
-                      <Stack direction={{ base: 'column', md: 'row' }}>
-                        <Text>$50.00</Text>
-                      </Stack>
+                      <Stack w={'30%'} direction={{ base: 'column' }} backgroundColor={'green'}>
+                        <Text
+                          fontSize={{ base: 'md' }} 
+                          textAlign={'left'} 
+                          maxW={'4xl'} 
+                          pt={'1%'}          
+                          fontWeight="semibold"
+                          as="h2"
+                          lineHeight="tight"
+                          noOfLines={1}>
+                          Qty: 50 pcs
+                        </Text>
+                        <Text
+                          fontSize={{ base: 'sm' }} 
+                          textAlign={'left'} 
+                          maxW={'4xl'} 
+                          pt={'1%'}          
+                          as="h4"
+                          lineHeight="tight"
+                          noOfLines={1}
+                          >Total Paid: $50.00</Text>
+                      </Stack> 
                     </Stack>
                   </Stack>
-                  </Box>
+                  {/* Third Entry */}
+                  <Stack w='100%' p="4" boxShadow="lg" m="4" borderRadius="sm" backgroundColor='grey'>
+                    <Stack
+                      direction={{ base: 'column', md: 'row' }}
+                      justifyContent="space-between"
+                      backgroundColor={'yellow'}
+                      >
+                      <Image w={'20%'} src={property.imageUrl} alt={property.imageAlt} />
+                      <Stack w={'50%'} direction={{ base: 'column' }}  backgroundColor={'green'}>
+                        {/* Title */}
+                        <Text 
+                          fontSize={{ base: 'md' }} 
+                          textAlign={'left'} 
+                          maxW={'4xl'} 
+                          pt={'1%'}          
+                          fontWeight="semibold"
+                          as="h2"
+                          lineHeight="tight"
+                          noOfLines={1}>
+                          {property.title}
+                        </Text>
+                        {/* Description */}
+                        <Text 
+                          fontSize={{ base: 'sm' }} 
+                          textAlign={'left'} 
+                          maxW={'4xl'} 
+                          pt={'1%'}          
+                          as="h4"
+                          lineHeight="tight"
+                          noOfLines={1}>
+                          {property.imageAlt}
+                        </Text>
+                        {/* Components */}
+                        <Text 
+                          fontSize={{ base: 'sm' }} 
+                          textAlign={'left'} 
+                          maxW={'4xl'} 
+                          pt={'1%'}          
+                          as="h4"
+                          lineHeight="tight"
+                          noOfLines={1}>
+                          Case_A_v3: coral,
+                          Spring_Normal: darkmagenta,
+                          Wheel_40T: lightblue,
+                          Case_B_v4: indianred,
+                        </Text>
+                      </Stack>
+                      <Stack w={'30%'} direction={{ base: 'column' }} backgroundColor={'green'}>
+                        <Text
+                          fontSize={{ base: 'md' }} 
+                          textAlign={'left'} 
+                          maxW={'4xl'} 
+                          pt={'1%'}          
+                          fontWeight="semibold"
+                          as="h2"
+                          lineHeight="tight"
+                          noOfLines={1}>
+                          Qty: 50 pcs
+                        </Text>
+                        <Text
+                          fontSize={{ base: 'sm' }} 
+                          textAlign={'left'} 
+                          maxW={'4xl'} 
+                          pt={'1%'}          
+                          as="h4"
+                          lineHeight="tight"
+                          noOfLines={1}
+                          >Total Paid: $50.00</Text>
+                      </Stack> 
+                    </Stack>
+                  </Stack>
+                  {/* Fourth Entry */}
+                  <Stack w='100%' p="4" boxShadow="lg" m="4" borderRadius="sm" backgroundColor='grey'>
+                    <Stack
+                      direction={{ base: 'column', md: 'row' }}
+                      justifyContent="space-between"
+                      backgroundColor={'yellow'}
+                      >
+                      <Image w={'20%'} src={property.imageUrl} alt={property.imageAlt} />
+                      <Stack w={'50%'} direction={{ base: 'column' }}  backgroundColor={'green'}>
+                        {/* Title */}
+                        <Text 
+                          fontSize={{ base: 'md' }} 
+                          textAlign={'left'} 
+                          maxW={'4xl'} 
+                          pt={'1%'}          
+                          fontWeight="semibold"
+                          as="h2"
+                          lineHeight="tight"
+                          noOfLines={1}>
+                          {property.title}
+                        </Text>
+                        {/* Description */}
+                        <Text 
+                          fontSize={{ base: 'sm' }} 
+                          textAlign={'left'} 
+                          maxW={'4xl'} 
+                          pt={'1%'}          
+                          as="h4"
+                          lineHeight="tight"
+                          noOfLines={1}>
+                          {property.imageAlt}
+                        </Text>
+                        {/* Components */}
+                        <Text 
+                          fontSize={{ base: 'sm' }} 
+                          textAlign={'left'} 
+                          maxW={'4xl'} 
+                          pt={'1%'}          
+                          as="h4"
+                          lineHeight="tight"
+                          noOfLines={1}>
+                          Case_A_v3: coral,
+                          Spring_Normal: darkmagenta,
+                          Wheel_40T: lightblue,
+                          Case_B_v4: indianred,
+                        </Text>
+                      </Stack>
+                      <Stack w={'30%'} direction={{ base: 'column' }} backgroundColor={'green'}>
+                        <Text
+                          fontSize={{ base: 'md' }} 
+                          textAlign={'left'} 
+                          maxW={'4xl'} 
+                          pt={'1%'}          
+                          fontWeight="semibold"
+                          as="h2"
+                          lineHeight="tight"
+                          noOfLines={1}>
+                          Qty: 50 pcs
+                        </Text>
+                        <Text
+                          fontSize={{ base: 'sm' }} 
+                          textAlign={'left'} 
+                          maxW={'4xl'} 
+                          pt={'1%'}          
+                          as="h4"
+                          lineHeight="tight"
+                          noOfLines={1}
+                          >Total Paid: $50.00</Text>
+                      </Stack> 
+                    </Stack>
+                  </Stack>
                </Flex>
-              </Box>
-             
-        </Flex>
+            </Box>
+         </Flex>
   ) 
       
 }

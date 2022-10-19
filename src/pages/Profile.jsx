@@ -205,69 +205,111 @@ const Profile = ({ user, setUser }) => {
                 w={{ md: '25%', base: '35%'}}
                 // backgroundColor='red'
                 pl='3%'
+                pt='3%'
                 flexDirection={'column'} 
-                justifyContent='space-evenly'
               >
-                <Text>
-                    Username: 
-                </Text>
-                <Text>
-                    First Name: 
-                </Text> 
-                  <Text>
-                    Last Name: 
-                </Text>
-                <Text>
-                    Email: 
-                </Text>
-                <Text>
-                    Phone: 
-                </Text>
-                <Text> 
-                    Address: 
-                </Text>
+                  <Flex 
+                    h={'20%'} 
+                    backgroundColor={'#88e4ef'}
+                    alignItems={'center'}
+                  >
+                      <Text>Username:</Text>
+                  </Flex>
+                  <Flex 
+                    h={'20%'} 
+                    alignItems={'center'}>
+                    <Text>First Name:</Text>
+                  </Flex>
+                  <Flex 
+                    h={'20%'} 
+                    backgroundColor={'#88e4ef'}
+                    alignItems={'center'}
+                  >
+                    <Text>Last Name:</Text>
+                  </Flex>
+                  <Flex 
+                    h={'20%'} 
+                    alignItems={'center'}
+                  >
+                    <Text>Email:</Text>
+                  </Flex>
+                  <Flex 
+                    h={'20%'} 
+                    backgroundColor={'#88e4ef'}
+                    alignItems={'center'}
+                  >
+                    <Text>Phone:</Text>
+                  </Flex>
+                  <Flex 
+                    h={'20%'} 
+                    alignItems={'center'}
+                  >
+                      <Text>Address:</Text>
+                  </Flex>
                 </Flex>
               <Flex 
                 h={{ md: '300px', base: '400px'}}
                 w={{ base: '75%' }} 
-                // backgroundColor='white'
-                flexDirection={'column'} 
-                justifyContent='space-evenly'
+                pr='3%'
+                pt='3%'
+                flexDirection={'column'}
                 > 
                 {saveState ? (
+                  
                   <>
-                  <Text>
-                      {user.username}
-                  </Text>
-                  <Text>
-                      {user.firstName}
-                  </Text>
-                  <Text>
-                      {user.lastName}
-                  </Text>
-                  <Text>
-                      {user.email}
-                  </Text>
-                  <Text>
-                      {user.phone}
-                  </Text>
-                  <Text>
-                      {user.address}
-                  </Text>
+                  <Flex 
+                    h={'20%'} 
+                    backgroundColor={'#88e4ef'}
+                    alignItems={'center'}
+                  >
+                      <Text>{user.username}</Text>
+                  </Flex>
+                  <Flex 
+                    h={'20%'} 
+                    alignItems={'center'}>
+                    <Text>{user.firstName}</Text>
+                  </Flex>
+                  <Flex 
+                    h={'20%'} 
+                    backgroundColor={'#88e4ef'}
+                    alignItems={'center'}
+                  >
+                    <Text>{user.lastName}</Text>
+                  </Flex>
+                  <Flex 
+                    h={'20%'} 
+                    alignItems={'center'}
+                  >
+                    <Text>{user.email}</Text>
+                  </Flex>
+                  <Flex 
+                    h={'20%'} 
+                    backgroundColor={'#88e4ef'}
+                    alignItems={'center'}
+                  >
+                    <Text>{user.phone}</Text>
+                  </Flex>
+                  <Flex 
+                    h={'20%'} 
+                    alignItems={'center'}
+                  >
+                      <Text>{user.address}</Text>
+                  </Flex>
                   </>
                 ) : (
                   <>
                 <Input
                   type="text"
-                  w={{ md: '85%' }} 
+                  height={'20%'}
                   value={username}
+                  backgroundColor={'#88e4ef'}
                   onChange={(event) => {
                   setUsername(event.target.value);
                   }}
                 />
                 <Input
                   type="text"
-                  w={{ md: '85%' }} 
+                  height={'20%'}
                   value={firstName}
                   onChange={(event) => {
                   setFirstName(event.target.value);
@@ -275,7 +317,8 @@ const Profile = ({ user, setUser }) => {
               />
               <Input
                 type="text"
-                w={{ md: '85%' }} 
+                height={'20%'}
+                backgroundColor={'#88e4ef'}
                 value={lastName}
                 onChange={(event) => {
                 setLastName(event.target.value);
@@ -283,7 +326,7 @@ const Profile = ({ user, setUser }) => {
               />
               <Input
                 type="email"
-                w={{ md: '85%' }} 
+                height={'20%'}
                 value={email}
                 onChange={(event) => {
                 setEmail(event.target.value);
@@ -291,7 +334,8 @@ const Profile = ({ user, setUser }) => {
                 />
               <Input
                 type="text"
-                w={{ md: '85%' }} 
+                height={'20%'}
+                backgroundColor={'#88e4ef'}
                 value={phone}
                 onChange={(event) => {
                 setPhone(event.target.value);
@@ -299,7 +343,7 @@ const Profile = ({ user, setUser }) => {
               />
               <Input
                 type="text"
-                w={{ md: '85%' }} 
+                height={'20%'}
                 value={address}
                 onChange={(event) => {
                 setAddress(event.target.value);
