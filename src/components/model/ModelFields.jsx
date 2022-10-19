@@ -18,7 +18,6 @@ import {
   Th,
   Thead,
   Tr,
-  useEditable,
   VStack,
 } from "@chakra-ui/react";
 import axios from "axios";
@@ -26,10 +25,6 @@ import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
-
-// TODO: get this model from db, model can consist of multiple parts, we keep track of them in component_breakdown
-// get colour from cookie
-// query DB for model_name, model_description, and ppu
 
 const defaultClickyColours = {
   Case_A_v3: "coral",
@@ -53,15 +48,12 @@ export default function ModelFields() {
   const modelDataForOrderCookie = {};
 
   useEffect(() => {
-    // to run an axios GET to retrieve mdel metadata from db
-    // e.g. model_name, model_description, ppu
     axios.get(`${backendUrl}/api/model-data/1`).then((result) => {
-      // console.log("THIS IS AFTER THE AXIOS GET REQ");
       const data = result.data["modelData"];
+      // populate additional fields with data from DB
       modelDataForOrderCookie["model_name"] = data["modelName"];
       modelDataForOrderCookie["model_description"] = data["modelDescription"];
       modelDataForOrderCookie["ppu"] = data["pricePerUnit"];
-      // console.log(modelDataForOrderCookie);
     });
   });
 
@@ -78,30 +70,26 @@ export default function ModelFields() {
         ? colourDataFromConfigurator[1][p]
         : defaultClickyColours[p];
     }
-
-    const cartModelNew = [{
-      ...defaultModelNew,
-      component_breakdown: componentBreakDownCopy,
-      quantity: quantity,
-      material: material,
-      model_name: modelDataForOrderCookie["model_name"],
-      model_description: modelDataForOrderCookie["model_description"],
-      ppu: modelDataForOrderCookie["ppu"],
-    }];
-    // console.log("DING DING DING THIS IS THE cartModelNew");
-    // console.log(cartModelNew);
-
-    setCookie("temp_cart", cartModelNew, { path: "/" }); 
+    const cartModelNew = [
+      {
+        ...defaultModelNew,
+        component_breakdown: componentBreakDownCopy,
+        quantity: quantity,
+        material: material,
+        model_name: modelDataForOrderCookie["model_name"],
+        model_description: modelDataForOrderCookie["model_description"],
+        ppu: modelDataForOrderCookie["ppu"],
+      },
+    ];
+    setCookie("temp_cart", cartModelNew, { path: "/" });
     setSuccessfulAddCart(true);
   };
 
   const handleOnMaterialChange = (ev) => {
-    // console.log("material change event: ", ev.target.value);
     setMaterial(ev.target.value);
   };
 
   const handleOnQuantityChange = (ev) => {
-    // console.log("quantity change event: ", ev);
     setQuantity(ev);
   };
 

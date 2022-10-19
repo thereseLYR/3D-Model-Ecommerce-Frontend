@@ -17,11 +17,8 @@ export default function CartDetail() {
   const [cookies, setCookie] = useCookies(["temp_cart"]);
   let tempCartCookie = cookies["temp_cart"];
   let colourCartCookie = cookies["saved-models"];
-  // console.log("this is from cartDetail");
   // use tempCartCookie for model ID/material/quantity data
   // use saved-models for colour options
-  // console.log("cart cookie", tempCartCookie);
-  // console.log("colour cookie", colourCartCookie);
 
   useEffect(() => {
     tempCartCookie = cookies["temp_cart"];
@@ -40,8 +37,6 @@ export default function CartDetail() {
 
   const CartItem = ({ cartDataItem, modelDataItem }) => {
     if (cartDataItem) {
-      // console.log(cartDataItem);
-      // console.log("modelDataItem", modelDataItem);
       // modelDataItem[0][1] is an object with pure colour data from the customized clicky model
       const modelNamesArr = Object.keys(modelDataItem[0][1]);
       const modelDataItemsList = modelNamesArr.map((key) => {

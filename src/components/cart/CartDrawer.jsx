@@ -34,10 +34,6 @@ export default function CartDrawer() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [cookies, setCookie] = useCookies(["temp_cart"]);
   let tempCartCookies = cookies.temp_cart || "";
-  // temp_cart cookie is expected to be an array???
-  // rn ModelFields.jsx isn't generating a temp_cart cookie at all, so the drawer cart always appears empty
-  // but if ModelFields.jsx creates a temp_cart cookie with the new cartModelNew data, the entire page crashes
-  // idk man
 
   useEffect(() => {
     tempCartCookies = cookies.temp_cart;
