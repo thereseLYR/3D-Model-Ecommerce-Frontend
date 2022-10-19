@@ -17,17 +17,15 @@ export default function CartDetail() {
   const [cookies, setCookie] = useCookies(["temp_cart"]);
   let tempCartCookie = cookies["temp_cart"];
   let colourCartCookie = cookies["saved-models"];
-  console.log("this is from cartDetail");
-  // console.log("cookies", cookies);
+  // console.log("this is from cartDetail");
   // use tempCartCookie for model ID/material/quantity data
   // use saved-models for colour options
-  console.log("cart cookie", tempCartCookie);
-  console.log("colour cookie", colourCartCookie);
+  // console.log("cart cookie", tempCartCookie);
+  // console.log("colour cookie", colourCartCookie);
 
   useEffect(() => {
     tempCartCookie = cookies["temp_cart"];
   }, [cookies.temp_cart]);
-  // ... what is this useEffect doing?
 
   const onEditClick = () => navigate("/model");
   const onDeleteClick = (id) => {
@@ -42,20 +40,18 @@ export default function CartDetail() {
 
   const CartItem = ({ cartDataItem, modelDataItem }) => {
     if (cartDataItem) {
-      console.log(cartDataItem);
-      console.log("modelDataItem", modelDataItem);
+      // console.log(cartDataItem);
+      // console.log("modelDataItem", modelDataItem);
       // modelDataItem[0][1] is an object with pure colour data from the customized clicky model
-      const modelDataItemsList = Object.keys(modelDataItem[0][1]).map((key) => {
-        // this is somewhat broken
+      const modelNamesArr = Object.keys(modelDataItem[0][1]);
+      const modelDataItemsList = modelNamesArr.map((key) => {
         return (
           <li key={key}>
             {" "}
-            <strong>{key}</strong>: {modelDataItem[key]}{" "}
+            <strong>{key}</strong>: {modelDataItem[0][1][key]}{" "}
           </li>
         );
       });
-
-      console.log(modelDataItemsList);
 
       return (
         <HStack spacing={10} divider={<StackDivider borderColor="gray.200" />}>
