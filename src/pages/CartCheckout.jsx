@@ -3,23 +3,13 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import CheckoutForm from "../components/checkout/CheckoutForm";
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const STRIPE_PK = process.env.REACT_APP_STRIPE_PK;
 const stripePromise = loadStripe(STRIPE_PK);
-
-// TODO: Ideally should get cartItems from cookies
-const cartItems = [
-  {
-    model_id: 1,
-    model_name: "Flower Pot",
-    model_description: "Single color 3d printed Flower Pot",
-    quantity: 1,
-    pricePerUnit: 10.0,
-  },
-];
 
 const SingleCartItem = ({ item }) => {
   return (
@@ -42,7 +32,7 @@ const SingleCartItem = ({ item }) => {
       <Box>
         <Text>Price:</Text>
         <br />
-        <Text>${item.pricePerUnit * item.quantity}</Text>
+        <Text>${item.ppu * item.quantity}</Text>
       </Box>
     </HStack>
   );
@@ -51,6 +41,9 @@ const SingleCartItem = ({ item }) => {
 export default function CartCheckoutPage() {
   const navigate = useNavigate();
   const [clientSecret, setClientSecret] = useState("");
+  const [cookies, setCookie] = useCookies(["saved-models"]);
+
+  const tempCartCookies = cookies.temp_cart;
 
   useEffect(() => {
     axios
@@ -58,7 +51,8 @@ export default function CartCheckoutPage() {
         `${backendUrl}/api/stripe/payment-intents`,
         // price = 10, * 100 because stripe amount is in smallest denominations, $1 = 100c
         {
-          amount: cartItems[0].pricePerUnit * cartItems[0].quantity * 100,
+          amount:
+            tempCartCookies[0]["ppu"] * tempCartCookies[0]["quantity"] * 100,
         }
       )
       .then((result) => {
@@ -79,13 +73,13 @@ export default function CartCheckoutPage() {
       <Text fontSize="2xl">My Cart</Text>
       <br />
       <Box>
-        <SingleCartItem item={cartItems[0]} />
+        <SingleCartItem item={tempCartCookies[0]} />
       </Box>
       <Box>
         {clientSecret && (
           <Elements stripe={stripePromise} options={options}>
             <CheckoutForm
-              price={cartItems[0].pricePerUnit * cartItems[0].quantity}
+              price={tempCartCookies[0]["ppu"] * tempCartCookies[0]["quantity"]}
               // TODO: on successful checkout create order in order db
               onSuccessfulCheckout={() => navigate("/success-checkout")}
               clientSecret={clientSecret}

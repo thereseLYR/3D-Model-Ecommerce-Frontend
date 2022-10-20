@@ -15,36 +15,50 @@ import { useNavigate } from "react-router-dom";
 export default function CartDetail() {
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(["temp_cart"]);
-  let tempCartCookies = cookies.temp_cart;
+  let tempCartCookie = cookies["temp_cart"];
+  let colourCartCookie = cookies["saved-models"];
+  // use tempCartCookie for model ID/material/quantity data
+  // use saved-models for colour options
 
   useEffect(() => {
-    tempCartCookies = cookies.temp_cart;
+    tempCartCookie = cookies["temp_cart"];
   }, [cookies.temp_cart]);
 
   const onEditClick = () => navigate("/model");
   const onDeleteClick = (id) => {
-    for (let i = 0; i < tempCartCookies.length; i += 1) {
-      const currentItem = tempCartCookies[i];
-      if (currentItem.id == id) {
-        tempCartCookies.splice(i, 1);
+    for (let i = 0; i < tempCartCookie.length; i += 1) {
+      const currentItem = tempCartCookie[i];
+      if (currentItem.id === id) {
+        tempCartCookie.splice(i, 1);
       }
     }
-    setCookie("temp_cart", tempCartCookies, { path: "/" });
+    setCookie("temp_cart", tempCartCookie, { path: "/" });
   };
 
-  const CartItem = ({ item }) => {
-    if (item) {
+  const CartItem = ({ cartDataItem, modelDataItem }) => {
+    if (cartDataItem) {
+      // modelDataItem[0][1] is an object with pure colour data from the customized clicky model
+      const modelNamesArr = Object.keys(modelDataItem[0][1]);
+      const modelDataItemsList = modelNamesArr.map((key) => {
+        return (
+          <li key={key}>
+            {" "}
+            <strong>{key}</strong>: {modelDataItem[0][1][key]}{" "}
+          </li>
+        );
+      });
+
       return (
         <HStack spacing={10} divider={<StackDivider borderColor="gray.200" />}>
           <Image src="https://picsum.photos/150/180"></Image>
           <VStack>
             <Text as="b" fontSize={"lg"}>
-              {item.model_name}
+              {cartDataItem.model_name}
             </Text>
-            <Text fontSize={"sm"}>Model ID: {item.id} </Text>
-            <Text fontSize={"sm"}>Colors: </Text>
-            <Text fontSize={"sm"}>Material: {item.material}</Text>
-            <Text fontSize={"sm"}>Quantity: {item.quantity}</Text>
+            <Text fontSize={"sm"}>Model ID: {cartDataItem.id} </Text>
+            <Text fontSize={"sm"}>Colors: {modelDataItemsList} </Text>
+            <Text fontSize={"sm"}>Material: {cartDataItem.material}</Text>
+            <Text fontSize={"sm"}>Quantity: {cartDataItem.quantity}</Text>
           </VStack>
           <HStack>
             <IconButton
@@ -54,8 +68,8 @@ export default function CartDetail() {
               icon={<EditIcon />}
             />
             <IconButton
-              button={item.id}
-              onClick={() => onDeleteClick(item.id)}
+              button={cartDataItem.id}
+              onClick={() => onDeleteClick(cartDataItem.id)}
               colorScheme="teal"
               aria-label="remove-item-cart"
               icon={<DeleteIcon />}
@@ -72,7 +86,11 @@ export default function CartDetail() {
 
   return (
     <VStack spacing={10} divider={<StackDivider borderColor="gray.200" />}>
-      <CartItem item={tempCartCookies.length > 0 && tempCartCookies[0]} />
+      <CartItem
+        cartDataItem={tempCartCookie.length > 0 && tempCartCookie[0]}
+        modelDataItem={[colourCartCookie]}
+      />
+      {/* hardcoded modelId for colourCartCookie since our only active configurator is clicky */}
       <Button colorScheme="pink" size="lg" onClick={onCheckoutClick}>
         Checkout
       </Button>
