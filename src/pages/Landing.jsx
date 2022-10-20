@@ -31,23 +31,10 @@ const Landing = ({ setUser }) => {
         <Heading as="h3" size="lg" marginBottom="8px">
           Featured Models
         </Heading>
-        <Grid templateColumns="repeat(5, 1fr)" gap={2}>
-          <Grid item>
-            <ModelBox />
-          </Grid>
-          <Grid item>
-            <ModelBox />
-          </Grid>
-          <Grid item>
-            <ModelBox />
-          </Grid>
-          <Grid item>
-            <ModelBox />
-          </Grid>
-          <Grid item>
-            <ModelBox />
-          </Grid>
-        </Grid>
+        {/* TODO: add featured models */}
+        {/* <Grid templateColumns="repeat(5, 1fr)" gap={2}>
+          <Grid item></Grid>
+        </Grid> */}
       </Grid>
     </>
   );
