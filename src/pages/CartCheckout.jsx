@@ -99,6 +99,11 @@ export default function CartCheckoutPage({ user }) {
       });
   };
 
+  const clearCookiesCheckout = () => {
+    setCookie("temp_cart", [], { path: "/" });
+    setCookie("saved-models", [], { path: "/" });
+  };
+
   useEffect(() => {
     if (user !== undefined) {
       postStripePayments();
@@ -142,6 +147,7 @@ export default function CartCheckoutPage({ user }) {
                 }
                 onSuccessfulCheckout={() => {
                   postNewOrder();
+                  clearCookiesCheckout();
                   navigate("/success-checkout");
                 }}
                 clientSecret={clientSecret}

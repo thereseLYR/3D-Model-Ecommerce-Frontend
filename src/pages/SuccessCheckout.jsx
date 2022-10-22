@@ -8,7 +8,7 @@ import Navbar from "../components/Navbar.jsx";
 
 const SuccessCheckoutPage = () => {
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
-  const [cookies, setCookies] = useCookies(["user"]);
+  const [cookies, setCookie] = useCookies(["user"]);
   const [orderId, setOrderId] = useState("");
   const navigate = useNavigate();
   const userId = cookies.user.id;
