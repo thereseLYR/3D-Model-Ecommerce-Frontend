@@ -62,7 +62,7 @@ export default function ModelFields() {
 
   // TODO: reset button to remove customized config and restore defaults
 
-  const colourDataFromConfigurator = cookies["saved-models"];
+  const colourDataFromConfigurator = cookies["saved-models"] || "";
 
   const handleAddToCartClick = () => {
     const componentBreakDownCopy = { ...defaultModelNew.component_breakdown };
@@ -210,22 +210,16 @@ export default function ModelFields() {
           </NumberInputStepper>
         </NumberInput>
       </FormControl>
-      <FormControl>
-        <FormLabel
-          color={"gray.500"}
-          textTransform={"uppercase"}
-          fontWeight={800}
-          fontSize={"md"}
-          letterSpacing={1.1}
-          textAlign={"left"}
-        >
-          Price (SGD)
-        </FormLabel>
-        <NumberInput isReadOnly value={price * quantity}>
-          <NumberInputField />
-        </NumberInput>
-      </FormControl>
-      <br />
+      <Text
+        color={"gray.900"}
+        textTransform={"uppercase"}
+        fontWeight={800}
+        fontSize={"lg"}
+        letterSpacing={1.1}
+        textAlign={"left"}
+      >
+        Price: ${price * quantity}
+      </Text>
       <Button
         colorScheme="pink"
         variant="solid"
