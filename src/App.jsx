@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { BackendUrlProvider } from "./components/BackendUrl.jsx";
 import PrivateRoutes from "./components/PrivateRoutes.jsx";
+import AccessDeniedPage from "./pages/AccessDenied.jsx";
 import CartPage from "./pages/Cart.jsx";
 import CartCheckoutPage from "./pages/CartCheckout.jsx";
 import ClickyConfigurator from "./pages/ClickyConfigurator.jsx";
@@ -25,13 +26,13 @@ export default function App() {
   const [user, setUser] = useState(() => {
     // Reading value of Cookie with name 'user
     const loggedInUser = Cookies.get("user");
-    console.log(`user: ${loggedInUser}`);
     if (loggedInUser) {
       // Storing cookie value in user
       return JSON.parse(loggedInUser);
     }
     return {};
   });
+
   return (
     <BackendUrlProvider backendUrlData={BACKEND_URL}>
       <Router>
@@ -43,9 +44,13 @@ export default function App() {
           <Route path="/models" element={<Models />} />
           <Route path="/model" element={<SingleModel />} />
           <Route path="/cart" element={<CartPage />} />
-          <Route path="/cart-checkout" element={<CartCheckoutPage />} />
-          <Route path="/success-checkout" element={<SuccessCheckoutPage />} />
-          <Route element={<PrivateRoutes />}>
+          <Route path="/access-denied" element={<AccessDeniedPage />} />
+          <Route element={<PrivateRoutes user={user} />}>
+            <Route
+              path="/cart-checkout"
+              element={<CartCheckoutPage user={user} />}
+            />
+            <Route path="/success-checkout" element={<SuccessCheckoutPage />} />
             {/* all protected routes here */}
           </Route>
         </Routes>

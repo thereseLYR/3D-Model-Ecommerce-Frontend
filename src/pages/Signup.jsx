@@ -40,15 +40,6 @@ const Signup = () => {
     event.preventDefault();
 
     if (email) {
-      console.log(
-        email,
-        password,
-        firstName,
-        lastName,
-        username,
-        address,
-        phone
-      );
       const data = {
         email,
         password,
@@ -64,9 +55,9 @@ const Signup = () => {
           console.log(response.data);
           navigate("/login");
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.log("[ERROR] unable to register: ", error));
     } else {
-      console.log("nothing entered");
+      console.log("[ERROR] signup email is empty");
     }
   };
 

@@ -35,27 +35,23 @@ const Login = ({ setUser }) => {
   const handleSubmit = (event) => {
     // prevent it from submitting a form
     event.preventDefault();
-    console.log(email);
 
     if (email) {
-      console.log("email exists!!");
       axios
         .post(`${backendUrl}/api/login`, {
           email,
           password,
         })
         .then((response) => {
-          console.log("successful login");
-          console.log(response.data.result);
           const { user } = response.data.result;
           setUser(user);
           if (user) {
-            navigate("/landing");
+            navigate("/");
           } else navigate("/login");
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.log("[ERROR] unable to login: ", error));
     } else {
-      console.log("nothing entered");
+      console.log("[ERROR] login email is empty");
     }
   };
 

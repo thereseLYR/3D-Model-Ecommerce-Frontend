@@ -3,15 +3,33 @@ import {
   Input,
   InputGroup,
   InputLeftAddon,
+  Select,
   Text,
+  Textarea,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
 
-const BillingDetailsFields = () => {
+import { useState } from "react";
+
+const BillingDetailsFields = ({ userDetails }) => {
+  const [fullname, setFullname] = useState(
+    userDetails.firstName + " " + userDetails.lastName
+  );
+  const [address, setAddress] = useState(userDetails.address);
+  const [phone, setPhone] = useState(userDetails.phone);
+  const [email, setEmail] = useState(userDetails.email);
+
   return (
-    <Box minW={{ base: "90%", md: "500px" }}>
-      <Text fontSize="lg">Delivery Details</Text>
+    <Box minW={{ base: "90%", md: "550px" }}>
+      <Text
+        color={"pink.500"}
+        textTransform={"uppercase"}
+        fontWeight={800}
+        letterSpacing={1.1}
+        fontSize="lg"
+      >
+        Billing and Delivery Details
+      </Text>
       <br />
       <VStack>
         <InputGroup>
@@ -23,7 +41,8 @@ const BillingDetailsFields = () => {
             type="text"
             name="name"
             label="name"
-            placeholder="John Doe"
+            value={fullname}
+            onChange={(e) => setFullname(e.target.value)}
             required
           ></Input>
         </InputGroup>
@@ -33,11 +52,27 @@ const BillingDetailsFields = () => {
             children="Email"
           ></InputLeftAddon>
           <Input
-            type="text"
+            type="email"
             name="email"
             label="email"
-            nameplaceholder="johndoe@email.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
+          ></Input>
+        </InputGroup>
+        <InputGroup>
+          <InputLeftAddon
+            minW={{ md: "110px" }}
+            children="Phone"
+          ></InputLeftAddon>
+          <Input
+            type="text"
+            name="phone"
+            label="phone"
+            value={phone}
+            onChange={(e) => {
+              setPhone(e.target.value);
+            }}
           ></Input>
         </InputGroup>
         <InputGroup>
@@ -45,39 +80,32 @@ const BillingDetailsFields = () => {
             minW={{ md: "110px" }}
             children="Address"
           ></InputLeftAddon>
-          <Input
+          <Textarea
             type="text"
             name="address"
             label="address"
-            placeholder=""
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
             required
-          ></Input>
+          ></Textarea>
         </InputGroup>
         <InputGroup>
           <InputLeftAddon
             minW={{ md: "110px" }}
             children="City"
           ></InputLeftAddon>
-          <Input
-            type="text"
-            name="city"
-            label="city"
-            placeholder="Singapore"
-            required
-          ></Input>
+          <Select placeholder="Select City" name="city">
+            <option value="Singapore">Singapore</option>
+          </Select>
         </InputGroup>
         <InputGroup>
           <InputLeftAddon
             minW={{ md: "110px" }}
             children="State"
           ></InputLeftAddon>
-          <Input
-            type="text"
-            name="state"
-            label="state"
-            placeholder="Singapore"
-            required
-          ></Input>
+          <Select placeholder="Select State" name="state">
+            <option value="Singapore">Singapore</option>
+          </Select>
         </InputGroup>
         <InputGroup>
           <InputLeftAddon

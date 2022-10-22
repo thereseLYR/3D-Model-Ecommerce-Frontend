@@ -42,18 +42,21 @@ const defaultModelNew = {
 
 export default function ModelFields() {
   const [material, setMaterial] = useState("PLA");
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+  const [price, setPrice] = useState(0);
   const [successfulAddCart, setSuccessfulAddCart] = useState(false);
   const [cookies, setCookie] = useCookies(["temp-cart"]);
-  const modelDataForOrderCookie = {};
+  let modelDataForOrderCookie = {};
 
   useEffect(() => {
-    axios.get(`${backendUrl}/api/model-data/1`).then((result) => {
+    axios.get(`${backendUrl}/api/models/1`).then((result) => {
       const data = result.data["modelData"];
       // populate additional fields with data from DB
-      modelDataForOrderCookie["model_name"] = data["modelName"];
-      modelDataForOrderCookie["model_description"] = data["modelDescription"];
-      modelDataForOrderCookie["ppu"] = data["pricePerUnit"];
+      modelDataForOrderCookie["model_name"] = data["model_name"];
+      modelDataForOrderCookie["model_description"] = data["model_description"];
+      const ppu = data["price_per_unit"];
+      modelDataForOrderCookie["ppu"] = ppu;
+      setPrice(ppu);
     });
   });
 
@@ -81,6 +84,8 @@ export default function ModelFields() {
         ppu: modelDataForOrderCookie["ppu"],
       },
     ];
+
+    // TODO: this overrides cartModelNew, we should append to array instead
     setCookie("temp_cart", cartModelNew, { path: "/" });
     setSuccessfulAddCart(true);
   };
@@ -193,7 +198,7 @@ export default function ModelFields() {
           Quantity
         </FormLabel>
         <NumberInput
-          defaultValue={0}
+          defaultValue={1}
           min={1}
           max={5}
           onChange={handleOnQuantityChange}
@@ -203,6 +208,21 @@ export default function ModelFields() {
             <NumberIncrementStepper />
             <NumberDecrementStepper />
           </NumberInputStepper>
+        </NumberInput>
+      </FormControl>
+      <FormControl>
+        <FormLabel
+          color={"gray.500"}
+          textTransform={"uppercase"}
+          fontWeight={800}
+          fontSize={"md"}
+          letterSpacing={1.1}
+          textAlign={"left"}
+        >
+          Price (SGD)
+        </FormLabel>
+        <NumberInput isReadOnly value={price * quantity}>
+          <NumberInputField />
         </NumberInput>
       </FormControl>
       <br />
