@@ -4,6 +4,7 @@ import {
   Button,
   Flex,
   IconButton,
+  Image,
   Link,
   Popover,
   PopoverTrigger,
@@ -14,10 +15,12 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import CartDrawer from "../components/cart/CartDrawer";
 
 export default function NavBar() {
   const { isOpen, onToggle } = useDisclosure();
+  const navigate = useNavigate();
 
   return (
     <Box>
@@ -47,30 +50,37 @@ export default function NavBar() {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-          <Text
-            as="a"
-            href="/"
-            textAlign={useBreakpointValue({ base: "center", md: "left" })}
-            fontFamily={"heading"}
-            color={useColorModeValue("gray.800", "white")}
-          >
-            Logo
-          </Text>
-
+          <Image
+            src="/porky-prints-logo.png"
+            alt="Pink pig cute logo"
+            height={"70px"}
+            width={"175px"}
+            onClick={() => {
+              navigate("/");
+            }}
+            _hover={{
+              cursor: "pointer",
+            }}
+          />
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
             <Stack direction={"row"} spacing={4}>
               {NAV_ITEMS.map((navItem) => (
-                <Box key={navItem.label}>
+                <Box key={navItem.label} display={"flex"} alignItems={"center"}>
                   <Popover trigger={"hover"} placement={"bottom-start"}>
                     <PopoverTrigger>
                       <Link
                         p={2}
                         href={navItem.href ?? "#"}
                         fontSize={"sm"}
-                        fontWeight={500}
+                        fontWeight={600}
                         color={"gray.600"}
+                        borderRadius={"6px"}
+                        borderWidth={"1px"}
+                        borderColor={"#FF8BA0"}
+                        padding={"10px 20px 10px 20px"}
                         _hover={{
                           textDecoration: "none",
+                          bg: "#FF8BA0",
                           color: "gray.800",
                         }}
                       >
@@ -94,9 +104,15 @@ export default function NavBar() {
           <Button
             as="a"
             fontSize="sm"
-            fontWeight={400}
+            fontWeight={600}
             variant="link"
             href="/login"
+            bg={"#FF5876"}
+            color={"white"}
+            padding={"5px 20px 5px 20px"}
+            _hover={{
+              bg: "#FF8BA0",
+            }}
           >
             Login
           </Button>
@@ -107,9 +123,9 @@ export default function NavBar() {
             fontSize="sm"
             fontWeight={600}
             color="white"
-            bg="teal.400"
+            bg="#FF5876"
             _hover={{
-              bg: "teal.300",
+              bg: "#FF8BA0",
             }}
           >
             Sign Up

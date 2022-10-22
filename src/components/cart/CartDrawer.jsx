@@ -65,9 +65,9 @@ export default function CartDrawer() {
         display={{ base: "none", md: "inline-flex" }}
         onClick={onOpen}
         color="white"
-        bg="pink.400"
+        bg="#FF8BA0"
         _hover={{
-          bg: "pink.300",
+          bg: "#FFBECA",
         }}
       >
         <CartIcon />
@@ -110,7 +110,17 @@ export default function CartDrawer() {
                     )
                   : 0}
               </Text>
-              <Button colorScheme="blue" onClick={() => navigate("/cart")}>
+              <Button
+                borderRadius={2}
+                type="submit"
+                variant="solid"
+                bgColor={"#FF5876"}
+                color={"white"}
+                onClick={() => navigate("/cart")}
+                _hover={{
+                  bg: "#FF8BA0",
+                }}
+              >
                 View Cart
               </Button>
             </VStack>

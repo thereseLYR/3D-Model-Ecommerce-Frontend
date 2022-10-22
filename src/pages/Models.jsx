@@ -86,6 +86,10 @@ export default function Models() {
                 onClick={() => {
                   setSelectedCategory(0);
                 }}
+                _hover={{
+                  cursor: "pointer",
+                }}
+                fontWeight="700"
               >
                 All Categories
               </Box>
@@ -107,6 +111,9 @@ export default function Models() {
                     onClick={() => {
                       setSelectedCategory(category.id);
                     }}
+                    _hover={{
+                      cursor: "pointer",
+                    }}
                   >
                     {category.category_name}
                   </Box>
@@ -124,6 +131,7 @@ export default function Models() {
             {modelsData &&
               modelsData.map((model) => (
                 <ModelBox
+                  imageUrl={`/models/model${model.id}.png`}
                   imageAlt={model.model_description}
                   title={model.model_name}
                   modelId={model.id}

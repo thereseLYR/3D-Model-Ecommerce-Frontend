@@ -6,6 +6,7 @@ import {
   Flex,
   FormControl,
   Heading,
+  Image,
   Input,
   InputGroup,
   InputLeftElement,
@@ -17,6 +18,7 @@ import React, { useContext, useState } from "react";
 import { FaLock, FaUserAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import BackendUrlContext from "../components/BackendUrl.jsx";
+import Navbar from "../components/Navbar.jsx";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -62,156 +64,164 @@ const Signup = () => {
   };
 
   return (
-    <Flex
-      flexDirection="column"
-      width="100wh"
-      height="100vh"
-      backgroundColor="gray.200"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <Stack
-        flexDir="column"
-        mb="2"
-        justifyContent="center"
+    <>
+      <Navbar />
+      <Flex
+        flexDirection="column"
+        width="100wh"
+        height="100vh"
+        backgroundColor="gray.200"
+        justifyContent="flex-start"
         alignItems="center"
+        paddingTop={"50px"}
       >
-        <Avatar bg="teal.500" />
-        <Heading color="teal.400">Sign Up</Heading>
-        <Box minW={{ base: "90%", md: "468px" }}>
-          <form>
-            <Stack
-              spacing={4}
-              p="1rem"
-              backgroundColor="whiteAlpha.900"
-              boxShadow="md"
-            >
-              <FormControl>
-                <InputGroup>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    children={<CFaUserAlt color="gray.300" />}
-                  />
-                  <Input
-                    type="text"
-                    placeholder="First name"
-                    onChange={(event) => {
-                      setFirstName(event.target.value);
-                    }}
-                  />
-                </InputGroup>
-              </FormControl>
-              <FormControl>
-                <InputGroup>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    children={<CFaUserAlt color="gray.300" />}
-                  />
-                  <Input
-                    type="text"
-                    placeholder="Last name"
-                    onChange={(event) => {
-                      setLastName(event.target.value);
-                    }}
-                  />
-                </InputGroup>
-              </FormControl>
-              <FormControl>
-                <InputGroup>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    children={<CFaUserAlt color="gray.300" />}
-                  />
-                  <Input
-                    type="text"
-                    placeholder="Address"
-                    onChange={(event) => {
-                      setAddress(event.target.value);
-                    }}
-                  />
-                </InputGroup>
-              </FormControl>
-              <FormControl>
-                <InputGroup>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    children={<CFaUserAlt color="gray.300" />}
-                  />
-                  <Input
-                    type="text"
-                    placeholder="Phone"
-                    onChange={(event) => {
-                      setPhone(event.target.value);
-                    }}
-                  />
-                </InputGroup>
-              </FormControl>
-              <FormControl>
-                <InputGroup>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    children={<CFaUserAlt color="gray.300" />}
-                  />
-                  <Input
-                    type="text"
-                    placeholder="Username"
-                    onChange={(event) => {
-                      setUsername(event.target.value);
-                    }}
-                  />
-                </InputGroup>
-              </FormControl>
-              <FormControl>
-                <InputGroup>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    children={<CFaUserAlt color="gray.300" />}
-                  />
-                  <Input
-                    type="email"
-                    placeholder="Email Address"
-                    onChange={(event) => {
-                      setEmail(event.target.value);
-                    }}
-                  />
-                </InputGroup>
-              </FormControl>
-              <FormControl>
-                <InputGroup>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    color="gray.300"
-                    children={<CFaLock color="gray.300" />}
-                  />
-                  <Input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Password"
-                    onChange={(event) => {
-                      setPassword(event.target.value);
-                    }}
-                  />
-                  <InputRightElement width="4.5rem">
-                    <Button h="1.75rem" size="sm" onClick={handleShowClick}>
-                      {showPassword ? "Hide" : "Show"}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
-              </FormControl>
-              <Button
-                borderRadius={0}
-                type="submit"
-                variant="solid"
-                colorScheme="teal"
-                width="full"
-                onClick={handleSubmit}
+        <Stack
+          flexDir="column"
+          mb="2"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Avatar bg="#FF5876" />
+          <Heading color="#FF5876">Sign up</Heading>
+          <Box minW={{ base: "90%", md: "468px" }}>
+            <form>
+              <Stack
+                spacing={4}
+                p="1rem"
+                backgroundColor="whiteAlpha.900"
+                boxShadow="md"
               >
-                Submit
-              </Button>
-            </Stack>
-          </form>
-        </Box>
-      </Stack>
-    </Flex>
+                <FormControl>
+                  <InputGroup>
+                    <InputLeftElement
+                      pointerEvents="none"
+                      children={<CFaUserAlt color="gray.300" />}
+                    />
+                    <Input
+                      type="text"
+                      placeholder="First name"
+                      onChange={(event) => {
+                        setFirstName(event.target.value);
+                      }}
+                    />
+                  </InputGroup>
+                </FormControl>
+                <FormControl>
+                  <InputGroup>
+                    <InputLeftElement
+                      pointerEvents="none"
+                      children={<CFaUserAlt color="gray.300" />}
+                    />
+                    <Input
+                      type="text"
+                      placeholder="Last name"
+                      onChange={(event) => {
+                        setLastName(event.target.value);
+                      }}
+                    />
+                  </InputGroup>
+                </FormControl>
+                <FormControl>
+                  <InputGroup>
+                    <InputLeftElement
+                      pointerEvents="none"
+                      children={<CFaUserAlt color="gray.300" />}
+                    />
+                    <Input
+                      type="text"
+                      placeholder="Address"
+                      onChange={(event) => {
+                        setAddress(event.target.value);
+                      }}
+                    />
+                  </InputGroup>
+                </FormControl>
+                <FormControl>
+                  <InputGroup>
+                    <InputLeftElement
+                      pointerEvents="none"
+                      children={<CFaUserAlt color="gray.300" />}
+                    />
+                    <Input
+                      type="text"
+                      placeholder="Phone"
+                      onChange={(event) => {
+                        setPhone(event.target.value);
+                      }}
+                    />
+                  </InputGroup>
+                </FormControl>
+                <FormControl>
+                  <InputGroup>
+                    <InputLeftElement
+                      pointerEvents="none"
+                      children={<CFaUserAlt color="gray.300" />}
+                    />
+                    <Input
+                      type="text"
+                      placeholder="Username"
+                      onChange={(event) => {
+                        setUsername(event.target.value);
+                      }}
+                    />
+                  </InputGroup>
+                </FormControl>
+                <FormControl>
+                  <InputGroup>
+                    <InputLeftElement
+                      pointerEvents="none"
+                      children={<CFaUserAlt color="gray.300" />}
+                    />
+                    <Input
+                      type="email"
+                      placeholder="Email Address"
+                      onChange={(event) => {
+                        setEmail(event.target.value);
+                      }}
+                    />
+                  </InputGroup>
+                </FormControl>
+                <FormControl>
+                  <InputGroup>
+                    <InputLeftElement
+                      pointerEvents="none"
+                      color="gray.300"
+                      children={<CFaLock color="gray.300" />}
+                    />
+                    <Input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Password"
+                      onChange={(event) => {
+                        setPassword(event.target.value);
+                      }}
+                    />
+                    <InputRightElement width="4.5rem">
+                      <Button h="1.75rem" size="sm" onClick={handleShowClick}>
+                        {showPassword ? "Hide" : "Show"}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                </FormControl>
+                <Button
+                  borderRadius={0}
+                  type="submit"
+                  variant="solid"
+                  bgColor={"#FF5876"}
+                  color={"white"}
+                  width="full"
+                  onClick={handleSubmit}
+                  _hover={{
+                    bg: "#FF8BA0",
+                  }}
+                >
+                  Submit
+                </Button>
+              </Stack>
+            </form>
+          </Box>
+        </Stack>
+      </Flex>
+    </>
   );
 };
 
