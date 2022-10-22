@@ -1,5 +1,5 @@
 import { Box, Grid, Heading, Text } from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import BackendUrlContext from "../components/BackendUrl.jsx";
 import ModelBox from "../components/ModelBox.jsx";
 import Navbar from "../components/Navbar.jsx";
@@ -9,7 +9,6 @@ const Landing = ({ setUser }) => {
 
   return (
     <>
-      {" "}
       <Navbar />
       <Grid p={4}>
         <Box

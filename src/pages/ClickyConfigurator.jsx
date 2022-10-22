@@ -33,7 +33,7 @@ function ClickyConfigurator() {
   };
 
   function handleModelSave() {
-    let prevCookieValues = cookies["saved-models"]
+    let prevCookieValues = cookies["saved-models"];
     // cookies are stored as an object
     // access a specific cookie by using its key/name, e.g. cookies["saved-models"]
     // general format of the saved-models cookie should be an object, with first layer key being the model ID
@@ -49,11 +49,10 @@ function ClickyConfigurator() {
     //     pot: "indianred";
     //   }
     // }
-    
-    setCookie("saved-models", { ...prevCookieValues, 1: modelState.items }) // assume clicky has a model ID of 1
+
+    setCookie("saved-models", { ...prevCookieValues, 1: modelState.items }); // assume clicky has a model ID of 1
     // setCookie("saved-models", { ...prevCookieValues, clicky2: modelState.items })
     // the line above is to test saving multiple instances of the same model in the saved-models cookie
-    console.log("saved-models", cookies["saved-models"]);
     return;
   }
 
@@ -67,7 +66,6 @@ function ClickyConfigurator() {
         <SketchPicker
           color={modelState.items[modelState.currentItem]}
           onChange={(color) => {
-            // console.log(color);
             modelState.items[modelState.currentItem] = color.hex;
           }}
         />

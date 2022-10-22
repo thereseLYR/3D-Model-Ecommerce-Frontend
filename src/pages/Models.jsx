@@ -33,34 +33,31 @@ export default function Models() {
         setCategoriesData(categories);
       })
       .catch((error) => {
-        console.log(error);
+        console.log("[ERROR] unable to get categories: ", error);
       });
   }, []);
 
   // render the models every time selectedcategory changes
   useEffect(() => {
-    console.log(selectedCategory);
     if (selectedCategory === 0) {
       axios
         .get(`${backendUrl}/api/models`)
         .then((response) => {
-          console.log(response.data.results);
           const models = response.data.results;
           setModelsData(models);
         })
         .catch((error) => {
-          console.log(error);
+          console.log("[ERROR] unable to get models: ", error);
         });
     } else {
       axios
         .get(`${backendUrl}/api/models-by-category/${selectedCategory}`)
         .then((response) => {
-          console.log(response.data.results);
           const models = response.data.results;
           setModelsData(models);
         })
         .catch((error) => {
-          console.log(error);
+          console.log("[ERROR] unable to get models by category: ", error);
         });
     }
   }, [selectedCategory]);

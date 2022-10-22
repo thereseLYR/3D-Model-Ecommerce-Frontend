@@ -18,7 +18,7 @@ export default function StaticModel() {
   const navigate = useNavigate();
 
   const boxWidth = "500px";
-  const boxHeight = "700px";
+  const boxHeight = "800px";
 
   const handleCustomiseModelClick = () => {
     navigate("/clicky");
