@@ -1,6 +1,5 @@
 import { StarIcon } from "@chakra-ui/icons";
 import { Badge, Box, Image } from "@chakra-ui/react";
-import React from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function ModelBox({
@@ -12,7 +11,12 @@ export default function ModelBox({
   rating = 5,
 }) {
   const navigate = useNavigate();
-  const handleModelBoxClick = () => navigate(`/model/${modelId}`);
+
+  const handleModelBoxClick = () => {
+    // TODO: change this path when we have more models
+    // navigate(`/model/${modelId}`;
+    navigate(`/model`);
+  };
 
   return (
     <Box

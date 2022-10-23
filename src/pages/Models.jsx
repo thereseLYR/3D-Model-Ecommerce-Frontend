@@ -1,19 +1,6 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-  Button,
-  Grid,
-  GridItem,
-  Heading,
-  List,
-  ListItem,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Grid, GridItem, List, ListItem, Text } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import BackendUrlContext from "../components/BackendUrl.jsx";
 import ModelBox from "../components/ModelBox.jsx";
 import Navbar from "../components/Navbar.jsx";
@@ -35,7 +22,7 @@ export default function Models() {
       .catch((error) => {
         console.log("[ERROR] unable to get categories: ", error);
       });
-  }, []);
+  }, [backendUrl]);
 
   // render the models every time selectedcategory changes
   useEffect(() => {
@@ -60,7 +47,7 @@ export default function Models() {
           console.log("[ERROR] unable to get models by category: ", error);
         });
     }
-  }, [selectedCategory]);
+  }, [selectedCategory, backendUrl]);
 
   return (
     <>

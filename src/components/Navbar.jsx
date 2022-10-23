@@ -9,12 +9,9 @@ import {
   Popover,
   PopoverTrigger,
   Stack,
-  Text,
-  useBreakpointValue,
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import CartDrawer from "../components/cart/CartDrawer";
 
@@ -25,14 +22,14 @@ export default function NavBar() {
   return (
     <Box>
       <Flex
-        bg={useColorModeValue("white", "gray.800")}
-        color={useColorModeValue("gray.600", "white")}
-        minH={"60px"}
+        bg={useColorModeValue("#FF8BA0", "#FF8BA0")}
+        color={useColorModeValue("#FF8BA0", "#FF8BA0")}
+        minH={"55px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
         borderStyle={"solid"}
-        borderColor={useColorModeValue("gray.200", "gray.900")}
+        borderColor={useColorModeValue("#FF8BA0", "#FF8BA0")}
         align={"center"}
       >
         <Flex
@@ -53,8 +50,8 @@ export default function NavBar() {
           <Image
             src="/porky-prints-logo.png"
             alt="Pink pig cute logo"
-            height={"70px"}
-            width={"175px"}
+            height={"55px"}
+            width={"190px"}
             onClick={() => {
               navigate("/");
             }}
@@ -63,7 +60,7 @@ export default function NavBar() {
             }}
           />
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
-            <Stack direction={"row"} spacing={4}>
+            <Stack direction={"row"} spacing={3}>
               {NAV_ITEMS.map((navItem) => (
                 <Box key={navItem.label} display={"flex"} alignItems={"center"}>
                   <Popover trigger={"hover"} placement={"bottom-start"}>
@@ -73,15 +70,13 @@ export default function NavBar() {
                         href={navItem.href ?? "#"}
                         fontSize={"sm"}
                         fontWeight={600}
-                        color={"gray.600"}
+                        color="gray.800"
                         borderRadius={"6px"}
                         borderWidth={"1px"}
                         borderColor={"#FF8BA0"}
                         padding={"10px 20px 10px 20px"}
                         _hover={{
-                          textDecoration: "none",
-                          bg: "#FF8BA0",
-                          color: "gray.800",
+                          bg: "whiteAlpha.500",
                         }}
                       >
                         {navItem.label}
@@ -98,7 +93,7 @@ export default function NavBar() {
           flex={{ base: 1, md: 0 }}
           justify="flex-end"
           direction="row"
-          spacing={6}
+          spacing={3}
         >
           <CartDrawer />
           <Button
@@ -107,11 +102,11 @@ export default function NavBar() {
             fontWeight={600}
             variant="link"
             href="/login"
-            bg={"#FF5876"}
-            color={"white"}
+            bg={""}
+            color={"gray.800"}
             padding={"5px 20px 5px 20px"}
             _hover={{
-              bg: "#FF8BA0",
+              bg: "whiteAlpha.500",
             }}
           >
             Login
@@ -122,10 +117,10 @@ export default function NavBar() {
             display={{ base: "none", md: "inline-flex" }}
             fontSize="sm"
             fontWeight={600}
-            color="white"
-            bg="#FF5876"
+            color="gray.800"
+            bg=""
             _hover={{
-              bg: "#FF8BA0",
+              bg: "whiteAlpha.500",
             }}
           >
             Sign Up

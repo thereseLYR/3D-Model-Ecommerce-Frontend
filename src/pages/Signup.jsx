@@ -6,7 +6,6 @@ import {
   Flex,
   FormControl,
   Heading,
-  Image,
   Input,
   InputGroup,
   InputLeftElement,
@@ -14,7 +13,7 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { FaLock, FaUserAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import BackendUrlContext from "../components/BackendUrl.jsx";
@@ -70,10 +69,10 @@ const Signup = () => {
         flexDirection="column"
         width="100wh"
         height="100vh"
-        backgroundColor="gray.200"
+        backgroundColor="gray.50"
         justifyContent="flex-start"
         alignItems="center"
-        paddingTop={"50px"}
+        paddingTop={"30px"}
       >
         <Stack
           flexDir="column"

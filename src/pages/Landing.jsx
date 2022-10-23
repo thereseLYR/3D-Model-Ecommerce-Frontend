@@ -1,6 +1,6 @@
-import { Box, Grid, Heading, Text } from "@chakra-ui/react";
+import { Box, Grid, Heading } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import BackendUrlContext from "../components/BackendUrl.jsx";
 import ModelBox from "../components/ModelBox.jsx";
 import Navbar from "../components/Navbar.jsx";
@@ -21,7 +21,7 @@ const Landing = ({ setUser }) => {
       .catch((error) => {
         console.log("[ERROR] unable to get models: ", error);
       });
-  }, []);
+  }, [backendUrl]);
 
   return (
     <>

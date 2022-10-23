@@ -6,7 +6,6 @@ import {
   Flex,
   FormControl,
   Heading,
-  Image,
   Input,
   InputGroup,
   InputLeftElement,
@@ -15,7 +14,7 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { FaLock, FaUserAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import BackendUrlContext from "../components/BackendUrl.jsx";
@@ -64,10 +63,10 @@ const Login = ({ setUser }) => {
         flexDirection="column"
         width="100wh"
         height="100vh"
-        backgroundColor="gray.100"
+        backgroundColor="gray.50"
         justifyContent="flex-start"
         alignItems="center"
-        paddingTop={"50px"}
+        paddingTop={"30px"}
       >
         <Stack
           flexDir="column"
@@ -76,7 +75,7 @@ const Login = ({ setUser }) => {
           alignItems="center"
         >
           <Avatar bg="#FF5876" />
-          <Heading color="#FF8BA0">Welcome</Heading>
+          <Heading color="#FF5876">Welcome</Heading>
           <Box minW={{ base: "90%", md: "468px" }}>
             <form>
               <Stack
@@ -140,9 +139,9 @@ const Login = ({ setUser }) => {
           </Box>
         </Stack>
         <Box>
-          New to us?{" "}
+          {"New to us? "}
           <Link color="#FF5876" href="/signup">
-            Sign Up
+            Sign up
           </Link>
         </Box>
       </Flex>
