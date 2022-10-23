@@ -21,7 +21,7 @@ import { BiCart } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
 const CartIcon = () => {
-  return <Icon w={6} h={6} as={BiCart} />;
+  return <Icon w={7} h={7} as={BiCart} />;
 };
 
 const EmptyCartText = () => {
