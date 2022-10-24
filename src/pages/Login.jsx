@@ -18,6 +18,7 @@ import { useContext, useState } from "react";
 import { FaLock, FaUserAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import BackendUrlContext from "../components/BackendUrl.jsx";
+import Footer from "../components/Footer";
 import NavBar from "../components/Navbar.jsx";
 
 const CFaUserAlt = chakra(FaUserAlt);
@@ -63,7 +64,7 @@ const Login = ({ setUser }) => {
         flexDirection="column"
         width="100wh"
         height="100vh"
-        backgroundColor="gray.50"
+        backgroundColor="white"
         justifyContent="flex-start"
         alignItems="center"
         paddingTop={"30px"}
@@ -144,6 +145,7 @@ const Login = ({ setUser }) => {
             Sign up
           </Link>
         </Box>
+        <Footer />
       </Flex>
     </>
   );

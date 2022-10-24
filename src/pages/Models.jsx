@@ -2,6 +2,7 @@ import { Box, Grid, GridItem, List, ListItem, Text } from "@chakra-ui/react";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import BackendUrlContext from "../components/BackendUrl.jsx";
+import Footer from "../components/Footer.jsx";
 import ModelBox from "../components/ModelBox.jsx";
 import Navbar from "../components/Navbar.jsx";
 
@@ -83,7 +84,7 @@ export default function Models() {
             </ListItem>
             {categoriesData &&
               categoriesData.map((category, index) => (
-                <ListItem>
+                <ListItem key={`category_${index}`}>
                   <Box
                     id={category.id}
                     key={`category${category.id}`}
@@ -127,6 +128,7 @@ export default function Models() {
           </Box>
         </GridItem>
       </Grid>
+      <Footer />
     </>
   );
 }
