@@ -1,11 +1,16 @@
 import { Box, Button, Text, VStack } from "@chakra-ui/react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import React, { useState } from "react";
+import { useState } from "react";
 import { FiCreditCard } from "react-icons/fi";
 import BillingDetailsFields from "./BillingDetailsFields";
 import CheckoutErrorContainer from "./CheckoutErrorContainer";
 
-const CheckoutForm = ({ price, onSuccessfulCheckout, clientSecret }) => {
+const CheckoutForm = ({
+  price,
+  onSuccessfulCheckout,
+  clientSecret,
+  userDetails,
+}) => {
   const [isProcessing, setProcessingTo] = useState(false);
   const [checkoutError, setCheckoutError] = useState("");
 
@@ -19,17 +24,14 @@ const CheckoutForm = ({ price, onSuccessfulCheckout, clientSecret }) => {
   const handleFormSubmit = async (ev) => {
     ev.preventDefault();
 
-    const fullBillingInfo = {
-      // TODO: add order_id from db
-      billing_details: {
-        name: ev.target.name.value,
-        email: ev.target.email.value,
-        address: {
-          city: ev.target.city.value,
-          line1: ev.target.address.value, // billing address line1, line2...
-          state: ev.target.state.value,
-          postal_code: ev.target.zip.value,
-        },
+    const billingDetails = {
+      name: ev.target.name.value,
+      email: ev.target.email.value,
+      address: {
+        city: "Singapore",
+        line1: ev.target.address.value, // billing address line1, line2...
+        state: "Singapore",
+        postal_code: ev.target.zip.value,
       },
     };
 
@@ -40,7 +42,7 @@ const CheckoutForm = ({ price, onSuccessfulCheckout, clientSecret }) => {
       const paymentMethodReq = await stripe.createPaymentMethod({
         type: "card",
         card: cardElement,
-        billing_details: fullBillingInfo.billing_details,
+        billing_details: billingDetails,
       });
 
       if (paymentMethodReq.error) {
@@ -72,8 +74,16 @@ const CheckoutForm = ({ price, onSuccessfulCheckout, clientSecret }) => {
 
   const CardPayment = () => {
     return (
-      <Box minW={{ base: "90%", md: "500px" }}>
-        <Text fontSize="lg">Card Payment</Text>
+      <Box minW={{ base: "90%", md: "550px" }}>
+        <Text
+          color={"pink.500"}
+          textTransform={"uppercase"}
+          fontWeight={800}
+          letterSpacing={1.1}
+          fontSize="lg"
+        >
+          Card Payment
+        </Text>
         <br />
         <CardElement
           options={cardElementOpts}
@@ -87,7 +97,7 @@ const CheckoutForm = ({ price, onSuccessfulCheckout, clientSecret }) => {
   return (
     <form onSubmit={handleFormSubmit}>
       <VStack>
-        <BillingDetailsFields />
+        <BillingDetailsFields userDetails={userDetails} />
         <CardPayment />
         {checkoutError && (
           <CheckoutErrorContainer>{checkoutError}</CheckoutErrorContainer>

@@ -1,30 +1,35 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import BackendUrlContext from "./BackendUrl.jsx";
 
-const PrivateRoutes = () => {
-  const [verification, setVerification] = useState(null);
+const PrivateRoutes = ({ user }) => {
+  const [verification, setVerification] = useState(
+    !(user && Object.keys(user).length === 0)
+  );
   const { backendUrl } = useContext(BackendUrlContext);
   const navigate = useNavigate();
 
   const verifyCookies = async () => {
     // verify cookies
-    axios
-      .get(`${backendUrl}/verify-cookie`)
-      // update useState
-      .then((response) => {
-        // if cookies are verified
-        if (response.data === true) {
-          setVerification(true);
-        } else {
-          navigate("/");
-        }
-      })
-      .catch((error) => {
-        // handle error
-        console.log(error);
-      });
+    if (verification) {
+      axios
+        .get(`${backendUrl}/verify-cookie`)
+        .then((response) => {
+          if (response.data === true) {
+            setVerification(true);
+          } else {
+            console.log("[ERROR] unable to verify user");
+            navigate("/");
+          }
+        })
+        .catch((error) => {
+          console.log("[ERROR] unable to verify cookie: ", error);
+          navigate("/access-denied");
+        });
+    } else {
+      navigate("/access-denied");
+    }
   };
 
   useEffect(() => {

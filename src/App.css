@@ -12,3 +12,11 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.selected-category {
+  background: rgb(227, 227, 227);
+}
+
+.unselected-category {
+  background: white;
+}

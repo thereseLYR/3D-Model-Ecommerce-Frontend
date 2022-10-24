@@ -20,74 +20,64 @@ import {
   Tr,
   VStack,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useCookies } from "react-cookie";
 
-// TODO: get this model from db, model can consist of multiple parts, we keep track of them in component_breakdown
-const defaultModel = {
+const defaultClickyColours = {
+  Case_A_v3: "coral",
+  Spring_Normal: "darkmagenta",
+  Wheel_40T: "lightblue",
+  Case_B_v4: "indianred",
+};
+
+const defaultModelNew = {
   id: 1,
-  model_name: "Clicky",
-  model_description: "some description",
-  ppu: 30,
-  component_breakdown: {
-    part_id_1: { part_name: "Gear", default_color: "grey", color: null }, // color change in configurator to update this field in cookies
-    part_id_2: {
-      part_name: "Front Housing",
-      default_color: "green",
-      color: null,
-    },
-    part_id_3: {
-      part_name: "Back Housing",
-      default_color: "green",
-      color: null,
-    },
-  },
+  component_breakdown: defaultClickyColours,
   quantity: 0,
   material: "",
 };
 
-export default function ModelFields() {
+export default function ModelFields({ modelDataForOrderCookie }) {
   const [material, setMaterial] = useState("PLA");
-  const [quantity, setQuantity] = useState(0);
+  const [price, setPrice] = useState(modelDataForOrderCookie["ppu"] || 15); // TODO: bug here, to discover why price is undefined
+  const [quantity, setQuantity] = useState(1);
   const [successfulAddCart, setSuccessfulAddCart] = useState(false);
-  const [cookies, setCookie] = useCookies(["temp_cart"]);
-  let tempCartCookies = cookies.temp_cart || "";
+  const [cookies, setCookie] = useCookies(["temp-cart"]);
 
-  useEffect(() => {
-    tempCartCookies = cookies.temp_cart;
-  }, [cookies.temp_cart]);
+  // TODO: reset button to remove customized config and restore defaults
+  const colourDataFromConfigurator = cookies["saved-models"] || "";
 
   const handleAddToCartClick = () => {
-    const componentBreakDownCopy = { ...defaultModel.component_breakdown };
-    // set colors
+    const componentBreakDownCopy = { ...defaultModelNew.component_breakdown };
     for (const p in componentBreakDownCopy) {
-      componentBreakDownCopy[p]["color"] = componentBreakDownCopy[p].color
-        ? componentBreakDownCopy[p].color
-        : componentBreakDownCopy[p].default_color;
+      // if colourDataFromConfigurator[1] exists, assign that value to componentBreakDownCopy[p]
+      // else, take default colour
+      componentBreakDownCopy[p] = colourDataFromConfigurator[1]
+        ? colourDataFromConfigurator[1][p]
+        : defaultClickyColours[p];
     }
+    const cartModelNew = [
+      {
+        ...defaultModelNew,
+        component_breakdown: componentBreakDownCopy,
+        quantity: quantity,
+        material: material,
+        model_name: modelDataForOrderCookie["model_name"],
+        model_description: modelDataForOrderCookie["model_description"],
+        ppu: modelDataForOrderCookie["ppu"],
+      },
+    ];
 
-    const cartModel = {
-      ...defaultModel,
-      component_breakdown: componentBreakDownCopy,
-      quantity: quantity,
-      material: material,
-    };
-
-    let tempCart = [];
-    tempCart.push(cartModel);
-
-    // add updated cartModel in cookies
-    setCookie("temp_cart", tempCart, { path: "/" });
+    // TODO: this overrides cartModelNew, we should append to array instead
+    setCookie("temp_cart", cartModelNew, { path: "/" });
     setSuccessfulAddCart(true);
   };
 
   const handleOnMaterialChange = (ev) => {
-    console.log("material change event: ", ev.target.value);
     setMaterial(ev.target.value);
   };
 
   const handleOnQuantityChange = (ev) => {
-    console.log("quantity change event: ", ev);
     setQuantity(ev);
   };
 
@@ -95,14 +85,14 @@ export default function ModelFields() {
     return (
       <Box>
         <Text
-          color={"gray.500"}
+          color={"gray.400"}
           textTransform={"uppercase"}
           fontWeight={800}
           fontSize={"md"}
           letterSpacing={1.1}
           textAlign={"left"}
         >
-          Clicky Component Breakdown
+          Component Breakdown
         </Text>
         <TableContainer>
           <Table variant="striped" colorScheme="teal">
@@ -117,14 +107,17 @@ export default function ModelFields() {
               </Tr>
             </Thead>
             <Tbody>
-              {Object.keys(defaultModel.component_breakdown).map((m, i) => (
+              {Object.keys(defaultModelNew.component_breakdown).map((m, i) => (
                 <Tr key={i}>
                   <Td>{i + 1}</Td>
-                  <Td>{defaultModel.component_breakdown[m].part_name}</Td>
+                  <Td>{m}</Td>
                   <Td>
-                    {defaultModel.component_breakdown[m].color
-                      ? defaultModel.component_breakdown[m].color
-                      : defaultModel.component_breakdown[m].default_color}
+                    {/* check if saved-items exists for this particular modelID first */}
+                    {/* if yes, read data from cookie */}
+                    {/* else render with default colour values from defaultClickyColours */}
+                    {colourDataFromConfigurator[1]
+                      ? colourDataFromConfigurator[1][m]
+                      : defaultClickyColours[m]}
                   </Td>
                 </Tr>
               ))}
@@ -138,7 +131,7 @@ export default function ModelFields() {
   return (
     <VStack alignItems={"start"} spacing={5}>
       <Text
-        color={"gray.700"}
+        color={"gray.600"}
         fontWeight={800}
         textTransform={"uppercase"}
         fontSize={"4xl"}
@@ -146,7 +139,7 @@ export default function ModelFields() {
         Clicky
       </Text>
       <Text
-        color={"green.500"}
+        color={"teal.400"}
         textTransform={"uppercase"}
         fontWeight={800}
         fontSize={"lg"}
@@ -158,7 +151,7 @@ export default function ModelFields() {
       <ModelBreakdown />
       <FormControl>
         <FormLabel
-          color={"gray.500"}
+          color={"gray.400"}
           textTransform={"uppercase"}
           fontWeight={800}
           fontSize={"md"}
@@ -178,7 +171,7 @@ export default function ModelFields() {
       </FormControl>
       <FormControl>
         <FormLabel
-          color={"gray.500"}
+          color={"gray.400"}
           textTransform={"uppercase"}
           fontWeight={800}
           fontSize={"md"}
@@ -188,9 +181,7 @@ export default function ModelFields() {
           Quantity
         </FormLabel>
         <NumberInput
-          defaultValue={
-            tempCartCookies.length > 0 ? tempCartCookies[0].quantity : 0
-          }
+          defaultValue={1}
           min={1}
           max={5}
           onChange={handleOnQuantityChange}
@@ -202,13 +193,26 @@ export default function ModelFields() {
           </NumberInputStepper>
         </NumberInput>
       </FormControl>
-      <br />
+      <Text
+        color={"gray.500"}
+        textTransform={"uppercase"}
+        fontWeight={800}
+        fontSize={"lg"}
+        letterSpacing={1.1}
+        textAlign={"left"}
+      >
+        Price: ${price * quantity}
+      </Text>
       <Button
-        colorScheme="pink"
         variant="solid"
         size="lg"
         onClick={handleAddToCartClick}
         disabled={quantity === 0}
+        bgColor={"#FF5876"}
+        color={"white"}
+        _hover={{
+          bg: "#FF8BA0",
+        }}
       >
         Add to Cart
       </Button>

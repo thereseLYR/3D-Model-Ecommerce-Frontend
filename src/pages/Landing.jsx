@@ -1,12 +1,17 @@
+
 import { Box, Grid, Heading, Text, Image, Flex, Button, Link, keyframes } from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
 import BackendUrlContext from "../components/BackendUrl.jsx";
+import Footer from "../components/Footer.jsx";
 import ModelBox from "../components/ModelBox.jsx";
+import { useNavigate } from "react-router-dom";
 
-const Landing = ({ user }) => {
-  const { backendUrl } = useContext(BackendUrlContext)
-
-    const slideTwo = keyframes`
+const Landing = ({ setUser }) => {
+  const { backendUrl } = useContext(BackendUrlContext);
+  const [modelsData, setModelsData] = useState();
+  const navigate = useNavigate();
+  const slide = keyframes`
     0%{
         transform: translateX(0%);
     }
@@ -72,11 +77,25 @@ const Landing = ({ user }) => {
     }
   `;
 
-  const slideAnimation = `${slideTwo} infinite 25s`;
+  const slideAnimation = `${slide} infinite 25s`;
+
+  // render models on landing
+  // render the models every time selectedcategory changes
+  useEffect(() => {
+    axios
+      .get(`${backendUrl}/api/models`)
+      .then((response) => {
+        const models = response.data.results;
+        setModelsData(models);
+      })
+      .catch((error) => {
+        console.log("[ERROR] unable to get models: ", error);
+      });
+  }, [backendUrl]);
 
   return (
     <>
-        <Box overflow='auto' h={'100%'}>
+      <Box>
         <Flex direction='column'>
           <Flex
             bg='black'
@@ -90,10 +109,11 @@ const Landing = ({ user }) => {
               objectFit={'cover'}
               />
               <Flex bg='black' w={{md:'20%'}} justifyContent={'center'} alignItems={'center'} direction={'column'}>
-                <Heading size='2xl'color='white'>Printables</Heading>
+                <Heading size='2xl'color='white'>Porky Prints</Heading>
                 <Text pt='2%' fontSize='3xl' color='white'> Lovable. Playable. Printable. </Text>
                 <Flex>
-                  <Button         
+                  <Button
+                     onClick={()=>navigate("/admin/contact-us")}     
                     _hover={{ textDecoration: "underline" }} 
                     bg='none' 
                     color='white'
@@ -101,7 +121,8 @@ const Landing = ({ user }) => {
                   >
                     Learn More > 
                   </Button>
-                  <Button         
+                  <Button
+                    onClick={()=>navigate("/signup")}    
                     _hover={{ textDecoration: "underline" }} 
                     bg='none' 
                     color='white'
@@ -113,117 +134,94 @@ const Landing = ({ user }) => {
               </Flex>
             </Flex>
    
-          <Box>
-            <Heading as='h3' size='lg' marginBottom='8px'>
-              Featured Models
-            </Heading>
-            <Grid templateColumns='repeat(5, 1fr)'>
-              <Grid item> 
-                <ModelBox />
-              </Grid>
-              <Grid item>
-                <ModelBox />
-              </Grid>
-              <Grid item>
-                <ModelBox />
-              </Grid>
-              <Grid item>
-                <ModelBox />
-              </Grid>
-              <Grid item>
-                <ModelBox />
-              </Grid>
-            </Grid>
-          </Box>
-
-                   <Flex h={'700px'} direction={'row'}>
-                <Flex h={'100%'} animation={slideAnimation} alignItems='center'>
-                  <Flex h='80%'>
-                    <Box w='20vw'>
-                      <Image 
-                        h='100%'
-                        src='./Landing_Test_1.webp' 
-                        alt='a 3D Model'
-                        objectFit={'cover'}
-                        />
-                    </Box>
-                    <Box w='20vw'>
-                      <Image
-                        h='100%' 
-                        src='./Landing_Test_2.webp' 
-                        alt='a 3D Model'
-                        objectFit={'cover'}
-                        />
-                    </Box>
-                    <Box w='20vw'>
-                      <Image
-                        h='100%'
-                        src='./Landing_Test_3.webp' 
-                        alt='a 3D Model'
-                        objectFit={'cover'}
-                        />
-                    </Box>
-                    <Box w='20vw'>
-                      <Image 
-                        h='100%'
-                        src='./Landing_Test_4.webp' 
-                        alt='a 3D Model'
-                        objectFit={'cover'}
-                        />
-                    </Box>
-                    <Box w='20vw'>
-                      <Image 
-                        h='100%'
-                        src='./Landing_Test_5.webp' 
-                        alt='a 3D Model'
-                        objectFit={'cover'}
-                        />
-                    </Box>
-                    <Box w='20vw'>
-                      <Image 
-                        h='100%'
-                        src='./Landing_Test_6.webp' 
-                        alt='a 3D Model'
-                        objectFit={'cover'}
-                        />
-                    </Box>
-                    <Box w='20vw'>
-                      <Image 
-                        h='100%'
-                        src='./Landing_Test_7.webp' 
-                        alt='a 3D Model'
-                        objectFit={'cover'}
-                        />
-                    </Box>
-                    <Box w='20vw'>
-                      <Image 
-                        h='100%'
-                        src='./Landing_Test_8.webp' 
-                        alt='a 3D Model'
-                        objectFit={'cover'}
-                        />
-                    </Box>
-                    <Box w='20vw'>
-                      <Image 
-                        h='100%'
-                        src='./Landing_Test_9.webp' 
-                        alt='a 3D Model'
-                        objectFit={'cover'}
-                        />
-                    </Box>
-                    <Box w='20vw'>
-                      <Image 
-                        h='100%'
-                        src='./Landing_Test_10.webp' 
-                        alt='a 3D Model'
-                        objectFit={'cover'}
-                        />
-                    </Box>
-                  </Flex>
+          <Flex h={'600px'} direction={'row'}>
+            <Flex h={'100%'} animation={slideAnimation} alignItems='center'>
+              <Flex h='100%'>
+                <Box w='20vw'>
+                  <Image 
+                    h='100%'
+                    src='./Landing_Test_1.webp' 
+                    alt='a 3D Model'
+                    objectFit={'cover'}
+                    />
+                </Box>
+                <Box w='20vw'>
+                  <Image
+                    h='100%' 
+                    src='./Landing_Test_2.webp' 
+                    alt='a 3D Model'
+                    objectFit={'cover'}
+                    />
+                </Box>
+                <Box w='20vw'>
+                  <Image
+                    h='100%'
+                    src='./Landing_Test_3.webp' 
+                    alt='a 3D Model'
+                    objectFit={'cover'}
+                    />
+                </Box>
+                <Box w='20vw'>
+                  <Image 
+                    h='100%'
+                    src='./Landing_Test_4.webp' 
+                    alt='a 3D Model'
+                    objectFit={'cover'}
+                    />
+                </Box>
+                <Box w='20vw'>
+                  <Image 
+                    h='100%'
+                    src='./Landing_Test_5.webp' 
+                    alt='a 3D Model'
+                    objectFit={'cover'}
+                    />
+                </Box>
+                <Box w='20vw'>
+                  <Image 
+                    h='100%'
+                    src='./Landing_Test_6.webp' 
+                    alt='a 3D Model'
+                    objectFit={'cover'}
+                    />
+                </Box>
+                <Box w='20vw'>
+                  <Image 
+                    h='100%'
+                    src='./Landing_Test_7.webp' 
+                    alt='a 3D Model'
+                    objectFit={'cover'}
+                    />
+                </Box>
+                <Box w='20vw'>
+                  <Image 
+                    h='100%'
+                    src='./Landing_Test_8.webp' 
+                    alt='a 3D Model'
+                    objectFit={'cover'}
+                    />
+                </Box>
+                <Box w='20vw'>
+                  <Image 
+                    h='100%'
+                    src='./Landing_Test_9.webp' 
+                    alt='a 3D Model'
+                    objectFit={'cover'}
+                    />
+                </Box>
+                <Box w='20vw'>
+                  <Image 
+                    h='100%'
+                    src='./Landing_Test_10.webp' 
+                    alt='a 3D Model'
+                    objectFit={'cover'}
+                    />
+                </Box>
+              </Flex>
             </Flex>
             <Flex h={'100%'} animation={slideAnimation} alignItems='center'>
-              <Flex h='80%' bg='red' overflow={'hidden'}>
-                  <Box w='20vw'>
+              <Flex h='100%'>
+                <Box w='20vw'>
                   <Image 
                     h='100%'
                     src='./Landing_Test_1.webp' 
@@ -306,9 +304,26 @@ const Landing = ({ user }) => {
                 </Box>
               </Flex>
             </Flex>
-        </Flex>
+          </Flex>
         </Flex>
       </Box>
+      <Grid p={4} style={{ margin: "10px" }}>
+        <Heading as="h3" size="lg" marginBottom="8px">
+          Featured Models
+        </Heading>
+        <Box style={{ display: "flex" }}>
+          {modelsData &&
+            modelsData.map((model) => (
+              <ModelBox
+                imageUrl={`/models/model${model.id}.png`}
+                imageAlt={model.model_description}
+                title={model.model_name}
+                modelId={model.id}
+              />
+            ))}
+        </Box>
+      </Grid>
+      <Footer />
     </>
   );
 };

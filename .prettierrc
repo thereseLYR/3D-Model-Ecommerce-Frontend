@@ -1,6 +1,7 @@
 {
   "tabWidth": 2,
   "useTabs": false,
-  "organizeImportsSkipDestructiveCodeActions": true,
-  "singleQuote": false
+  "organizeImportsSkipDestructiveCodeActions": false,
+  "singleQuote": false,
+  "trailingComma": "es5"
 }

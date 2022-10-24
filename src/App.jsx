@@ -1,11 +1,15 @@
 
 import axios from "axios";
 import Cookies from "js-cookie"; // i realize we are using both react-cookie and js-cookie
-import React, { useState } from "react";
+import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { BackendUrlProvider } from "./components/BackendUrl.jsx";
 import PrivateRoutes from "./components/PrivateRoutes.jsx";
+import AccessDeniedPage from "./pages/AccessDenied.jsx";
+import ContactUs from "./pages/admin/ContactUs";
+import Delivery from "./pages/admin/Delivery";
+import ReturnsPolicy from "./pages/admin/ReturnsPolicy";
 import CartPage from "./pages/Cart.jsx";
 import CartCheckoutPage from "./pages/CartCheckout.jsx";
 import ClickyConfigurator from "./pages/ClickyConfigurator.jsx";
@@ -29,34 +33,41 @@ export default function App() {
   const [user, setUser] = useState(() => {
     // Reading value of Cookie with name 'user
     const loggedInUser = Cookies.get("user");
-    console.log(`user: ${loggedInUser}`);
     if (loggedInUser) {
       // Storing cookie value in user
       return JSON.parse(loggedInUser);
     }
     return {};
   });
+
   return (
     <BackendUrlProvider backendUrlData={BACKEND_URL}>
-        <Router>
-          <Navbar user={user}/>
-          <Routes>
-            <Route path="/" element={<Landing user={user} />} />
-            <Route path="/login" element={<Login setUser={setUser} />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/clicky" element={<ClickyConfigurator />} />
-            <Route path="/models" element={<Models />} />
-            <Route path="/model" element={<SingleModel />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/cart-checkout" element={<CartCheckoutPage />} />
+      <Router>
+        <Navbar user={user}/>
+        <Routes>
+          <Route path="/" element={<Landing user={user} />} />
+          <Route path="/login" element={<Login setUser={setUser} />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/clicky" element={<ClickyConfigurator />} />
+          <Route path="/models" element={<Models />} />
+          <Route path="/model" element={<SingleModel />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/access-denied" element={<AccessDeniedPage />} />
+          <Route path="/admin/contact-us" element={<ContactUs />} />
+          <Route path="/admin/returns-policy" element={<ReturnsPolicy />} />
+          <Route path="/admin/delivery" element={<Delivery />} />
+          <Route element={<PrivateRoutes user={user} />}>
+            <Route
+              path="/cart-checkout"
+              element={<CartCheckoutPage user={user} />}
+            />
             <Route path="/success-checkout" element={<SuccessCheckoutPage />} />
-            <Route element={<PrivateRoutes />}>
-              {/* all protected routes here */}
+            {/* all protected routes here */}
               <Route path='/profile' element={<Profile user={user} setUser={setUser}/>} />
               <Route path='/profile/purchase' element={<Purchase user={user}/>} />
-            </Route>
-          </Routes>
-        </Router>
+          </Route>
+        </Routes>
+      </Router>
     </BackendUrlProvider>
   );
 }
