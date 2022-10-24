@@ -102,11 +102,9 @@ export default function Footer() {
           <Link color="gray.500" fontSize="xs" href="/admin/contact-us">
             Contact us
           </Link>
-          {/* HACK #1 FOR ALIGNMENT */}
-          <Text color="white" fontSize="xs">
-            dummy placeholder
-          </Text>
-          {/* END HACK #1 */}
+          <Link color="gray.500" fontSize="xs" href="/admin/about-us">
+            About us
+          </Link>
         </VStack>
         <VStack alignItems="left">
           <Text as="b" color="gray.700" fontSize="sm">
