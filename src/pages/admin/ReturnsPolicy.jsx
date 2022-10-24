@@ -8,7 +8,7 @@ export default function ReturnsPolicy() {
       <br />
       <Container>
         <VStack alignItems="left">
-          <Text as="b" fontSize="lg">
+          <Text as="b" fontSize="28px">
             Returns and Refund Policy
           </Text>
           <Text fontSize="md" color="gray.600">
@@ -54,6 +54,8 @@ export default function ReturnsPolicy() {
             the following address:
           </Text>
           <VStack spacing={1} alignItems="left">
+            <br />
+            <br />
             <Text fontSize="sm" color="gray.400">
               To: Porky Prints
             </Text>
@@ -63,7 +65,12 @@ export default function ReturnsPolicy() {
             <Text fontSize="sm" color="gray.400">
               Address: 8 Sin Ming Road, Sin Ming Centre #01-03 Singapore 575628
             </Text>
+            <br />
+            <br />
           </VStack>
+          <Text fontSize="sm" color="gray.600">
+            Please also include a return address at the back of your parcel.
+          </Text>
           <Text fontSize="sm" color="gray.600">
             You will be responsible for paying for your own postal costs for
             returning your item. Postal and shipping costs are non-refundable.

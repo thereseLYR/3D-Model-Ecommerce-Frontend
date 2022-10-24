@@ -9,7 +9,7 @@ export default function AboutUs() {
       <br />
       <Container>
         <VStack alignItems="left">
-          <Text as="b" fontSize="xl">
+          <Text as="b" fontSize="28px">
             About Porky Prints / FAQ
           </Text>
           <Text as="b" fontSize="lg">
@@ -23,7 +23,7 @@ export default function AboutUs() {
               satisfied knowing our 3D printing experts will always deliver the
               best.
             </Text>
-            <Image boxSize="150px" src="/porky_prints_icon.svg" />
+            <Image boxSize="150px" src="../porky_prints_icon.svg" />
           </HStack>
         </VStack>
         <br />

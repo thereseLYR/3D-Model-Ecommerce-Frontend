@@ -145,7 +145,6 @@ export default function NavBar() {
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
           <Image
-            // src="/porky-prints-logo.png"
             src="/porky_prints_full.svg"
             alt="Pink pig cute logo"
             width={"auto"}
@@ -208,7 +207,11 @@ export default function NavBar() {
                   <MenuItem color="gray.800" as="a" href="/admin/delivery">
                     Delivery
                   </MenuItem>
-                  <MenuItem color="gray.800" as="a" href="/admin/returns">
+                  <MenuItem
+                    color="gray.800"
+                    as="a"
+                    href="/admin/returns-policy"
+                  >
                     Returns Policy
                   </MenuItem>
                 </MenuList>
@@ -232,7 +235,29 @@ export default function NavBar() {
                     bg: "whiteAlpha.500",
                   }}
                 >
-                  Contact us
+                  Contact Us
+                </Link>
+              </Box>
+              <Box
+                key={"about-us"}
+                display={"flex"}
+                alignItems={"center"}
+                justifyContent={"center"}
+              >
+                <Link
+                  p={2}
+                  href={"/admin/about-us"}
+                  fontSize={"sm"}
+                  fontWeight={600}
+                  color="gray.800"
+                  borderRadius={"6px"}
+                  borderWidth={"1px"}
+                  borderColor={"#FF8BA0"}
+                  _hover={{
+                    bg: "whiteAlpha.500",
+                  }}
+                >
+                  About Us
                 </Link>
               </Box>
             </Stack>
