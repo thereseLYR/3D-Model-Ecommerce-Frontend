@@ -14,7 +14,7 @@ export default function ReturnsPolicy() {
           <Text fontSize="md" color="gray.600">
             Please contact us to discuss the details of any problem prior to
             sending any product back. You can reach us at{" "}
-            <Link color="teal.400">3d.appdev2022@gmail.com</Link>.
+            <Link color="#FF5876">3d.appdev2022@gmail.com</Link>.
           </Text>
           <Text as="b" fontSize="md">
             Refund and Warranty Policy
@@ -44,7 +44,7 @@ export default function ReturnsPolicy() {
             company, it may take some time before your refund is officially
             posted. If you’ve done all of this and you still have not received
             your refund yet, please contact us at{" "}
-            <Link color="teal.400">3d.appdev2022@gmail.com</Link>.
+            <Link color="#FF5876">3d.appdev2022@gmail.com</Link>.
           </Text>
           <Text as="b" fontSize="md">
             Exchanges
