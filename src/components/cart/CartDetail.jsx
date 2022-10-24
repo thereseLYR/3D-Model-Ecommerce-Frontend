@@ -104,9 +104,14 @@ export default function CartDetail() {
       />
       {/* hardcoded modelId for colourCartCookie since our only active configurator is clicky */}
       <Button
-        colorScheme="pink"
         size="lg"
         onClick={() => navigate("/cart-checkout")}
+        bgColor={"#FF5876"}
+        color={"white"}
+        _hover={{
+          bg: "#FF8BA0",
+        }}
+        s
       >
         Checkout
       </Button>
