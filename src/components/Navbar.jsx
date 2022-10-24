@@ -48,10 +48,11 @@ export default function NavBar() {
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
           <Image
-            src="/porky-prints-logo.png"
+            // src="/porky-prints-logo.png"
+            src="/porky_prints_full.svg"
             alt="Pink pig cute logo"
-            height={"55px"}
-            width={"190px"}
+            width={"auto"}
+            height={"60px"}
             onClick={() => {
               navigate("/");
             }}
