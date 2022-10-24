@@ -6,6 +6,7 @@ import BackendUrlContext from "../components/BackendUrl.jsx";
 import Footer from "../components/Footer.jsx";
 import ModelBox from "../components/ModelBox.jsx";
 import { useNavigate } from "react-router-dom";
+import CarouselImage from "../components/landing/CarouselImage.jsx";
 
 const Landing = ({ setUser }) => {
   const { backendUrl } = useContext(BackendUrlContext);
@@ -137,86 +138,16 @@ const Landing = ({ setUser }) => {
           <Flex h={'600px'} direction={'row'}>
             <Flex h={'100%'} animation={slideAnimation} alignItems='center'>
               <Flex h='100%'>
-                <Box w='20vw'>
-                  <Image 
-                    h='100%'
-                    src='./Landing_Test_1.webp' 
-                    alt='a 3D Model'
-                    objectFit={'cover'}
-                    />
-                </Box>
-                <Box w='20vw'>
-                  <Image
-                    h='100%' 
-                    src='./Landing_Test_2.webp' 
-                    alt='a 3D Model'
-                    objectFit={'cover'}
-                    />
-                </Box>
-                <Box w='20vw'>
-                  <Image
-                    h='100%'
-                    src='./Landing_Test_3.webp' 
-                    alt='a 3D Model'
-                    objectFit={'cover'}
-                    />
-                </Box>
-                <Box w='20vw'>
-                  <Image 
-                    h='100%'
-                    src='./Landing_Test_4.webp' 
-                    alt='a 3D Model'
-                    objectFit={'cover'}
-                    />
-                </Box>
-                <Box w='20vw'>
-                  <Image 
-                    h='100%'
-                    src='./Landing_Test_5.webp' 
-                    alt='a 3D Model'
-                    objectFit={'cover'}
-                    />
-                </Box>
-                <Box w='20vw'>
-                  <Image 
-                    h='100%'
-                    src='./Landing_Test_6.webp' 
-                    alt='a 3D Model'
-                    objectFit={'cover'}
-                    />
-                </Box>
-                <Box w='20vw'>
-                  <Image 
-                    h='100%'
-                    src='./Landing_Test_7.webp' 
-                    alt='a 3D Model'
-                    objectFit={'cover'}
-                    />
-                </Box>
-                <Box w='20vw'>
-                  <Image 
-                    h='100%'
-                    src='./Landing_Test_8.webp' 
-                    alt='a 3D Model'
-                    objectFit={'cover'}
-                    />
-                </Box>
-                <Box w='20vw'>
-                  <Image 
-                    h='100%'
-                    src='./Landing_Test_9.webp' 
-                    alt='a 3D Model'
-                    objectFit={'cover'}
-                    />
-                </Box>
-                <Box w='20vw'>
-                  <Image 
-                    h='100%'
-                    src='./Landing_Test_10.webp' 
-                    alt='a 3D Model'
-                    objectFit={'cover'}
-                    />
-                </Box>
+                <CarouselImage srcPath={'./Landing_Test_1.webp'} />
+                <CarouselImage srcPath={'./Landing_Test_2.webp'} />
+                <CarouselImage srcPath={'./Landing_Test_3.webp'} />
+                <CarouselImage srcPath={'./Landing_Test_4.webp'} />
+                <CarouselImage srcPath={'./Landing_Test_5.webp'} />
+                <CarouselImage srcPath={'./Landing_Test_6.webp'} />
+                <CarouselImage srcPath={'./Landing_Test_7.webp'} />
+                <CarouselImage srcPath={'./Landing_Test_8.webp'} />
+                <CarouselImage srcPath={'./Landing_Test_9.webp'} />
+                <CarouselImage srcPath={'./Landing_Test_10.webp'} />
               </Flex>
             </Flex>
             <Flex h={'100%'} animation={slideAnimation} alignItems='center'>
