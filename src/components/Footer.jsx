@@ -20,7 +20,7 @@ const PaymentIcons = () => {
     <Image
       h={10}
       w={40}
-      src="/payment-icons-stripe.png"
+      src="/payment_icons_stripe.png"
       alt="payment-icons-stripe"
     />
   );

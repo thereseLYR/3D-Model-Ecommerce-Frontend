@@ -27,7 +27,7 @@ const Landing = ({ setUser }) => {
   return (
     <>
       <Navbar />
-      <Grid p={4}>
+      <Grid p={4} style={{ margin: "10px" }}>
         <Heading as="h3" size="lg" marginBottom="8px">
           Featured Models
         </Heading>
