@@ -34,7 +34,7 @@ export default function AboutUs() {
           <Text color="gray.700">Q. When was Porky Prints founded?</Text>
           <Text fontSize="sm" color="gray.600">
             Porky prints was founded in 2022, by Therese, Stacey, Yanxiang and
-            Felica. During the course of Rocket's Academy Bootcamp, they banded
+            Felicia. During the course of Rocket's Academy Bootcamp, they banded
             together to begin their aspiring journey as software developers
             whilst also continuing their hobbies for building and tinkering
             through 3D printing.
