@@ -2,11 +2,11 @@
 import axios from "axios";
 import Cookies from "js-cookie"; // i realize we are using both react-cookie and js-cookie
 import React, { useState } from "react";
-import { CookiesProvider } from "react-cookie";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { BackendUrlProvider } from "./components/BackendUrl.jsx";
 import PrivateRoutes from "./components/PrivateRoutes.jsx";
+import CartPage from "./pages/Cart.jsx";
 import CartCheckoutPage from "./pages/CartCheckout.jsx";
 import ClickyConfigurator from "./pages/ClickyConfigurator.jsx";
 import Landing from "./pages/Landing.jsx";
@@ -38,7 +38,6 @@ export default function App() {
   });
   return (
     <BackendUrlProvider backendUrlData={BACKEND_URL}>
-      <CookiesProvider>
         <Router>
           <Navbar user={user}/>
           <Routes>
@@ -48,6 +47,7 @@ export default function App() {
             <Route path="/clicky" element={<ClickyConfigurator />} />
             <Route path="/models" element={<Models />} />
             <Route path="/model" element={<SingleModel />} />
+            <Route path="/cart" element={<CartPage />} />
             <Route path="/cart-checkout" element={<CartCheckoutPage />} />
             <Route path="/success-checkout" element={<SuccessCheckoutPage />} />
             <Route element={<PrivateRoutes />}>
@@ -57,7 +57,6 @@ export default function App() {
             </Route>
           </Routes>
         </Router>
-      </CookiesProvider>
     </BackendUrlProvider>
   );
 }

@@ -13,11 +13,12 @@ import {
   useDisclosure,
   Avatar,
 } from '@chakra-ui/react'
+import React from "react";
+import CartDrawer from "../components/cart/CartDrawer";
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 
 export default function NavBar({ user }) {
   const { isOpen, onToggle } = useDisclosure()
-
 
   return (
     <Box>
@@ -96,6 +97,7 @@ export default function NavBar({ user }) {
           direction="row"
           spacing={6}
         >
+          <CartDrawer />
           <Button
             as="a"
             fontSize="sm"

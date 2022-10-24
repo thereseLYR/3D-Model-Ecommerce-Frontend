@@ -24,7 +24,6 @@ const Profile = ({ user, setUser }) => {
   const [address, setAddress] = useState(user.address)
   const [phone, setPhone] = useState(user.phone)
   const [saveState, setSaveState] = useState(true)
-  const [profileState, setProfileState] = useState(true)
   const navigate = useNavigate()
   const CProfile = chakra(CgProfile)
   const CPurchaseTag = chakra(BiPurchaseTag)  
@@ -35,12 +34,10 @@ const Profile = ({ user, setUser }) => {
     }
 
   const handleProfileSelect = () => {
-    setProfileState(true)
     navigate('/profile')
   }
 
   const handlePurchaseSelect = () => {
-    setProfileState(false)
     navigate('/profile/purchase')
   }
 
@@ -83,7 +80,6 @@ const Profile = ({ user, setUser }) => {
           w='10%' 
         >   
           <Flex 
-            // backgroundColor={'orange'}
             alignItems='center'
             p={5} 
             h={{ base:'15%'}}
@@ -109,7 +105,6 @@ const Profile = ({ user, setUser }) => {
               alignItems='center'
               justifyContent='center'
             >
-              { profileState ? (
               <Flex
                 w={200}
                 p={2}
@@ -128,26 +123,6 @@ const Profile = ({ user, setUser }) => {
                 <Box>{<CProfile color="green" w={10} h={10} />}</Box>
                 <Box ml={'10%'}>My Profile</Box>
               </Flex>
-              ) : ( 
-              <Flex
-                w={200}
-                p={2}
-                fontSize={"sm"}
-                fontWeight={500}
-                color={"gray.600"}
-                justifyContent='stretch'
-                alignItems='center'
-                onClick={handleProfileSelect}
-                _hover={{
-                cursor: 'pointer',
-                textDecoration: "none",
-                color: "green",
-                }}
-              >
-                <Box>{<CProfile color="green" w={10} h={10} />}</Box>
-                <Box ml={'10%'} >My Profile</Box>
-              </Flex>
-                )}
             </Flex>
             <Flex
               w={200}
