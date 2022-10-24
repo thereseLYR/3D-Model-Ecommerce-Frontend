@@ -1,3 +1,4 @@
+import { Text } from "@chakra-ui/react";
 import {
   ContactShadows,
   OrbitControls,
@@ -7,11 +8,12 @@ import { Canvas } from "@react-three/fiber";
 import { useState } from "react";
 import { SketchPicker } from "react-color";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 import Clicky from "../components/Clicky.jsx";
 import SaveButton from "../components/SaveButton.jsx";
 
 const initialModelState = {
-  currentItem: null,
+  currentItem: "Case_A_v3",
   items: {
     Case_A_v3: "coral",
     Spring_Normal: "darkmagenta",
@@ -23,6 +25,7 @@ const initialModelState = {
 function ClickyConfigurator() {
   const [modelState, setModelState] = useState(initialModelState);
   const [cookies, setCookie] = useCookies(["saved-models"]);
+  const navigate = useNavigate();
 
   const getModelStateFromComponents = () => {
     return modelState;
@@ -56,38 +59,47 @@ function ClickyConfigurator() {
     return;
   }
 
+  const handleExitClick = () => {
+    navigate("/model");
+  };
+
   function Picker() {
     return (
-      <div
-        className="picker"
-        style={{ display: modelState.currentItem ? "block" : "none" }}
-      >
-        <h1> {modelState.currentItem}</h1>
+      <div className="picker">
+        <Text w={"200px"} as="b" margin={"0px 3px 3px 0px"}>
+          Part Name:
+        </Text>
+        <Text w={"200px"} margin={"0px 3px 10px 0px"}>
+          {modelState.currentItem}
+        </Text>
         <SketchPicker
-          color={modelState.items[modelState.currentItem]}
+          color={modelState.items[modelState.currentItem] || "coral"}
           onChange={(color) => {
             modelState.items[modelState.currentItem] = color.hex;
           }}
         />
-        <SaveButton onClickFunction={handleModelSave} />
+        <SaveButton
+          onSaveCustomClick={handleModelSave}
+          onExitClick={handleExitClick}
+        />
       </div>
     );
   }
 
-  function ColorState() {
-    const objEntries = Object.entries(modelState.items);
-    return (
-      <div>
-        {objEntries.map((subArr) => {
-          return (
-            <h2>
-              {subArr[0]}: {subArr[1]}{" "}
-            </h2>
-          );
-        })}
-      </div>
-    );
-  }
+  // function ColorState() {
+  //   const objEntries = Object.entries(modelState.items);
+  //   return (
+  //     <div>
+  //       {objEntries.map((subArr) => {
+  //         return (
+  //           <h2>
+  //             {subArr[0]}: {subArr[1]}{" "}
+  //           </h2>
+  //         );
+  //       })}
+  //     </div>
+  //   );
+  // }
 
   return (
     <div style={{ width: "100%", height: "100%" }}>
