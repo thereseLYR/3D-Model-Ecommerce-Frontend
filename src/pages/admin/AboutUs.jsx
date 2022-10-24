@@ -41,7 +41,7 @@ export default function AboutUs() {
           </Text>
           <Text color="gray.700">Q. Why Porky Prints?</Text>
           <Text fontSize="sm" color="gray.600">
-            Porky is synonym for fabricate which means to to lie/ invent
+            Porky is synonym for fabricate which means to to lie or falsify
             compared to fabricate's well known meaning of inventing. And we love
             cute piggies!
           </Text>
