@@ -6,6 +6,7 @@ import "./App.css";
 import { BackendUrlProvider } from "./components/BackendUrl.jsx";
 import PrivateRoutes from "./components/PrivateRoutes.jsx";
 import AccessDeniedPage from "./pages/AccessDenied.jsx";
+import AboutUs from "./pages/admin/AboutUs";
 import ContactUs from "./pages/admin/ContactUs";
 import Delivery from "./pages/admin/Delivery";
 import ReturnsPolicy from "./pages/admin/ReturnsPolicy";
@@ -51,6 +52,7 @@ export default function App() {
           <Route path="/admin/contact-us" element={<ContactUs />} />
           <Route path="/admin/returns-policy" element={<ReturnsPolicy />} />
           <Route path="/admin/delivery" element={<Delivery />} />
+          <Route path="/admin/about-us" element={<AboutUs />} />
           <Route element={<PrivateRoutes user={user} />}>
             <Route
               path="/cart-checkout"
