@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import BackendUrlContext from "../components/BackendUrl.jsx";
 import Footer from "../components/Footer.jsx";
 import CarouselImage from "../components/landing/CarouselImage.jsx";
-// import SlideAnimation from "../components/landing/SlideAnimation.jsx";
+import SlideAnimation from "../components/landing/SlideAnimation.jsx";
 import ModelBox from "../components/ModelBox.jsx";
 
 const Landing = ({ setUser }) => {
@@ -21,8 +21,6 @@ const Landing = ({ setUser }) => {
   const [modelsData, setModelsData] = useState();
   const navigate = useNavigate();
 
-  // render models on landing
-  // render the models every time selectedcategory changes
   useEffect(() => {
     axios
       .get(`${backendUrl}/api/models`)
@@ -83,8 +81,7 @@ const Landing = ({ setUser }) => {
           </Flex>
 
           <Flex h={"600px"} direction={"row"}>
-            {/* <Flex h={"100%"} animation={SlideAnimation} alignItems="center"> */}
-            <Flex h={"100%"} alignItems="center">
+            <Flex h={"100%"} animation={SlideAnimation} alignItems="center">
               <Flex h="100%">
                 <CarouselImage srcPath={"./Landing_Test_1.webp"} />
                 <CarouselImage srcPath={"./Landing_Test_2.webp"} />
@@ -98,90 +95,18 @@ const Landing = ({ setUser }) => {
                 <CarouselImage srcPath={"./Landing_Test_10.webp"} />
               </Flex>
             </Flex>
-            {/* <Flex h={"100%"} animation={SlideAnimation} alignItems="center"> */}
-            <Flex h={"100%"} alignItems="center">
+            <Flex h={"100%"} animation={SlideAnimation} alignItems="center">
               <Flex h="100%">
-                <Box w="20vw">
-                  <Image
-                    h="100%"
-                    src="./Landing_Test_1.webp"
-                    alt="a 3D Model"
-                    objectFit={"cover"}
-                    objectPosition={"center"}
-                  />
-                </Box>
-                <Box w="20vw">
-                  <Image
-                    h="100%"
-                    src="./Landing_Test_2.webp"
-                    alt="a 3D Model"
-                    objectFit={"cover"}
-                  />
-                </Box>
-                <Box w="20vw">
-                  <Image
-                    h="100%"
-                    src="./Landing_Test_3.webp"
-                    alt="a 3D Model"
-                    objectFit={"cover"}
-                  />
-                </Box>
-                <Box w="20vw">
-                  <Image
-                    h="100%"
-                    src="./Landing_Test_4.webp"
-                    alt="a 3D Model"
-                    objectFit={"cover"}
-                  />
-                </Box>
-                <Box w="20vw">
-                  <Image
-                    h="100%"
-                    src="./Landing_Test_5.webp"
-                    alt="a 3D Model"
-                    objectFit={"cover"}
-                  />
-                </Box>
-                <Box w="20vw">
-                  <Image
-                    h="100%"
-                    src="./Landing_Test_6.webp"
-                    alt="a 3D Model"
-                    objectFit={"cover"}
-                  />
-                </Box>
-                <Box w="20vw">
-                  <Image
-                    h="100%"
-                    src="./Landing_Test_7.webp"
-                    alt="a 3D Model"
-                    objectFit={"cover"}
-                  />
-                </Box>
-                <Box w="20vw">
-                  <Image
-                    h="100%"
-                    src="./Landing_Test_8.webp"
-                    alt="a 3D Model"
-                    objectFit={"cover"}
-                  />
-                </Box>
-                <Box w="20vw">
-                  <Image
-                    h="100%"
-                    src="./Landing_Test_9.webp"
-                    alt="a 3D Model"
-                    objectFit={"cover"}
-                  />
-                </Box>
-                <Box w="20vw">
-                  <Image
-                    h="100%"
-                    src="./Landing_Test_10.webp"
-                    alt="a 3D Model"
-                    objectFit={"cover"}
-                  />
-                </Box>
+                <CarouselImage srcPath={"./Landing_Test_1.webp"} />
+                <CarouselImage srcPath={"./Landing_Test_2.webp"} />
+                <CarouselImage srcPath={"./Landing_Test_3.webp"} />
+                <CarouselImage srcPath={"./Landing_Test_4.webp"} />
+                <CarouselImage srcPath={"./Landing_Test_5.webp"} />
+                <CarouselImage srcPath={"./Landing_Test_6.webp"} />
+                <CarouselImage srcPath={"./Landing_Test_7.webp"} />
+                <CarouselImage srcPath={"./Landing_Test_8.webp"} />
+                <CarouselImage srcPath={"./Landing_Test_9.webp"} />
+                <CarouselImage srcPath={"./Landing_Test_10.webp"} />
               </Flex>
             </Flex>
           </Flex>
