@@ -11,8 +11,6 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  Popover,
-  PopoverTrigger,
   Stack,
   useColorModeValue,
   useDisclosure,
@@ -147,7 +145,6 @@ export default function NavBar() {
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
           <Image
-            // src="/porky-prints-logo.png"
             src="/porky_prints_full.svg"
             alt="Pink pig cute logo"
             width={"auto"}
@@ -160,31 +157,109 @@ export default function NavBar() {
             }}
           />
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
-            <Stack direction={"row"} spacing={3}>
+            <Stack
+              direction={"row"}
+              spacing={3}
+              display={"flex"}
+              alignItems={"center"}
+            >
               {NAV_ITEMS.map((navItem) => (
-                <Box key={navItem.label} display={"flex"} alignItems={"center"}>
-                  <Popover trigger={"hover"} placement={"bottom-start"}>
-                    <PopoverTrigger>
-                      <Link
-                        p={2}
-                        href={navItem.href ?? "#"}
-                        fontSize={"sm"}
-                        fontWeight={600}
-                        color="gray.800"
-                        borderRadius={"6px"}
-                        borderWidth={"1px"}
-                        borderColor={"#FF8BA0"}
-                        padding={"10px 20px 10px 20px"}
-                        _hover={{
-                          bg: "whiteAlpha.500",
-                        }}
-                      >
-                        {navItem.label}
-                      </Link>
-                    </PopoverTrigger>
-                  </Popover>
+                <Box
+                  key={navItem.label}
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"center"}
+                >
+                  <Link
+                    p={2}
+                    href={navItem.href ?? "#"}
+                    fontSize={"sm"}
+                    fontWeight={600}
+                    color="gray.800"
+                    borderRadius={"6px"}
+                    borderWidth={"1px"}
+                    borderColor={"#FF8BA0"}
+                    _hover={{
+                      bg: "whiteAlpha.500",
+                    }}
+                  >
+                    {navItem.label}
+                  </Link>
                 </Box>
               ))}
+              <Menu>
+                <MenuButton
+                  p={2}
+                  fontSize={"sm"}
+                  fontWeight={600}
+                  color="gray.800"
+                  borderRadius={"6px"}
+                  borderWidth={"1px"}
+                  borderColor={"#FF8BA0"}
+                  height={"40px"}
+                  _hover={{
+                    bg: "whiteAlpha.500",
+                  }}
+                >
+                  Customer Assistance
+                </MenuButton>
+                <MenuList>
+                  <MenuItem color="gray.800" as="a" href="/admin/delivery">
+                    Delivery
+                  </MenuItem>
+                  <MenuItem
+                    color="gray.800"
+                    as="a"
+                    href="/admin/returns-policy"
+                  >
+                    Returns Policy
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+              <Box
+                key={"contact-us"}
+                display={"flex"}
+                alignItems={"center"}
+                justifyContent={"center"}
+              >
+                <Link
+                  p={2}
+                  href={"/admin/contact-us"}
+                  fontSize={"sm"}
+                  fontWeight={600}
+                  color="gray.800"
+                  borderRadius={"6px"}
+                  borderWidth={"1px"}
+                  borderColor={"#FF8BA0"}
+                  _hover={{
+                    bg: "whiteAlpha.500",
+                  }}
+                >
+                  Contact Us
+                </Link>
+              </Box>
+              <Box
+                key={"about-us"}
+                display={"flex"}
+                alignItems={"center"}
+                justifyContent={"center"}
+              >
+                <Link
+                  p={2}
+                  href={"/admin/about-us"}
+                  fontSize={"sm"}
+                  fontWeight={600}
+                  color="gray.800"
+                  borderRadius={"6px"}
+                  borderWidth={"1px"}
+                  borderColor={"#FF8BA0"}
+                  _hover={{
+                    bg: "whiteAlpha.500",
+                  }}
+                >
+                  About Us
+                </Link>
+              </Box>
             </Stack>
           </Flex>
         </Flex>
@@ -204,19 +279,4 @@ const NAV_ITEMS = [
     label: "3D Models",
     href: "/models",
   },
-  //   {
-  //     label: 'Find Work',
-  //     children: [
-  //       {
-  //         label: 'Job Board',
-  //         subLabel: 'Find your dream design job',
-  //         href: '#'
-  //       },
-  //       {
-  //         label: 'Freelance Projects',
-  //         subLabel: 'An exclusive list for contract work',
-  //         href: '#'
-  //       }
-  //     ]
-  //   }
 ];

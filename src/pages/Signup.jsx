@@ -203,7 +203,7 @@ const Signup = () => {
                   </InputGroup>
                 </FormControl>
                 <Button
-                  borderRadius={0}
+                  borderRadius={6}
                   type="submit"
                   variant="solid"
                   bgColor={"#FF5876"}
