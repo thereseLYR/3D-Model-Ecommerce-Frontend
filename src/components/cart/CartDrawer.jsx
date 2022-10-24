@@ -25,7 +25,11 @@ const CartIcon = () => {
 };
 
 const EmptyCartText = () => {
-  return <Text>There are no items in your shopping cart.</Text>;
+  return (
+    <Text fontSize={"lg"} color={"gray.700"}>
+      There are no items in your shopping cart
+    </Text>
+  );
 };
 
 export default function CartDrawer() {
@@ -43,19 +47,21 @@ export default function CartDrawer() {
 
   const DrawerCartItem = ({ item }) => {
     return (
-      <HStack
-        divider={<StackDivider borderColor="gray.200" />}
-        alignItems={"start"}
-      >
+      <HStack divider={<StackDivider borderColor="gray.200" />} spacing={5}>
         <Image src="https://picsum.photos/100/100" alt="product_image"></Image>
-        <VStack alignItems={"start"}>
-          <Text fontSize={"lg"} as="b">
+        <VStack alignItems={"start"} spacing={1}>
+          <Text as="b" fontSize={"lg"} color={"gray.700"}>
             {item.model_name}
           </Text>
-          <Text>
-            {item.material}, x{item.quantity}
+          <Text fontSize={"sm"} color={"gray.600"}>
+            Material: {item.material}
           </Text>
-          <Text>${item.ppu * item.quantity}</Text>
+          <Text fontSize={"sm"} color={"gray.600"}>
+            Quantity: {item.quantity} pcs
+          </Text>
+          <Text fontSize={"sm"} color={"gray.600"}>
+            Price: ${item.ppu * item.quantity}
+          </Text>
         </VStack>
       </HStack>
     );
@@ -86,15 +92,17 @@ export default function CartDrawer() {
           <DrawerCloseButton />
           <DrawerHeader>
             <HStack spacing={3}>
-              <Text>Shopping Cart</Text>
-              <Text>{cartCookie ? cartCookie.length : 0} Items</Text>
+              <Text color={"gray.700"}>Shopping Cart </Text>
+              <Text color={"gray.700"}>
+                {cartCookie ? cartCookie.length : 0} Items
+              </Text>
             </HStack>
           </DrawerHeader>
           <Divider />
           <DrawerBody>
             <VStack
-              spacing={5}
               divider={<StackDivider borderColor="gray.200" />}
+              alignItems={"start"}
             >
               {cartCookie.length > 0 ? (
                 cartCookie.map((item, idx) => (
@@ -103,6 +111,11 @@ export default function CartDrawer() {
               ) : (
                 <EmptyCartText />
               )}
+            </VStack>
+            <br />
+            <Divider />
+            <br />
+            <VStack spacing={5}>
               <Text fontSize={"md"} as="b">
                 Subtotal: $
                 {cartCookie.length > 0
