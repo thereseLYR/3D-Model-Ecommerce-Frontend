@@ -1,4 +1,4 @@
-import { Container, HStack, Image, Text, VStack } from "@chakra-ui/react";
+import { Container, HStack, Image, Link, Text, VStack } from "@chakra-ui/react";
 import Footer from "../../components/Footer";
 import NavBar from "../../components/Navbar";
 
@@ -12,7 +12,7 @@ export default function AboutUs() {
           <Text as="b" fontSize="28px">
             About Porky Prints / FAQ
           </Text>
-          <Text as="b" fontSize="lg">
+          <Text as="b" fontSize="2xl">
             Porky Prints
           </Text>
           <HStack>
@@ -28,26 +28,47 @@ export default function AboutUs() {
         </VStack>
         <br />
         <VStack alignItems="start">
-          <Text as="b" fontSize="lg">
+          <Text as="b" fontSize="2xl">
             FAQ
           </Text>
-          <Text color="gray.700">Q. When was Porky Prints founded?</Text>
+          <Text color="gray.700" as="b">
+            Q. Who's behind Porky Prints?
+          </Text>
           <Text fontSize="sm" color="gray.600">
-            Porky prints was founded in 2022, by Therese, Stacey, Yanxiang and
-            Felicia. During the course of Rocket's Academy Bootcamp, they banded
+            Porky Prints was founded in 2022, by {""}
+            <Link color="#FF5876" href="https://github.com/thereseLYR">
+              Therese
+            </Link>
+            , {""}
+            <Link color="#FF5876" href="https://github.com/staceyng">
+              Stacey
+            </Link>
+            , {""}
+            <Link color="#FF5876" href="https://github.com/Nyx92">
+              Yanxiang
+            </Link>{" "}
+            and {""}
+            <Link color="#FF5876" href="https://github.com/sundriedtomato12">
+              Felicia
+            </Link>
+            . During the course of Rocket Academy's Bootcamp, they banded
             together to begin their aspiring journey as software developers
             whilst also continuing their hobbies for building and tinkering
             through 3D printing.
           </Text>
-          <Text color="gray.700">Q. Why Porky Prints?</Text>
-          <Text fontSize="sm" color="gray.600">
-            Porky is synonym for fabricate which means to to lie/ invent
-            compared to fabricate's well known meaning of inventing. And we love
-            cute piggies!
+          <Text color="gray.700" as="b">
+            Q. Why Porky Prints?
           </Text>
-          <Text color="gray.700">Q. What are the printers we use?</Text>
           <Text fontSize="sm" color="gray.600">
-            HP inkjet da best
+            'Porky' is a synonym for lies or fabications - a pun on the physical
+            'fabrications' that we do in-house to manufacture the items you buy
+            from us! Also, we love cute piggies.
+          </Text>
+          <Text color="gray.700" as="b">
+            Q. What 3D printers do we use?
+          </Text>
+          <Text fontSize="sm" color="gray.600">
+            Prusa MK3Ss and Voron V0.1s.
           </Text>
         </VStack>
       </Container>
