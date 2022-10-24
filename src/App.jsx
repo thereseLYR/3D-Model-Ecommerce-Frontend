@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie"; // i realize we are using both react-cookie and js-cookie
-import React, { useState } from "react";
+import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { BackendUrlProvider } from "./components/BackendUrl.jsx";

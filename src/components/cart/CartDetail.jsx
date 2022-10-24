@@ -8,42 +8,56 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 export default function CartDetail() {
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(["temp_cart"]);
-  let tempCartCookie = cookies["temp_cart"];
-  let colourCartCookie = cookies["saved-models"];
-  // use tempCartCookie for model ID/material/quantity data
+  const colourCartCookie = useRef(cookies["saved-models"] || []);
+  const cartCookie = useRef(cookies["temp_cart"] || []);
+  // use cartCookie.current for model ID/material/quantity data
   // use saved-models for colour options
 
   useEffect(() => {
-    tempCartCookie = cookies["temp_cart"];
-  }, [cookies.temp_cart]);
+    if (cartCookie.length > 0) {
+      cartCookie.current = cookies["temp_cart"];
+    }
+    if (colourCartCookie.length > 0) {
+      colourCartCookie.current = cookies["saved-models"];
+    }
+  });
 
   const onEditClick = () => navigate("/model");
   const onDeleteClick = (id) => {
-    for (let i = 0; i < tempCartCookie.length; i += 1) {
-      const currentItem = tempCartCookie[i];
+    for (let i = 0; i < cartCookie.current.length; i += 1) {
+      const currentItem = cartCookie.current[i];
       if (currentItem.id === id) {
-        tempCartCookie.splice(i, 1);
+        cartCookie.current.splice(i, 1);
       }
     }
-    setCookie("temp_cart", tempCartCookie, { path: "/" });
+    setCookie("temp_cart", cartCookie.current, { path: "/" });
   };
 
   const CartItem = ({ cartDataItem, modelDataItem }) => {
+    let modelNamesArr;
     if (cartDataItem) {
-      // modelDataItem[0][1] is an object with pure colour data from the customized clicky model
-      const modelNamesArr = Object.keys(modelDataItem[0][1]);
+      if (modelDataItem && !(modelDataItem.length > 0)) {
+        // use default colors from cartDataItem
+        modelNamesArr = Object.keys(cartDataItem.component_breakdown);
+      } else {
+        // use colors set from modelDataItem
+        // modelDataItem[0][1] is an object with pure colour data from the customized clicky model
+        modelNamesArr = Object.keys(modelDataItem[0][1]);
+      }
       const modelDataItemsList = modelNamesArr.map((key) => {
         return (
           <li key={key}>
-            {" "}
-            <strong>{key}</strong>: {modelDataItem[0][1][key]}{" "}
+            <strong>{key}</strong>:{" "}
+            {modelDataItem.length > 0
+              ? modelDataItem[0][1][key]
+              : cartDataItem.component_breakdown[key]}
           </li>
         );
       });
@@ -51,7 +65,7 @@ export default function CartDetail() {
       return (
         <HStack spacing={10} divider={<StackDivider borderColor="gray.200" />}>
           <Image src="https://picsum.photos/150/180"></Image>
-          <VStack>
+          <VStack alignItems="start">
             <Text as="b" fontSize={"lg"}>
               {cartDataItem.model_name}
             </Text>
@@ -78,20 +92,22 @@ export default function CartDetail() {
         </HStack>
       );
     } else {
-      return <Text>No items in Cart</Text>;
+      return <Text>No items in cart</Text>;
     }
   };
-
-  const onCheckoutClick = () => navigate("/cart-checkout");
 
   return (
     <VStack spacing={10} divider={<StackDivider borderColor="gray.200" />}>
       <CartItem
-        cartDataItem={tempCartCookie.length > 0 && tempCartCookie[0]}
-        modelDataItem={[colourCartCookie]}
+        cartDataItem={cartCookie.current.length > 0 && cartCookie.current[0]}
+        modelDataItem={colourCartCookie.current}
       />
       {/* hardcoded modelId for colourCartCookie since our only active configurator is clicky */}
-      <Button colorScheme="pink" size="lg" onClick={onCheckoutClick}>
+      <Button
+        colorScheme="pink"
+        size="lg"
+        onClick={() => navigate("/cart-checkout")}
+      >
         Checkout
       </Button>
     </VStack>

@@ -1,6 +1,6 @@
 import { Box, Button, Text, VStack } from "@chakra-ui/react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import React, { useState } from "react";
+import { useState } from "react";
 import { FiCreditCard } from "react-icons/fi";
 import BillingDetailsFields from "./BillingDetailsFields";
 import CheckoutErrorContainer from "./CheckoutErrorContainer";
@@ -98,7 +98,6 @@ const CheckoutForm = ({
     <form onSubmit={handleFormSubmit}>
       <VStack>
         <BillingDetailsFields userDetails={userDetails} />
-        <br />
         <CardPayment />
         {checkoutError && (
           <CheckoutErrorContainer>{checkoutError}</CheckoutErrorContainer>

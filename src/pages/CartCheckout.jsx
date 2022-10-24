@@ -2,7 +2,7 @@ import { Box, HStack, StackDivider, Text, VStack } from "@chakra-ui/react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import CheckoutForm from "../components/checkout/CheckoutForm";
@@ -51,8 +51,11 @@ export default function CartCheckoutPage({ user }) {
   const [clientSecret, setClientSecret] = useState("");
   const [cookies, setCookie] = useCookies(["saved-models"]);
   const [userDetails, setUserDetails] = useState({});
+  const cartCookies = useRef(cookies.temp_cart || []);
 
-  const tempCartCookies = cookies.temp_cart;
+  useEffect(() => {
+    cartCookies.current = cookies.temp_cart;
+  });
 
   const postStripePayments = () => {
     axios
@@ -61,7 +64,9 @@ export default function CartCheckoutPage({ user }) {
         // price = 10, * 100 because stripe amount is in smallest denominations, $1 = 100c
         {
           amount:
-            tempCartCookies[0]["ppu"] * tempCartCookies[0]["quantity"] * 100,
+            cartCookies.current[0]["ppu"] *
+            cartCookies.current[0]["quantity"] *
+            100,
         }
       )
       .then((result) => {
@@ -69,7 +74,7 @@ export default function CartCheckoutPage({ user }) {
       });
   };
 
-  const getUserDetails = () => {
+  const getUserDetails = useCallback(() => {
     axios
       .get(`${backendUrl}/api/users/${user.id}`)
       .then((res) => {
@@ -81,7 +86,7 @@ export default function CartCheckoutPage({ user }) {
           `[ERROR] unable to get user with user_id: ${user.id}, err:${err}`
         );
       });
-  };
+  }, [user]);
 
   const postNewOrder = () => {
     axios
@@ -105,13 +110,11 @@ export default function CartCheckoutPage({ user }) {
   };
 
   useEffect(() => {
-    if (user !== undefined) {
-      postStripePayments();
-      getUserDetails();
-    } else {
-      navigate("/access-denied");
-    }
-  }, []);
+    user !== undefined ? getUserDetails() : navigate("/access-denied");
+    //eslint-disable-next-line
+  }, [getUserDetails, user]);
+
+  useEffect(() => postStripePayments(), []);
 
   const appearance = {
     theme: "stripe",
@@ -124,7 +127,6 @@ export default function CartCheckoutPage({ user }) {
   return (
     <>
       <Navbar />
-      <br />
       <VStack spacing={10}>
         <Text
           color={"pink.500"}
@@ -132,18 +134,20 @@ export default function CartCheckoutPage({ user }) {
           fontWeight={800}
           letterSpacing={1.1}
           fontSize="3xl"
+          textAlign={"center"}
         >
-          My Cart
+          Review your order
         </Text>
         <Box>
-          <SingleCartItem item={tempCartCookies[0]} />
+          <SingleCartItem item={cartCookies.current[0]} />
         </Box>
         <Box>
           {clientSecret && (
             <Elements stripe={stripePromise} options={options}>
               <CheckoutForm
                 price={
-                  tempCartCookies[0]["ppu"] * tempCartCookies[0]["quantity"]
+                  cartCookies.current[0]["ppu"] *
+                  cartCookies.current[0]["quantity"]
                 }
                 onSuccessfulCheckout={() => {
                   postNewOrder();

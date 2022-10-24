@@ -15,7 +15,7 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useCookies } from "react-cookie";
 import { BiCart } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
@@ -33,11 +33,13 @@ export default function CartDrawer() {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [cookies, setCookie] = useCookies(["temp_cart"]);
-  let tempCartCookies = cookies.temp_cart || "";
+  const [cartCookie, setCartCookie] = useState(cookies.temp_cart || []);
 
   useEffect(() => {
-    tempCartCookies = cookies.temp_cart;
-  }, [cookies.temp_cart]);
+    if (cookies.temp_cart.length > 0) {
+      setCartCookie(cookies.temp_cart);
+    }
+  }, [cookies]);
 
   const DrawerCartItem = ({ item }) => {
     return (
@@ -64,10 +66,10 @@ export default function CartDrawer() {
       <Button
         display={{ base: "none", md: "inline-flex" }}
         onClick={onOpen}
-        color="white"
-        bg="pink.400"
+        color="gray.800"
+        bg="#FF8BA0"
         _hover={{
-          bg: "pink.300",
+          bg: "#FFBECA",
         }}
       >
         <CartIcon />
@@ -85,7 +87,7 @@ export default function CartDrawer() {
           <DrawerHeader>
             <HStack spacing={3}>
               <Text>Shopping Cart</Text>
-              <Text>{tempCartCookies ? tempCartCookies.length : 0} Items</Text>
+              <Text>{cartCookie ? cartCookie.length : 0} Items</Text>
             </HStack>
           </DrawerHeader>
           <Divider />
@@ -94,23 +96,33 @@ export default function CartDrawer() {
               spacing={5}
               divider={<StackDivider borderColor="gray.200" />}
             >
-              {tempCartCookies.length !== 0 ? (
-                tempCartCookies.map((item, idx) => (
-                  <DrawerCartItem key={idx} item={tempCartCookies[idx]} />
+              {cartCookie.length > 0 ? (
+                cartCookie.map((item, idx) => (
+                  <DrawerCartItem key={idx} item={cartCookie[idx]} />
                 ))
               ) : (
                 <EmptyCartText />
               )}
               <Text fontSize={"md"} as="b">
                 Subtotal: $
-                {tempCartCookies.length !== 0
-                  ? tempCartCookies.reduce(
+                {cartCookie.length > 0
+                  ? cartCookie.reduce(
                       (total, obj) => obj.quantity * obj.ppu + total,
                       0
                     )
                   : 0}
               </Text>
-              <Button colorScheme="blue" onClick={() => navigate("/cart")}>
+              <Button
+                borderRadius={2}
+                type="submit"
+                variant="solid"
+                bgColor={"#FF5876"}
+                color={"white"}
+                onClick={() => navigate("/cart")}
+                _hover={{
+                  bg: "#FF8BA0",
+                }}
+              >
                 View Cart
               </Button>
             </VStack>
