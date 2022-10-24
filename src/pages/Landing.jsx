@@ -2,6 +2,7 @@ import { Box, Grid, Heading } from "@chakra-ui/react";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import BackendUrlContext from "../components/BackendUrl.jsx";
+import Footer from "../components/Footer.jsx";
 import ModelBox from "../components/ModelBox.jsx";
 import Navbar from "../components/Navbar.jsx";
 
@@ -26,7 +27,7 @@ const Landing = ({ setUser }) => {
   return (
     <>
       <Navbar />
-      <Grid p={4}>
+      <Grid p={4} style={{ margin: "10px" }}>
         <Heading as="h3" size="lg" marginBottom="8px">
           Featured Models
         </Heading>
@@ -42,6 +43,7 @@ const Landing = ({ setUser }) => {
             ))}
         </Box>
       </Grid>
+      <Footer />
     </>
   );
 };

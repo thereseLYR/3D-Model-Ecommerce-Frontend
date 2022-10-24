@@ -20,11 +20,8 @@ import {
   Tr,
   VStack,
 } from "@chakra-ui/react";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useCookies } from "react-cookie";
-
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 const defaultClickyColours = {
   Case_A_v3: "coral",
@@ -40,28 +37,14 @@ const defaultModelNew = {
   material: "",
 };
 
-export default function ModelFields() {
+export default function ModelFields({ modelDataForOrderCookie }) {
   const [material, setMaterial] = useState("PLA");
+  const [price, setPrice] = useState(modelDataForOrderCookie["ppu"] || 15); // TODO: bug here, to discover why price is undefined
   const [quantity, setQuantity] = useState(1);
-  const [price, setPrice] = useState(0);
   const [successfulAddCart, setSuccessfulAddCart] = useState(false);
   const [cookies, setCookie] = useCookies(["temp-cart"]);
-  let modelDataForOrderCookie = {};
-
-  useEffect(() => {
-    axios.get(`${backendUrl}/api/models/1`).then((result) => {
-      const data = result.data["modelData"];
-      // populate additional fields with data from DB
-      modelDataForOrderCookie["model_name"] = data["model_name"];
-      modelDataForOrderCookie["model_description"] = data["model_description"];
-      const ppu = data["price_per_unit"];
-      modelDataForOrderCookie["ppu"] = ppu;
-      setPrice(ppu);
-    });
-  });
 
   // TODO: reset button to remove customized config and restore defaults
-
   const colourDataFromConfigurator = cookies["saved-models"] || "";
 
   const handleAddToCartClick = () => {
@@ -102,14 +85,14 @@ export default function ModelFields() {
     return (
       <Box>
         <Text
-          color={"gray.500"}
+          color={"gray.400"}
           textTransform={"uppercase"}
           fontWeight={800}
           fontSize={"md"}
           letterSpacing={1.1}
           textAlign={"left"}
         >
-          Clicky Component Breakdown
+          Component Breakdown
         </Text>
         <TableContainer>
           <Table variant="striped" colorScheme="teal">
@@ -148,7 +131,7 @@ export default function ModelFields() {
   return (
     <VStack alignItems={"start"} spacing={5}>
       <Text
-        color={"gray.700"}
+        color={"gray.600"}
         fontWeight={800}
         textTransform={"uppercase"}
         fontSize={"4xl"}
@@ -156,7 +139,7 @@ export default function ModelFields() {
         Clicky
       </Text>
       <Text
-        color={"green.500"}
+        color={"teal.400"}
         textTransform={"uppercase"}
         fontWeight={800}
         fontSize={"lg"}
@@ -168,7 +151,7 @@ export default function ModelFields() {
       <ModelBreakdown />
       <FormControl>
         <FormLabel
-          color={"gray.500"}
+          color={"gray.400"}
           textTransform={"uppercase"}
           fontWeight={800}
           fontSize={"md"}
@@ -188,7 +171,7 @@ export default function ModelFields() {
       </FormControl>
       <FormControl>
         <FormLabel
-          color={"gray.500"}
+          color={"gray.400"}
           textTransform={"uppercase"}
           fontWeight={800}
           fontSize={"md"}
@@ -211,7 +194,7 @@ export default function ModelFields() {
         </NumberInput>
       </FormControl>
       <Text
-        color={"gray.900"}
+        color={"gray.500"}
         textTransform={"uppercase"}
         fontWeight={800}
         fontSize={"lg"}
@@ -221,11 +204,15 @@ export default function ModelFields() {
         Price: ${price * quantity}
       </Text>
       <Button
-        colorScheme="pink"
         variant="solid"
         size="lg"
         onClick={handleAddToCartClick}
         disabled={quantity === 0}
+        bgColor={"#FF5876"}
+        color={"white"}
+        _hover={{
+          bg: "#FF8BA0",
+        }}
       >
         Add to Cart
       </Button>

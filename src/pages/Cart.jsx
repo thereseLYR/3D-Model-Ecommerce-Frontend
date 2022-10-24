@@ -1,5 +1,6 @@
 import { Divider, Text, VStack } from "@chakra-ui/react";
 import CartDetail from "../components/cart/CartDetail";
+import Footer from "../components/Footer";
 import Navbar from "../components/Navbar.jsx";
 
 export default function CartPage() {
@@ -11,6 +12,7 @@ export default function CartPage() {
         <Divider />
         <CartDetail />
       </VStack>
+      <Footer />
     </>
   );
 }

@@ -6,6 +6,9 @@ import "./App.css";
 import { BackendUrlProvider } from "./components/BackendUrl.jsx";
 import PrivateRoutes from "./components/PrivateRoutes.jsx";
 import AccessDeniedPage from "./pages/AccessDenied.jsx";
+import ContactUs from "./pages/admin/ContactUs";
+import Delivery from "./pages/admin/Delivery";
+import ReturnsPolicy from "./pages/admin/ReturnsPolicy";
 import CartPage from "./pages/Cart.jsx";
 import CartCheckoutPage from "./pages/CartCheckout.jsx";
 import ClickyConfigurator from "./pages/ClickyConfigurator.jsx";
@@ -45,6 +48,9 @@ export default function App() {
           <Route path="/model" element={<SingleModel />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/access-denied" element={<AccessDeniedPage />} />
+          <Route path="/admin/contact-us" element={<ContactUs />} />
+          <Route path="/admin/returns-policy" element={<ReturnsPolicy />} />
+          <Route path="/admin/delivery" element={<Delivery />} />
           <Route element={<PrivateRoutes user={user} />}>
             <Route
               path="/cart-checkout"

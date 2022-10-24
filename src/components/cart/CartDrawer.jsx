@@ -36,7 +36,7 @@ export default function CartDrawer() {
   const [cartCookie, setCartCookie] = useState(cookies.temp_cart || []);
 
   useEffect(() => {
-    if (cookies.temp_cart.length > 0) {
+    if (cookies.temp_cart && cookies.temp_cart.length > 0) {
       setCartCookie(cookies.temp_cart);
     }
   }, [cookies]);
@@ -113,7 +113,7 @@ export default function CartDrawer() {
                   : 0}
               </Text>
               <Button
-                borderRadius={2}
+                borderRadius={5}
                 type="submit"
                 variant="solid"
                 bgColor={"#FF5876"}
