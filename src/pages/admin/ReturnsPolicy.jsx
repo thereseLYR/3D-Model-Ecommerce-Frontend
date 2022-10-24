@@ -8,7 +8,7 @@ export default function ReturnsPolicy() {
       <br />
       <Container>
         <VStack alignItems="left">
-          <Text as="b" fontSize="lg">
+          <Text as="b" fontSize="28px">
             Returns and Refund Policy
           </Text>
           <Text fontSize="md" color="gray.600">
