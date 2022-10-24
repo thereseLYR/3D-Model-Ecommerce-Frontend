@@ -39,11 +39,11 @@ export default function ReturnsPolicy() {
             Late or Missing Refunds
           </Text>
           <Text fontSize="sm" color="gray.600">
-            If you haven’t received a refund yet, first check your original
-            payment method account again. Then contact your payment method
-            company, it may take some time before your refund is officially
-            posted. If you’ve done all of this and you still have not received
-            your refund yet, please contact us at{" "}
+            If you haven’t received your refund, kindly check your original
+            payment account. You may wish to contact your payment method company
+            if you not received your refund within 2 weeks. It may take some
+            time before your refund is officially processed. For further
+            assistance please contact us at{" "}
             <Link color="#FF5876">3d.appdev2022@gmail.com</Link>.
           </Text>
           <Text as="b" fontSize="md">
@@ -54,6 +54,8 @@ export default function ReturnsPolicy() {
             the following address:
           </Text>
           <VStack spacing={1} alignItems="left">
+            <br />
+            <br />
             <Text fontSize="sm" color="gray.400">
               To: Porky Prints
             </Text>
@@ -63,7 +65,12 @@ export default function ReturnsPolicy() {
             <Text fontSize="sm" color="gray.400">
               Address: 8 Sin Ming Road, Sin Ming Centre #01-03 Singapore 575628
             </Text>
+            <br />
+            <br />
           </VStack>
+          <Text fontSize="sm" color="gray.600">
+            Please also include a return address at the back of your parcel.
+          </Text>
           <Text fontSize="sm" color="gray.600">
             You will be responsible for paying for your own postal costs for
             returning your item. Postal and shipping costs are non-refundable.
