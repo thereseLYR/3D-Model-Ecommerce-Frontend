@@ -13,8 +13,13 @@ export default function AboutUs() {
           <Text as="b" fontSize="2xl">
             Porky Prints
           </Text>
-          <HStack>
-            <Text fontSize="sm" color="gray.600">
+          <HStack alignItems={"flex-start"}>
+            <Text
+              fontSize="sm"
+              color="gray.600"
+              marginRight={"10px"}
+              paddingTop={"10px"}
+            >
               We are a 3D printing service e-commerce business based out of
               Singapore. Our primary services are providing custom 3D prints and
               products in a variety of materials. You can feel confident and
@@ -24,9 +29,8 @@ export default function AboutUs() {
             <Image boxSize="150px" src="../porky_prints_icon.svg" />
           </HStack>
         </VStack>
-        <br />
         <VStack alignItems="start">
-          <Text as="b" fontSize="2xl">
+          <Text as="b" fontSize="2xl" marginBottom={"10px"}>
             FAQ
           </Text>
           <Text color="gray.700" as="b">

@@ -11,6 +11,7 @@ import {
   Icon,
   Image,
   StackDivider,
+  Tag,
   Text,
   useDisclosure,
   VStack,
@@ -42,6 +43,8 @@ export default function CartDrawer() {
   useEffect(() => {
     if (cookies.temp_cart && cookies.temp_cart.length > 0) {
       setCartCookie(cookies.temp_cart);
+    } else {
+      setCartCookie([]);
     }
   }, [cookies]);
 
@@ -82,7 +85,13 @@ export default function CartDrawer() {
           bg: "#FFBECA",
         }}
       >
-        <CartIcon />
+        {/* cart icon button */}
+        <>
+          <Icon w={7} h={7} as={BiCart} />
+          {cartCookie.length > 0 && (
+            <Tag margin="0px 0px 0px 6px">{cartCookie.length}</Tag>
+          )}
+        </>
       </Button>
       <Drawer
         size={"sm"}

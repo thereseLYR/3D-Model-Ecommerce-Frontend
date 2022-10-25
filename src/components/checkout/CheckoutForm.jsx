@@ -1,6 +1,6 @@
 import { Box, Button, Text, VStack } from "@chakra-ui/react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiCreditCard } from "react-icons/fi";
 import BillingDetailsFields from "./BillingDetailsFields";
 import CheckoutErrorContainer from "./CheckoutErrorContainer";
@@ -17,12 +17,28 @@ const CheckoutForm = ({
   const stripe = useStripe();
   const elements = useElements();
 
+  useEffect(() => {
+    if (!stripe) {
+      return;
+    }
+    if (!clientSecret) {
+      return;
+    }
+  }, [stripe]);
+
   const handleCardDetailsChange = (ev) => {
     ev.error ? setCheckoutError(ev.error.message) : setCheckoutError("");
   };
 
   const handleFormSubmit = async (ev) => {
     ev.preventDefault();
+
+    if (!stripe || !elements) {
+      return;
+    }
+
+    setProcessingTo(true);
+    const cardElement = elements.getElement("card");
 
     const billingDetails = {
       name: ev.target.name.value,
@@ -34,9 +50,6 @@ const CheckoutForm = ({
         postal_code: ev.target.zip.value,
       },
     };
-
-    setProcessingTo(true);
-    const cardElement = elements.getElement("card");
 
     try {
       const paymentMethodReq = await stripe.createPaymentMethod({
@@ -56,11 +69,12 @@ const CheckoutForm = ({
       });
 
       if (error) {
-        setCheckoutError(error.message);
+        error.type === "card_error" || error.type === "validation_error"
+          ? setCheckoutError(error.message)
+          : setCheckoutError(error);
         setProcessingTo(false);
         return;
       }
-
       onSuccessfulCheckout();
     } catch (err) {
       setCheckoutError(err.message);
@@ -76,20 +90,19 @@ const CheckoutForm = ({
     return (
       <Box minW={{ base: "90%", md: "550px" }}>
         <Text
-          color={"pink.500"}
+          color={"#FF5876"}
           textTransform={"uppercase"}
           fontWeight={800}
           letterSpacing={1.1}
-          fontSize="lg"
+          fontSize="2xl"
+          marginBottom={"16px"}
         >
           Card Payment
         </Text>
-        <br />
         <CardElement
           options={cardElementOpts}
           onChange={handleCardDetailsChange}
         />
-        <br />
       </Box>
     );
   };
@@ -105,10 +118,13 @@ const CheckoutForm = ({
         <Box>
           <Button
             type="submit"
-            colorScheme="purple"
+            bgColor={"#FF5876"}
+            color={"white"}
+            _hover={{ bg: "#FF8BA0" }}
             size="md"
             disabled={isProcessing || !stripe}
             leftIcon={<FiCreditCard />}
+            marginTop={"10px"}
           >
             {isProcessing ? "Processing..." : `Pay $${price}`}
           </Button>

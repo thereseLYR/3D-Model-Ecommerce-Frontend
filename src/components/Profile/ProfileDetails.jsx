@@ -46,7 +46,7 @@ export default function ProfileDetails({ user, setUser }) {
     };
 
     axios
-      .post(`${backendUrl}/api/update-profile`, data)
+      .put(`${backendUrl}/api/users/${user.id}`, data)
       .then((response) => {
         console.log("profile update successful");
         console.log(response.data.result);
@@ -58,6 +58,8 @@ export default function ProfileDetails({ user, setUser }) {
       .catch((err) =>
         console.log("[ERROR] failed to update user profile, err: ", err)
       );
+
+    setSaveState(true);
   };
 
   return (
@@ -112,30 +114,30 @@ export default function ProfileDetails({ user, setUser }) {
                   backgroundColor={"#FFBECA"}
                   alignItems={"center"}
                 >
-                  <Text>{user.username}</Text>
+                  <Text>{username}</Text>
                 </Flex>
                 <Flex h={"20%"} alignItems={"center"}>
-                  <Text>{user.firstName}</Text>
+                  <Text>{firstName}</Text>
                 </Flex>
                 <Flex
                   h={"20%"}
                   backgroundColor={"#FFBECA"}
                   alignItems={"center"}
                 >
-                  <Text>{user.lastName}</Text>
+                  <Text>{lastName}</Text>
                 </Flex>
                 <Flex h={"20%"} alignItems={"center"}>
-                  <Text>{user.email}</Text>
+                  <Text>{email}</Text>
                 </Flex>
                 <Flex
                   h={"20%"}
                   backgroundColor={"#FFBECA"}
                   alignItems={"center"}
                 >
-                  <Text>{user.phone}</Text>
+                  <Text>{phone}</Text>
                 </Flex>
                 <Flex h={"20%"} alignItems={"center"}>
-                  <Text>{user.address}</Text>
+                  <Text>{address}</Text>
                 </Flex>
               </>
             ) : (

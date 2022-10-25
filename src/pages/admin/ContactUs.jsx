@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Container,
   FormControl,
@@ -98,6 +99,7 @@ export default function ContactUs() {
             Send
           </Button>
         </VStack>
+        <Box height={"40px"}></Box>
       </Container>
       <Footer />
     </>

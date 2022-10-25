@@ -51,12 +51,16 @@ export default function StaticModel() {
               divider={<StackDivider borderColor="gray.200" />}
             >
               <Box w={boxWidth} h={boxHeight}>
-                <VStack spacing={3}>
+                <VStack spacing={6}>
                   <Image src="models/model1.png" alt="model1" />
                   <Button
-                    colorScheme="teal"
-                    variant="outline"
+                    variant="solid"
                     size="lg"
+                    bgColor={"#FF5876"}
+                    color={"white"}
+                    _hover={{
+                      bg: "#FF8BA0",
+                    }}
                     onClick={handleCustomiseModelClick}
                   >
                     Customise Model

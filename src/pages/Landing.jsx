@@ -37,25 +37,25 @@ const Landing = ({ setUser }) => {
     <>
       <Box>
         <Flex direction="column">
-          <Flex bg="black" h="700px" justifyContent={"center"}>
+          <Flex bg="black" h="600px" justifyContent={"center"}>
             <Image
               w={{ md: "20%" }}
               src="porky_prints_icon_white.svg"
               alt="a 3D Model"
               objectFit={"fit"}
+              marginRight={"30px"}
             />
             <Flex
               bg="black"
-              w={{ md: "20%" }}
+              w={{ md: "%" }}
               justifyContent={"center"}
-              alignItems={"center"}
               direction={"column"}
             >
               <Heading size="2xl" color="white">
                 Porky Prints
               </Heading>
-              <Text pt="2%" fontSize="3xl" color="white">
-                Lovable. Playable. Printable.
+              <Text pt="2%" fontSize="3xl" color="white" marginBottom={"4px"}>
+                Practical. Playable. Printable.
               </Text>
               <Flex>
                 <Button
@@ -64,6 +64,7 @@ const Landing = ({ setUser }) => {
                   bg="none"
                   color="white"
                   fontSize="lg"
+                  padding={"0px"}
                 >
                   {"Learn More >"}
                 </Button>
@@ -101,7 +102,7 @@ const Landing = ({ setUser }) => {
         </Flex>
       </Box>
       <Grid p={4} style={{ margin: "10px" }}>
-        <Heading as="h3" size="lg" marginBottom="8px">
+        <Heading as="h3" size="lg" marginBottom="14px" marginLeft={"10px"}>
           Featured Models
         </Heading>
         <Box style={{ display: "flex" }}>
