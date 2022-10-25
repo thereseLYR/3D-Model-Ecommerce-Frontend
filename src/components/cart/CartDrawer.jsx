@@ -21,10 +21,6 @@ import { useCookies } from "react-cookie";
 import { BiCart } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
-const CartIcon = () => {
-  return <Icon w={7} h={7} as={BiCart} />;
-};
-
 const EmptyCartText = () => {
   return (
     <Text fontSize={"lg"} color={"gray.700"}>
@@ -43,6 +39,8 @@ export default function CartDrawer() {
   useEffect(() => {
     if (cookies.temp_cart && cookies.temp_cart.length > 0) {
       setCartCookie(cookies.temp_cart);
+    } else {
+      setCartCookie([]);
     }
   }, [cookies]);
 

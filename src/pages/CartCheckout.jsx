@@ -116,12 +116,8 @@ export default function CartCheckoutPage({ user }) {
 
   useEffect(() => postStripePayments(), []);
 
-  const appearance = {
-    theme: "stripe",
-  };
   const options = {
     clientSecret,
-    appearance,
   };
 
   return (
