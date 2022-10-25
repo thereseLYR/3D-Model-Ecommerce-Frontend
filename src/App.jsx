@@ -18,6 +18,7 @@ import Landing from "./pages/Landing.jsx";
 import Login from "./pages/Login.jsx";
 import Models from "./pages/Models.jsx";
 import Profile from "./pages/Profile.jsx";
+import Purchase from "./pages/Purchase.jsx";
 import Signup from "./pages/Signup.jsx";
 import SingleModel from "./pages/SingleModel.jsx";
 import SuccessCheckoutPage from "./pages/SuccessCheckout.jsx";
@@ -67,10 +68,10 @@ export default function App() {
               path="/profile"
               element={<Profile user={user} setUser={setUser} />}
             />
-            {/* <Route
+            <Route
               path="/profile/purchase"
               element={<Purchase user={user} />}
-            /> */}
+            />
           </Route>
         </Routes>
       </Router>
