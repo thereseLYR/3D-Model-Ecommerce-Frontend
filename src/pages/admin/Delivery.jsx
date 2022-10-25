@@ -1,4 +1,4 @@
-import { Container, Text, VStack } from "@chakra-ui/react";
+import { Box, Container, Text, VStack } from "@chakra-ui/react";
 import Footer from "../../components/Footer";
 
 export default function Delivery() {
@@ -43,6 +43,7 @@ export default function Delivery() {
             of Singapore.
           </Text>
         </VStack>
+        <Box height={"180px"}></Box>
       </Container>
       <Footer />
     </>
