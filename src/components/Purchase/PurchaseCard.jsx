@@ -1,16 +1,33 @@
 import { Button, Flex, Image, Stack, Text } from "@chakra-ui/react";
+import BackendUrlContext from "../BackendUrl.jsx";
+import React, { useContext } from 'react'
+import axios from "axios";
 
 const property = {
   imageUrl:
-    "https://img1.cgtrader.com/items/1878019/45d16e73d0/large/teddy-bear-tiny-figurine-for-3d-printing-3d-model-obj-mtl-fbx-stl.jpg",
-  imageAlt: "Cute 3D printed dark brown bear",
-  title: "Cute Dark Brown Bear",
-  category: "Animals",
-  reviewCount: 10,
-  rating: 5,
+    "/models/model1.png",
+  imageAlt: "Clicky Model",
 };
 
-export default function PurchaseCard() {
+export default function PurchaseCard({orderDetails, state, fetchOrderData}) {
+  const { backendUrl } = useContext(BackendUrlContext);
+  
+  let orderData = JSON.parse(orderDetails.order_details)[0]
+  let orderId = orderDetails.id
+
+   let handleCancelOrder = () => {
+    axios
+      .delete(`${backendUrl}/api/orders/cancel-order/${orderId}`)
+      .then((response) => {
+        console.log(response);
+        fetchOrderData();
+      })
+      .catch((error) => {
+        // handle error
+        console.log(error);
+      });
+  }
+
   return (
     <Flex
       mt={"1%"}
@@ -49,11 +66,41 @@ export default function PurchaseCard() {
               lineHeight="tight"
               noOfLines={1}
             >
-              {property.title}
+              {orderData.model_name}
             </Text>
-            <Button colorScheme="teal" size="xs">
+            { state === "submitted" && 
+            <Button colorScheme="pink" size="xs" onClick={handleCancelOrder}>
               Cancel Order
             </Button>
+            }   
+            { state === "progress" && 
+            <Button 
+              colorScheme="pink" 
+              size="xs"  
+              _active={{
+                textDecoration: 'none',
+              }}
+              _hover={{
+                cursor: 'default',
+                textDecoration: "none",
+              }}>
+              In Progress
+            </Button>
+            }
+            { state === "completed" && 
+            <Button 
+              colorScheme="pink" 
+              size="xs"
+              _active={{
+                textDecoration: 'none',
+              }}
+              _hover={{
+                cursor: 'default',
+                textDecoration: "none",
+              }}>
+              Completed
+            </Button>
+            }                 
           </Flex>
           {/* Description */}
           <Flex justifyContent="space-between">
@@ -66,7 +113,7 @@ export default function PurchaseCard() {
               lineHeight="tight"
               noOfLines={1}
             >
-              {property.imageAlt}
+               {orderData.model_description}
             </Text>
             <Text
               fontSize={{ base: "sm" }}
@@ -76,9 +123,8 @@ export default function PurchaseCard() {
               fontWeight="semibold"
               as="h4"
               lineHeight="tight"
-              noOfLines={1}
             >
-              x 50
+              x{orderData.quantity}
             </Text>
           </Flex>
         </Stack>
@@ -101,18 +147,11 @@ export default function PurchaseCard() {
           Colour Configuration Part Breakdown:
         </Text>
         <Flex direction="column" pl={"3%"} overflow={"auto"}>
-          <Text fontSize={{ base: "sm" }} textAlign={"left"} as="h4">
-            Case_A_v3: coral
-          </Text>
-          <Text fontSize={{ base: "sm" }} textAlign={"left"} as="h4">
-            Spring_Normal: darkmagenta
-          </Text>
-          <Text fontSize={{ base: "sm" }} textAlign={"left"} as="h4">
-            Wheel_40T: lightblue
-          </Text>
-          <Text fontSize={{ base: "sm" }} textAlign={"left"} as="h4">
-            Case_B_v4: indianred
-          </Text>
+          {Object.keys(orderData.component_breakdown).map((key, index) => 
+            (<Text fontSize={{ base: "sm" }} textAlign={"left"} as="h4">
+            {key} : {orderData.component_breakdown[key]}
+          </Text>)
+          )}
         </Flex>
       </Flex>
       <Flex w={"100%"} h={"40%"} justifyContent={"right"}>
@@ -123,10 +162,10 @@ export default function PurchaseCard() {
           fontSize={{ base: "sm" }}
           textAlign={"right"}
           as="h4"
-          color="green"
+          color="pink.500"
           pr="2%"
         >
-          $50.00
+          ${parseInt(orderData.quantity) * parseInt(orderData.ppu)}.00
         </Text>
       </Flex>
     </Flex>
