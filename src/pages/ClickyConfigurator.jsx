@@ -70,6 +70,7 @@ function ClickyConfigurator() {
   function Picker() {
     return (
       <div className="picker">
+        <br />
         <Text w={"200px"} as="b" margin={"0px 3px 3px 0px"}>
           Part Name:
         </Text>

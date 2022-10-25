@@ -18,7 +18,7 @@ export default function SaveButton(props) {
           onSaveCustomClick();
           toast({
             title: "Custom Colours Saved.",
-            position: "top-left",
+            position: "bottom",
             description: "Successfully saved model custom colours.",
             status: "success",
             duration: 3000,
