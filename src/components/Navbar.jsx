@@ -24,6 +24,7 @@ import BackendUrlContext from "../components/BackendUrl.jsx";
 import CartDrawer from "../components/cart/CartDrawer";
 
 const CartLogout = ({ onLogoutClick }) => {
+  const navigate = useNavigate();
   return (
     <Stack
       flex={{ base: 1, md: 0 }}
@@ -45,8 +46,15 @@ const CartLogout = ({ onLogoutClick }) => {
           <Icon w={7} h={7} as={BiUser} />
         </MenuButton>
         <MenuList>
-          <MenuItem color="gray.800">Profile</MenuItem>
-          <MenuItem color="gray.800">Orders</MenuItem>
+          <MenuItem color="gray.800" onClick={() => navigate("/profile")}>
+            Profile
+          </MenuItem>
+          <MenuItem
+            color="gray.800"
+            onClick={() => navigate("/profile/purchase")}
+          >
+            My Purchases
+          </MenuItem>
           <MenuItem color="gray.800" onClick={onLogoutClick}>
             Logout
           </MenuItem>
@@ -98,7 +106,7 @@ const CartLoginSignup = () => {
   );
 };
 
-export default function NavBar() {
+export default function NavBar({ user }) {
   const { isOpen, onToggle } = useDisclosure();
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(["loggedInUser"]);
@@ -123,7 +131,7 @@ export default function NavBar() {
         color={useColorModeValue("#FF8BA0", "#FF8BA0")}
         minH={"55px"}
         py={{ base: 2 }}
-        px={{ base: 4 }}
+        px={{ md: 40, base: 5 }}
         borderBottom={1}
         borderStyle={"solid"}
         borderColor={useColorModeValue("#FF8BA0", "#FF8BA0")}
@@ -132,6 +140,7 @@ export default function NavBar() {
         <Flex
           flex={{ base: 1, md: "auto" }}
           ml={{ base: -2 }}
+          // Flex contents (i.e., menu button) will not display with medium screens
           display={{ base: "flex", md: "none" }}
         >
           <IconButton
