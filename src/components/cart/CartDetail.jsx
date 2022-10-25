@@ -64,7 +64,7 @@ export default function CartDetail() {
 
       return (
         <HStack spacing={10} divider={<StackDivider borderColor="gray.200" />}>
-          <Image src="https://picsum.photos/150/180"></Image>
+          <Image src="/models/model1.png" boxSize="280px"></Image>
           <VStack alignItems="start">
             <Text as="b" fontSize={"lg"}>
               {cartDataItem.model_name}

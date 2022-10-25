@@ -6,7 +6,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import CheckoutForm from "../components/checkout/CheckoutForm";
-import Navbar from "../components/Navbar.jsx";
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const STRIPE_PK = process.env.REACT_APP_STRIPE_PK;
@@ -127,7 +126,6 @@ export default function CartCheckoutPage({ user }) {
 
   return (
     <>
-      <Navbar />
       <VStack spacing={10}>
         <Text
           color={"pink.500"}

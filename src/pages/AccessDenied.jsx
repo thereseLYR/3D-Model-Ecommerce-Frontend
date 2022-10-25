@@ -1,13 +1,11 @@
 import { LockIcon } from "@chakra-ui/icons";
 import { Button, Container, HStack, Text, VStack } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar.jsx";
 
 const AccessDeniedPage = () => {
   const navigate = useNavigate();
   return (
     <>
-      <Navbar />
       <Container>
         <br />
         <VStack spacing={5}>

@@ -40,9 +40,9 @@ const Landing = ({ setUser }) => {
           <Flex bg="black" h="700px" justifyContent={"center"}>
             <Image
               w={{ md: "20%" }}
-              src="./Landing_Test.jpg"
+              src="porky_prints_icon_white.svg"
               alt="a 3D Model"
-              objectFit={"cover"}
+              objectFit={"fit"}
             />
             <Flex
               bg="black"
@@ -83,30 +83,18 @@ const Landing = ({ setUser }) => {
           <Flex h={"600px"} direction={"row"}>
             <Flex h={"100%"} animation={SlideAnimation} alignItems="center">
               <Flex h="100%">
-                <CarouselImage srcPath={"./Landing_Test_1.webp"} />
-                <CarouselImage srcPath={"./Landing_Test_2.webp"} />
-                <CarouselImage srcPath={"./Landing_Test_3.webp"} />
-                <CarouselImage srcPath={"./Landing_Test_4.webp"} />
-                <CarouselImage srcPath={"./Landing_Test_5.webp"} />
-                <CarouselImage srcPath={"./Landing_Test_6.webp"} />
-                <CarouselImage srcPath={"./Landing_Test_7.webp"} />
-                <CarouselImage srcPath={"./Landing_Test_8.webp"} />
-                <CarouselImage srcPath={"./Landing_Test_9.webp"} />
-                <CarouselImage srcPath={"./Landing_Test_10.webp"} />
+                <CarouselImage srcPath={"/models/model1.png"} />
+                <CarouselImage srcPath={"/models/model2.png"} />
+                <CarouselImage srcPath={"/models/model3.png"} />
+                <CarouselImage srcPath={"/models/model4.png"} />
               </Flex>
             </Flex>
             <Flex h={"100%"} animation={SlideAnimation} alignItems="center">
               <Flex h="100%">
-                <CarouselImage srcPath={"./Landing_Test_1.webp"} />
-                <CarouselImage srcPath={"./Landing_Test_2.webp"} />
-                <CarouselImage srcPath={"./Landing_Test_3.webp"} />
-                <CarouselImage srcPath={"./Landing_Test_4.webp"} />
-                <CarouselImage srcPath={"./Landing_Test_5.webp"} />
-                <CarouselImage srcPath={"./Landing_Test_6.webp"} />
-                <CarouselImage srcPath={"./Landing_Test_7.webp"} />
-                <CarouselImage srcPath={"./Landing_Test_8.webp"} />
-                <CarouselImage srcPath={"./Landing_Test_9.webp"} />
-                <CarouselImage srcPath={"./Landing_Test_10.webp"} />
+                <CarouselImage srcPath={"/models/model1.png"} />
+                <CarouselImage srcPath={"/models/model2.png"} />
+                <CarouselImage srcPath={"/models/model3.png"} />
+                <CarouselImage srcPath={"/models/model4.png"} />
               </Flex>
             </Flex>
           </Flex>
