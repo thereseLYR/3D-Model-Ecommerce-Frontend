@@ -52,7 +52,7 @@ export default function StaticModel() {
             >
               <Box w={boxWidth} h={boxHeight}>
                 <VStack spacing={3}>
-                  <Image src="https://picsum.photos/400" alt="product_image" />
+                  <Image src="models/model1.png" alt="model1" />
                   <Button
                     colorScheme="teal"
                     variant="outline"
