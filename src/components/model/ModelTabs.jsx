@@ -66,7 +66,7 @@ const ReviewCard = () => {
       {randomReviews.map((r, _) => (
         <Box key={r.id}>
           <Text
-            color={"teal.500"}
+            color={"#FF5876"}
             textTransform={"uppercase"}
             fontWeight={800}
             fontSize={"sm"}
@@ -84,7 +84,13 @@ const ReviewCard = () => {
 
 export default function ModelTabs({ modelDescription }) {
   return (
-    <Tabs colorScheme="teal" size="md" align="start" w={"900px"}>
+    <Tabs
+      size="md"
+      align="start"
+      w={"900px"}
+      colorScheme={"pink"}
+      _selected={{ color: "#FF5876" }}
+    >
       <TabList>
         <Tab>Description</Tab>
         <Tab>Reviews</Tab>

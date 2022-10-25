@@ -53,7 +53,6 @@ export default function ReturnsPolicy() {
           </Text>
           <VStack spacing={1} alignItems="left">
             <br />
-            <br />
             <Text fontSize="sm" color="gray.400">
               To: Porky Prints
             </Text>
@@ -63,7 +62,6 @@ export default function ReturnsPolicy() {
             <Text fontSize="sm" color="gray.400">
               Address: 8 Sin Ming Road, Sin Ming Centre #01-03 Singapore 575628
             </Text>
-            <br />
             <br />
           </VStack>
           <Text fontSize="sm" color="gray.600">

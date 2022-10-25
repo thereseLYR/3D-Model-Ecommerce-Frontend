@@ -22,11 +22,11 @@ const BillingDetailsFields = ({ userDetails }) => {
   return (
     <Box minW={{ base: "90%", md: "550px" }}>
       <Text
-        color={"pink.500"}
+        color={"#FF5876"}
         textTransform={"uppercase"}
         fontWeight={800}
         letterSpacing={1.1}
-        fontSize="lg"
+        fontSize="2xl"
       >
         Billing and Delivery Details
       </Text>

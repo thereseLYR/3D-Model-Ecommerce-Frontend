@@ -1,9 +1,10 @@
 import { CheckIcon } from "@chakra-ui/icons";
-import { Button, Container, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Container, Text, VStack } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
 
 const SuccessCheckoutPage = () => {
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -42,9 +43,11 @@ const SuccessCheckoutPage = () => {
             You will receive an order confirmation email with details of your
             order
           </Text>
-          <Button onClick={() => navigate("/")}>Continue Shopping</Button>
+          <Button onClick={() => navigate("/models")}>Continue Shopping</Button>
         </VStack>
       </Container>
+      <Box height={"200px"}></Box>
+      <Footer />
     </>
   );
 };

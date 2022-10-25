@@ -28,6 +28,9 @@ export default function ModelBox({
       id={modelId}
       margin={"8px"}
       width={"250px"}
+      _hover={{
+        cursor: "pointer",
+      }}
     >
       <Image
         src={imageUrl}

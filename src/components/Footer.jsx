@@ -126,6 +126,7 @@ export default function Footer() {
       <Text fontSize="xs" color="gray.300">
         © 2022, Porky Prints
       </Text>
+      <br />
     </VStack>
   );
 }
