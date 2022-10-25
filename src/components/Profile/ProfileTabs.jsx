@@ -17,15 +17,8 @@ export default function ProfileTabs({ user }) {
   };
 
   return (
-    <Box h={{ md: "50%", base: "80%" }} w="10%">
-      <Flex
-        alignItems="center"
-        p={5}
-        h={{ base: "15%" }}
-        w={{ base: "85%" }}
-        borderBottom="2px"
-        // borderColor="gray.600"
-      >
+    <Box h={{ md: "100%", base: "80%" }} w="10%">
+      <Flex alignItems="center" p={-2} h={{ base: "15%" }} w={{ base: "85%" }}>
         <Avatar mr={3} name={user.username} src="" />
         <Text as="b">{user.username}</Text>
       </Flex>
