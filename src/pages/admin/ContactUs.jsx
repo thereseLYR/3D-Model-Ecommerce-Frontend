@@ -41,14 +41,14 @@ export default function ContactUs() {
       <br />
       <Container>
         <VStack alignItems="left">
-          <Text as="b" fontSize="lg">
+          <Text as="b" fontSize="28px">
             Need Help?
           </Text>
           <Text>Need help with your order? Issues with your purchase?</Text>
           <Text>Looking to print a custom design?</Text>
           <Text>
             Send us a message here or email us at
-            <Link color="teal.400">{" 3d.appdev2022@gmail.com "}</Link>
+            <Link color="#FF5876">{" 3d.appdev2022@gmail.com "}</Link>
             and we'll get back to you as soon as possible!
           </Text>
           <br />
@@ -81,17 +81,18 @@ export default function ContactUs() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
+              sx={{ marginBottom: "16px" }}
             ></Textarea>
           </FormControl>
           <Button
             type="submit"
             variant="solid"
-            bgColor={"teal.400"}
+            bgColor={"#FF5876"}
             color={"white"}
             width="full"
             onClick={handleOnSend}
             _hover={{
-              bg: "teal.300",
+              bg: "#FF8BA0",
             }}
           >
             Send

@@ -1,12 +1,13 @@
-
 import axios from "axios";
 import Cookies from "js-cookie"; // i realize we are using both react-cookie and js-cookie
 import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { BackendUrlProvider } from "./components/BackendUrl.jsx";
+import NavBar from "./components/Navbar";
 import PrivateRoutes from "./components/PrivateRoutes.jsx";
 import AccessDeniedPage from "./pages/AccessDenied.jsx";
+import AboutUs from "./pages/admin/AboutUs";
 import ContactUs from "./pages/admin/ContactUs";
 import Delivery from "./pages/admin/Delivery";
 import ReturnsPolicy from "./pages/admin/ReturnsPolicy";
@@ -16,12 +17,11 @@ import ClickyConfigurator from "./pages/ClickyConfigurator.jsx";
 import Landing from "./pages/Landing.jsx";
 import Login from "./pages/Login.jsx";
 import Models from "./pages/Models.jsx";
+import Profile from "./pages/Profile.jsx";
+import Purchase from "./pages/Purchase.jsx";
 import Signup from "./pages/Signup.jsx";
 import SingleModel from "./pages/SingleModel.jsx";
 import SuccessCheckoutPage from "./pages/SuccessCheckout.jsx";
-import Purchase from "./pages/Purchase.jsx";
-import Navbar from './components/Navbar.jsx';
-import Profile from './pages/Profile.jsx'
 
 // make sure that axios always sends the cookies to the backend server
 axios.defaults.withCredentials = true;
@@ -43,7 +43,7 @@ export default function App() {
   return (
     <BackendUrlProvider backendUrlData={BACKEND_URL}>
       <Router>
-        <Navbar user={user}/>
+        <NavBar />
         <Routes>
           <Route path="/" element={<Landing user={user} />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
@@ -56,6 +56,7 @@ export default function App() {
           <Route path="/admin/contact-us" element={<ContactUs />} />
           <Route path="/admin/returns-policy" element={<ReturnsPolicy />} />
           <Route path="/admin/delivery" element={<Delivery />} />
+          <Route path="/admin/about-us" element={<AboutUs />} />
           <Route element={<PrivateRoutes user={user} />}>
             <Route
               path="/cart-checkout"
@@ -63,8 +64,14 @@ export default function App() {
             />
             <Route path="/success-checkout" element={<SuccessCheckoutPage />} />
             {/* all protected routes here */}
-              <Route path='/profile' element={<Profile user={user} setUser={setUser}/>} />
-              <Route path='/profile/purchase' element={<Purchase user={user}/>} />
+            <Route
+              path="/profile"
+              element={<Profile user={user} setUser={setUser} />}
+            />
+            <Route
+              path="/profile/purchase"
+              element={<Purchase user={user} />}
+            />
           </Route>
         </Routes>
       </Router>

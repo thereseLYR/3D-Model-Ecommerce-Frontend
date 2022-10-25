@@ -51,12 +51,7 @@ export default function Models() {
 
   return (
     <>
-      <Grid
-        templateRows="repeat(2, 1fr)"
-        templateColumns="repeat(5, 1fr)"
-        gap={4}
-        style={{ margin: "10px" }}
-      >
+      <Grid templateColumns="repeat(5, 1fr)" gap={4} style={{ margin: "10px" }}>
         <GridItem rowSpan={2} colSpan={1}>
           <List>
             <ListItem>
@@ -109,7 +104,7 @@ export default function Models() {
         </GridItem>
         <GridItem rowSpan={1} colSpan={4}>
           <Text
-            style={{ fontSize: "20px", fontWeight: "700", marginLeft: "10px" }}
+            style={{ fontSize: "24px", fontWeight: "700", marginLeft: "10px" }}
           >
             Models
           </Text>
