@@ -53,7 +53,11 @@ function ClickyConfigurator() {
     //   }
     // }
 
-    setCookie("saved-models", { ...prevCookieValues, 1: modelState.items }); // assume clicky has a model ID of 1
+    setCookie(
+      "saved-models",
+      { ...prevCookieValues, 1: modelState.items },
+      { path: "/" }
+    ); // assume clicky has a model ID of 1
     // setCookie("saved-models", { ...prevCookieValues, clicky2: modelState.items })
     // the line above is to test saving multiple instances of the same model in the saved-models cookie
     return;
