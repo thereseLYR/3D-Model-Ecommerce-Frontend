@@ -32,9 +32,9 @@ export default function ModelBox({
       <Image
         src={imageUrl}
         alt={imageAlt}
-        height={"150px"}
-        width={"250px"}
-        objectFit={"fit"}
+        height={"180px"}
+        width={"300px"}
+        objectFit={"cover"}
       />
       <Box p="4">
         <Box display="flex" alignItems="baseline">

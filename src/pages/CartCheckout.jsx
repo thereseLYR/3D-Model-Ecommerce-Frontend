@@ -94,6 +94,7 @@ export default function CartCheckoutPage({ user }) {
         address: userDetails.address,
         email: userDetails.email,
         phone: userDetails.phone,
+        order: cartCookies.current,
       })
       .then((res) => {
         console.log("[DEBUG] successfully placed order, res=", res);

@@ -7,7 +7,7 @@ export default function Delivery() {
       <br />
       <Container>
         <VStack alignItems="left">
-          <Text as="b" fontSize="xl">
+          <Text as="b" fontSize="28px">
             Delivery Policy and Rates
           </Text>
           <Text as="b" fontSize="lg">

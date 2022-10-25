@@ -48,7 +48,11 @@ export default function CartDrawer() {
   const DrawerCartItem = ({ item }) => {
     return (
       <HStack divider={<StackDivider borderColor="gray.200" />} spacing={5}>
-        <Image src="https://picsum.photos/100/100" alt="product_image"></Image>
+        <Image
+          src="/models/model1.png"
+          boxSize="120px"
+          alt="product_image"
+        ></Image>
         <VStack alignItems={"start"} spacing={1}>
           <Text as="b" fontSize={"lg"} color={"gray.700"}>
             {item.model_name}

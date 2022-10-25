@@ -1,8 +1,5 @@
 import {
   Box,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
   Button,
   Container,
   HStack,
@@ -41,25 +38,13 @@ export default function StaticModel() {
       modelDataForOrderCookie["ppu"] = ppu;
       setModel(modelDataForOrderCookie);
     });
-  }, []);
+  }, [backendUrl]);
 
   return (
     <>
       <Container>
         <VStack spacing={10}>
-          <Box alignItems={"left"}>
-            <Breadcrumb fontWeight="medium" fontSize="sm">
-              <BreadcrumbItem>
-                <BreadcrumbLink href="/">Home</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbItem>
-                <BreadcrumbLink href="/models">3D Models</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbItem isCurrentPage>
-                <BreadcrumbLink href="/model">Clicky</BreadcrumbLink>
-              </BreadcrumbItem>
-            </Breadcrumb>
-          </Box>
+          <br />
           <Box>
             <HStack
               spacing={5}
@@ -67,7 +52,7 @@ export default function StaticModel() {
             >
               <Box w={boxWidth} h={boxHeight}>
                 <VStack spacing={3}>
-                  <Image src="https://picsum.photos/400" alt="product_image" />
+                  <Image src="models/model1.png" alt="model1" />
                   <Button
                     colorScheme="teal"
                     variant="outline"
