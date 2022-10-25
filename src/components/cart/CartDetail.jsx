@@ -115,6 +115,7 @@ export default function CartDetail() {
       {/* hardcoded modelId for colourCartCookie since our only active configurator is clicky */}
       <Button
         size="lg"
+        disabled={cartCookie.current.length === 0}
         onClick={() => navigate("/cart-checkout")}
         bgColor={"#FF5876"}
         color={"white"}

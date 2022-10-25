@@ -43,6 +43,8 @@ export default function CartDrawer() {
   useEffect(() => {
     if (cookies.temp_cart && cookies.temp_cart.length > 0) {
       setCartCookie(cookies.temp_cart);
+    } else {
+      setCartCookie([]);
     }
   }, [cookies]);
 

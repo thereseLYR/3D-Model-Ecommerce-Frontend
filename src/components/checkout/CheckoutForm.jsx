@@ -1,6 +1,6 @@
 import { Box, Button, Text, VStack } from "@chakra-ui/react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiCreditCard } from "react-icons/fi";
 import BillingDetailsFields from "./BillingDetailsFields";
 import CheckoutErrorContainer from "./CheckoutErrorContainer";
@@ -17,12 +17,28 @@ const CheckoutForm = ({
   const stripe = useStripe();
   const elements = useElements();
 
+  useEffect(() => {
+    if (!stripe) {
+      return;
+    }
+    if (!clientSecret) {
+      return;
+    }
+  }, [stripe]);
+
   const handleCardDetailsChange = (ev) => {
     ev.error ? setCheckoutError(ev.error.message) : setCheckoutError("");
   };
 
   const handleFormSubmit = async (ev) => {
     ev.preventDefault();
+
+    if (!stripe || !elements) {
+      return;
+    }
+
+    setProcessingTo(true);
+    const cardElement = elements.getElement("card");
 
     const billingDetails = {
       name: ev.target.name.value,
@@ -34,9 +50,6 @@ const CheckoutForm = ({
         postal_code: ev.target.zip.value,
       },
     };
-
-    setProcessingTo(true);
-    const cardElement = elements.getElement("card");
 
     try {
       const paymentMethodReq = await stripe.createPaymentMethod({
@@ -56,11 +69,12 @@ const CheckoutForm = ({
       });
 
       if (error) {
-        setCheckoutError(error.message);
+        error.type === "card_error" || error.type === "validation_error"
+          ? setCheckoutError(error.message)
+          : setCheckoutError(error);
         setProcessingTo(false);
         return;
       }
-
       onSuccessfulCheckout();
     } catch (err) {
       setCheckoutError(err.message);

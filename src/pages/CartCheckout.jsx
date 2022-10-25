@@ -1,49 +1,16 @@
-import { Box, HStack, StackDivider, Text, VStack } from "@chakra-ui/react";
+import { Box, Text, VStack } from "@chakra-ui/react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import CartItem from "../components/checkout/CartItem";
 import CheckoutForm from "../components/checkout/CheckoutForm";
 import Footer from "../components/Footer";
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
-
-const SingleCartItem = ({ item }) => {
-  return (
-    <HStack
-      divider={<StackDivider borderColor="gray.200" />}
-      spacing={25}
-      align="stretch"
-    >
-      <Box w={300}>
-        <Text as="b" fontSize={"lg"}>
-          {item.model_name}
-        </Text>
-        {Object.keys(item.component_breakdown).map((i) => {
-          return (
-            <Text fontSize={"s"} key={`component-${i}`}>
-              {i}: {item.component_breakdown[i]}
-            </Text>
-          );
-        })}
-        <br />
-      </Box>
-      <Box w={50} alignItems={"center"}>
-        <Text fontWeight={700}>Qty:</Text>
-        <br />
-        <Text>{item.quantity}</Text>
-      </Box>
-      <Box w={50}>
-        <Text fontWeight={700}>Price:</Text>
-        <br />
-        <Text>${item.ppu * item.quantity}</Text>
-      </Box>
-    </HStack>
-  );
-};
 
 export default function CartCheckoutPage({ user }) {
   const navigate = useNavigate();
@@ -56,7 +23,12 @@ export default function CartCheckoutPage({ user }) {
     cartCookies.current = cookies.temp_cart;
   });
 
-  const postStripePayments = () => {
+  useEffect(() => {
+    user !== undefined ? getUserDetails() : navigate("/access-denied");
+    //eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
     axios
       .post(
         `${backendUrl}/api/stripe/payment-intents`,
@@ -70,9 +42,12 @@ export default function CartCheckoutPage({ user }) {
       )
       .then((result) => {
         setClientSecret(result.data.client_secret);
-        console.log("clientSecret", clientSecret);
+        console.log(
+          "[DEBUG] stripe client secret = ",
+          result.data.client_secret
+        );
       });
-  };
+  }, []);
 
   const getUserDetails = useCallback(() => {
     axios
@@ -101,7 +76,7 @@ export default function CartCheckoutPage({ user }) {
         console.log("[DEBUG] successfully placed order, res=", res);
       })
       .catch((err) => {
-        console.log("[ERROR] unable to post new order: ", err);
+        console.log("[ERROR] unable to post new order, err=", err);
       });
   };
 
@@ -110,12 +85,9 @@ export default function CartCheckoutPage({ user }) {
     setCookie("saved-models", [], { path: "/" });
   };
 
-  useEffect(() => {
-    user !== undefined ? getUserDetails() : navigate("/access-denied");
-    //eslint-disable-next-line
-    postStripePayments();
-  }, [getUserDetails, user, navigate]);
-
+  const appearance = {
+    theme: "stripe",
+  };
   const options = {
     clientSecret: clientSecret,
     appearance: {
@@ -137,7 +109,7 @@ export default function CartCheckoutPage({ user }) {
           Review your order
         </Text>
         <Box>
-          <SingleCartItem item={cartCookies.current[0]} />
+          <CartItem item={cartCookies.current[0]} />
         </Box>
         <Box>
           {clientSecret && (
