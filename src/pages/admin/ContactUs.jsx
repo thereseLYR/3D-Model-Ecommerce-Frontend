@@ -29,7 +29,7 @@ export default function ContactUs() {
         status: "success",
         duration: 5000,
         isClosable: true,
-        position: "top-right",
+        position: "bottom",
       });
       setName("");
       setEmail("");
