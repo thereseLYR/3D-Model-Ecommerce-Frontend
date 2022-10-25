@@ -11,6 +11,7 @@ import {
   Icon,
   Image,
   StackDivider,
+  Tag,
   Text,
   useDisclosure,
   VStack,
@@ -82,7 +83,13 @@ export default function CartDrawer() {
           bg: "#FFBECA",
         }}
       >
-        <CartIcon />
+        {/* cart icon button */}
+        <>
+          <Icon w={7} h={7} as={BiCart} />
+          {cartCookie.length > 0 && (
+            <Tag margin="0px 0px 0px 3px">{cartCookie.length}</Tag>
+          )}
+        </>
       </Button>
       <Drawer
         size={"sm"}
