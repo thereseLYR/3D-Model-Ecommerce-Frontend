@@ -1,10 +1,8 @@
 import { Container, Link, Text, VStack } from "@chakra-ui/react";
 import Footer from "../../components/Footer";
-import NavBar from "../../components/Navbar";
 export default function ReturnsPolicy() {
   return (
     <>
-      <NavBar />
       <br />
       <Container>
         <VStack alignItems="left">

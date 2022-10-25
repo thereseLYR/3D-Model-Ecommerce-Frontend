@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import Footer from "../../components/Footer";
-import NavBar from "../../components/Navbar";
 import { validateEmail } from "../../utils/validateEmail";
 
 export default function ContactUs() {
@@ -39,7 +38,6 @@ export default function ContactUs() {
 
   return (
     <>
-      <NavBar />
       <br />
       <Container>
         <VStack alignItems="left">

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { BackendUrlProvider } from "./components/BackendUrl.jsx";
+import NavBar from "./components/Navbar";
 import PrivateRoutes from "./components/PrivateRoutes.jsx";
 import AccessDeniedPage from "./pages/AccessDenied.jsx";
 import AboutUs from "./pages/admin/AboutUs";
@@ -40,6 +41,7 @@ export default function App() {
   return (
     <BackendUrlProvider backendUrlData={BACKEND_URL}>
       <Router>
+        <NavBar />
         <Routes>
           <Route path="/" element={<Landing user={user} />} />
           <Route path="/login" element={<Login setUser={setUser} />} />

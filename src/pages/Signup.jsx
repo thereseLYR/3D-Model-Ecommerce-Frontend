@@ -18,7 +18,6 @@ import { FaLock, FaUserAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import BackendUrlContext from "../components/BackendUrl.jsx";
 import Footer from "../components/Footer.jsx";
-import Navbar from "../components/Navbar.jsx";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -65,7 +64,6 @@ const Signup = () => {
 
   return (
     <>
-      <Navbar />
       <Flex
         flexDirection="column"
         width="100wh"

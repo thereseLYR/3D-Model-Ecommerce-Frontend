@@ -4,7 +4,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar.jsx";
 
 const SuccessCheckoutPage = () => {
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -28,7 +27,6 @@ const SuccessCheckoutPage = () => {
 
   return (
     <>
-      <Navbar />
       <br />
       <Container centerContent>
         <VStack spacing={5}>

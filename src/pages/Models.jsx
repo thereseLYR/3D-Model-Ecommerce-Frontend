@@ -4,7 +4,6 @@ import { useContext, useEffect, useState } from "react";
 import BackendUrlContext from "../components/BackendUrl.jsx";
 import Footer from "../components/Footer.jsx";
 import ModelBox from "../components/ModelBox.jsx";
-import Navbar from "../components/Navbar.jsx";
 
 export default function Models() {
   const { backendUrl } = useContext(BackendUrlContext);
@@ -52,7 +51,6 @@ export default function Models() {
 
   return (
     <>
-      <Navbar />
       <Grid templateColumns="repeat(5, 1fr)" gap={4} style={{ margin: "10px" }}>
         <GridItem rowSpan={2} colSpan={1}>
           <List>
