@@ -17,6 +17,7 @@ import ClickyConfigurator from "./pages/ClickyConfigurator.jsx";
 import Landing from "./pages/Landing.jsx";
 import Login from "./pages/Login.jsx";
 import Models from "./pages/Models.jsx";
+import Profile from "./pages/Profile.jsx";
 import Signup from "./pages/Signup.jsx";
 import SingleModel from "./pages/SingleModel.jsx";
 import SuccessCheckoutPage from "./pages/SuccessCheckout.jsx";
@@ -62,6 +63,14 @@ export default function App() {
             />
             <Route path="/success-checkout" element={<SuccessCheckoutPage />} />
             {/* all protected routes here */}
+            <Route
+              path="/profile"
+              element={<Profile user={user} setUser={setUser} />}
+            />
+            {/* <Route
+              path="/profile/purchase"
+              element={<Purchase user={user} />}
+            /> */}
           </Route>
         </Routes>
       </Router>
