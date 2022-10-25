@@ -13,7 +13,7 @@ const property = {
   rating: 5,
 };
 
-const Profile = ({ user, setUser }) => {
+const Purchase = ({ user, setUser }) => {
   return (
     <Flex
       w="100%"
@@ -28,4 +28,4 @@ const Profile = ({ user, setUser }) => {
   );
 };
 
-export default Profile;
+export default Purchase;
