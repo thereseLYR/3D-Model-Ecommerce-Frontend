@@ -7,7 +7,7 @@ const Purchase = ({ user, setUser }) => {
     <Flex
       w="100%"
       h="100%"
-      backgroundColor="gray.200"
+      backgroundColor="white"
       justifyContent="center"
       pt="5%"
     >

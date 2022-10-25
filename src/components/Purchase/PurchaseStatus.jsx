@@ -72,7 +72,7 @@ export default function PurchaseStatus({ user }) {
         flexDirection={"row"}
         alignItems="center"
         justifyContent="space-evenly"
-        backgroundColor="gray.200"
+        backgroundColor="white"
         h={"13%"}
       >
       <Button 

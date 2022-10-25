@@ -5,12 +5,8 @@ import axios from "axios";
 
 const property = {
   imageUrl:
-    "https://img1.cgtrader.com/items/1878019/45d16e73d0/large/teddy-bear-tiny-figurine-for-3d-printing-3d-model-obj-mtl-fbx-stl.jpg",
-  imageAlt: "Cute 3D printed dark brown bear",
-  title: "Cute Dark Brown Bear",
-  category: "Animals",
-  reviewCount: 10,
-  rating: 5,
+    "/models/model1.png",
+  imageAlt: "Clicky Model",
 };
 
 export default function PurchaseCard({orderDetails, state, fetchOrderData}) {
