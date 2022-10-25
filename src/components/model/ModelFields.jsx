@@ -95,7 +95,7 @@ export default function ModelFields({ modelDataForOrderCookie }) {
           Component Breakdown
         </Text>
         <TableContainer>
-          <Table variant="striped" colorScheme="teal">
+          <Table variant="striped" colorScheme="pink">
             <TableCaption>
               All parts will be made in the same material
             </TableCaption>
@@ -139,10 +139,10 @@ export default function ModelFields({ modelDataForOrderCookie }) {
         Clicky
       </Text>
       <Text
-        color={"teal.400"}
+        color={"#FF5876"}
         textTransform={"uppercase"}
         fontWeight={800}
-        fontSize={"lg"}
+        fontSize={"2xl"}
         letterSpacing={1.1}
         textAlign={"left"}
       >

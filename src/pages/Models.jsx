@@ -121,6 +121,7 @@ export default function Models() {
           </Box>
         </GridItem>
       </Grid>
+      <Box height={"50px"}></Box>
       <Footer />
     </>
   );

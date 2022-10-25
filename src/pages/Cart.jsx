@@ -6,7 +6,9 @@ export default function CartPage() {
   return (
     <>
       <VStack spacing={5}>
-        <Text fontSize={"4xl"}>My Cart</Text>
+        <Text fontSize={"4xl"} fontWeight={"700"} marginTop={"10px"}>
+          My Cart
+        </Text>
         <Divider />
         <CartDetail />
       </VStack>

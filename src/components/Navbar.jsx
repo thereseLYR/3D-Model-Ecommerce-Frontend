@@ -38,7 +38,7 @@ const CartLogout = ({ onLogoutClick }) => {
           borderRadius={6}
           color="gray.800"
           bg="#FF8BA0"
-          padding={"5px 20px 5px 20px"}
+          padding={"5px 16px 0px 16px"}
           _hover={{
             bg: "#FFBECA",
           }}
@@ -196,6 +196,28 @@ export default function NavBar({ user }) {
                   </Link>
                 </Box>
               ))}
+              <Box
+                key={"about-us"}
+                display={"flex"}
+                alignItems={"center"}
+                justifyContent={"center"}
+              >
+                <Link
+                  p={2}
+                  href={"/admin/about-us"}
+                  fontSize={"sm"}
+                  fontWeight={600}
+                  color="gray.800"
+                  borderRadius={"6px"}
+                  borderWidth={"1px"}
+                  borderColor={"#FF8BA0"}
+                  _hover={{
+                    bg: "whiteAlpha.500",
+                  }}
+                >
+                  About Us
+                </Link>
+              </Box>
               <Menu>
                 <MenuButton
                   p={2}
@@ -245,28 +267,6 @@ export default function NavBar({ user }) {
                   }}
                 >
                   Contact Us
-                </Link>
-              </Box>
-              <Box
-                key={"about-us"}
-                display={"flex"}
-                alignItems={"center"}
-                justifyContent={"center"}
-              >
-                <Link
-                  p={2}
-                  href={"/admin/about-us"}
-                  fontSize={"sm"}
-                  fontWeight={600}
-                  color="gray.800"
-                  borderRadius={"6px"}
-                  borderWidth={"1px"}
-                  borderColor={"#FF8BA0"}
-                  _hover={{
-                    bg: "whiteAlpha.500",
-                  }}
-                >
-                  About Us
                 </Link>
               </Box>
             </Stack>

@@ -76,20 +76,19 @@ const CheckoutForm = ({
     return (
       <Box minW={{ base: "90%", md: "550px" }}>
         <Text
-          color={"pink.500"}
+          color={"#FF5876"}
           textTransform={"uppercase"}
           fontWeight={800}
           letterSpacing={1.1}
-          fontSize="lg"
+          fontSize="2xl"
+          marginBottom={"16px"}
         >
           Card Payment
         </Text>
-        <br />
         <CardElement
           options={cardElementOpts}
           onChange={handleCardDetailsChange}
         />
-        <br />
       </Box>
     );
   };
@@ -105,10 +104,13 @@ const CheckoutForm = ({
         <Box>
           <Button
             type="submit"
-            colorScheme="purple"
+            bgColor={"#FF5876"}
+            color={"white"}
+            _hover={{ bg: "#FF8BA0" }}
             size="md"
             disabled={isProcessing || !stripe}
             leftIcon={<FiCreditCard />}
+            marginTop={"10px"}
           >
             {isProcessing ? "Processing..." : `Pay $${price}`}
           </Button>

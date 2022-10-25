@@ -6,10 +6,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import CheckoutForm from "../components/checkout/CheckoutForm";
+import Footer from "../components/Footer";
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
-const STRIPE_PK = process.env.REACT_APP_STRIPE_PK;
-const stripePromise = loadStripe(STRIPE_PK);
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
 
 const SingleCartItem = ({ item }) => {
   return (
@@ -24,20 +24,20 @@ const SingleCartItem = ({ item }) => {
         </Text>
         {Object.keys(item.component_breakdown).map((i) => {
           return (
-            <Text fontSize={"s"}>
+            <Text fontSize={"s"} key={`component-${i}`}>
               {i}: {item.component_breakdown[i]}
             </Text>
           );
         })}
         <br />
       </Box>
-      <Box w={50}>
-        <Text>Qty:</Text>
+      <Box w={50} alignItems={"center"}>
+        <Text fontWeight={700}>Qty:</Text>
         <br />
         <Text>{item.quantity}</Text>
       </Box>
       <Box w={50}>
-        <Text>Price:</Text>
+        <Text fontWeight={700}>Price:</Text>
         <br />
         <Text>${item.ppu * item.quantity}</Text>
       </Box>
@@ -70,6 +70,7 @@ export default function CartCheckoutPage({ user }) {
       )
       .then((result) => {
         setClientSecret(result.data.client_secret);
+        console.log("clientSecret", clientSecret);
       });
   };
 
@@ -112,28 +113,26 @@ export default function CartCheckoutPage({ user }) {
   useEffect(() => {
     user !== undefined ? getUserDetails() : navigate("/access-denied");
     //eslint-disable-next-line
-  }, [getUserDetails, user]);
+    postStripePayments();
+  }, [getUserDetails, user, navigate]);
 
-  useEffect(() => postStripePayments(), []);
-
-  const appearance = {
-    theme: "stripe",
-  };
   const options = {
-    clientSecret,
-    appearance,
+    clientSecret: clientSecret,
+    appearance: {
+      theme: "flat",
+    },
   };
 
   return (
     <>
-      <VStack spacing={10}>
+      <VStack spacing={10} alignItems={"center"}>
         <Text
-          color={"pink.500"}
+          color={"#FF5876"}
           textTransform={"uppercase"}
           fontWeight={800}
           letterSpacing={1.1}
           fontSize="3xl"
-          textAlign={"center"}
+          marginTop={"10px"}
         >
           Review your order
         </Text>
@@ -155,12 +154,12 @@ export default function CartCheckoutPage({ user }) {
                 }}
                 clientSecret={clientSecret}
                 userDetails={userDetails}
-                setUserDetails={setUserDetails}
               />
             </Elements>
           )}
         </Box>
       </VStack>
+      <Footer />
     </>
   );
 }

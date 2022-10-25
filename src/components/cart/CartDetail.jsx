@@ -74,17 +74,27 @@ export default function CartDetail() {
             <Text fontSize={"sm"}>Material: {cartDataItem.material}</Text>
             <Text fontSize={"sm"}>Quantity: {cartDataItem.quantity}</Text>
           </VStack>
-          <HStack>
+          <HStack spacing={4}>
             <IconButton
               onClick={onEditClick}
-              colorScheme="teal"
+              variant="solid"
+              bgColor={"#FF5876"}
+              color={"white"}
+              _hover={{
+                bg: "#FF8BA0",
+              }}
               aria-label="remove-item-cart"
               icon={<EditIcon />}
             />
             <IconButton
               button={cartDataItem.id}
               onClick={() => onDeleteClick(cartDataItem.id)}
-              colorScheme="teal"
+              variant="solid"
+              bgColor={"#FF5876"}
+              color={"white"}
+              _hover={{
+                bg: "#FF8BA0",
+              }}
               aria-label="remove-item-cart"
               icon={<DeleteIcon />}
             />
