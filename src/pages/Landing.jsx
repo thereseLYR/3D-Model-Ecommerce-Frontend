@@ -12,8 +12,8 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BackendUrlContext from "../components/BackendUrl.jsx";
 import Footer from "../components/Footer.jsx";
-import CarouselImage from "../components/landing/CarouselImage.jsx";
-import SlideAnimation from "../components/landing/SlideAnimation.jsx";
+import CarouselImage from "../components/Landing/CarouselImage.jsx";
+import SlideAnimation from "../components/Landing/SlideAnimation.jsx";
 import ModelBox from "../components/ModelBox.jsx";
 
 const Landing = ({ setUser }) => {

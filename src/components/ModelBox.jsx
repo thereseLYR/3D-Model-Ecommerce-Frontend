@@ -14,7 +14,7 @@ export default function ModelBox({
 
   const handleModelBoxClick = () => {
     // TODO: change this path when we have more models
-    // navigate(`/model/${modelId}`;
+    // navigate(`/Model/${modelId}`;
     navigate(`/model`);
   };
 

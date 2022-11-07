@@ -1,5 +1,5 @@
 import { Box, Divider, Text, VStack } from "@chakra-ui/react";
-import CartDetail from "../components/cart/CartDetail";
+import CartDetail from "../components/Cart/CartDetail";
 import Footer from "../components/Footer";
 
 export default function CartPage() {
