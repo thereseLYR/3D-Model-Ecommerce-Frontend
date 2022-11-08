@@ -1,6 +1,6 @@
 # PorkyPrints-Frontend
 
-![PorkyPrints](/public/porky-prints-title-readme.png)
+![PorkyPrints](/public/porky_prints_full_pink.svg)
 
 ## Setup
 
