@@ -21,7 +21,7 @@ import { useCookies } from "react-cookie";
 import { BiUser } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import BackendUrlContext from "../components/BackendUrl.jsx";
-import CartDrawer from "../components/cart/CartDrawer";
+import CartDrawer from "../components/Cart/CartDrawer";
 
 const CartLogout = ({ onLogoutClick }) => {
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import StaticModel from "../components/model/StaticModel";
+import StaticModel from "../components/Model/StaticModel";
 
 export default function SingleModel() {
   return <StaticModel />;

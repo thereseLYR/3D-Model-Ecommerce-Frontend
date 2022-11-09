@@ -5,8 +5,8 @@ import axios from "axios";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import CartItem from "../components/checkout/CartItem";
-import CheckoutForm from "../components/checkout/CheckoutForm";
+import CartItem from "../components/Checkout/CartItem";
+import CheckoutForm from "../components/Checkout/CheckoutForm";
 import Footer from "../components/Footer";
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
