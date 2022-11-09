@@ -32,6 +32,11 @@ npm i
 npm start
 ```
 
+3. [Optional] Login with default seed user
+   To view or play around with payments flow and order history, either create a new user or use one of our seed user data and login with the following details:
+   - user: john@gmail.com
+   - pw: password
+
 ## Directory Tree
 
 - /public: all images resources
