@@ -19,6 +19,8 @@ const BillingDetailsFields = ({ userDetails }) => {
   const [phone, setPhone] = useState(userDetails.phone);
   const [email, setEmail] = useState(userDetails.email);
 
+  const getPostalCode = (a) => a.substr(-6);
+
   return (
     <Box minW={{ base: "90%", md: "550px" }}>
       <Text
@@ -94,7 +96,11 @@ const BillingDetailsFields = ({ userDetails }) => {
             minW={{ md: "110px" }}
             children="City"
           ></InputLeftAddon>
-          <Select placeholder="Select City" name="city">
+          <Select
+            placeholder="Select City"
+            name="city"
+            defaultValue={"Singapore"}
+          >
             <option value="Singapore">Singapore</option>
           </Select>
         </InputGroup>
@@ -103,7 +109,11 @@ const BillingDetailsFields = ({ userDetails }) => {
             minW={{ md: "110px" }}
             children="State"
           ></InputLeftAddon>
-          <Select placeholder="Select State" name="state">
+          <Select
+            placeholder="Select State"
+            name="state"
+            defaultValue={"Singapore"}
+          >
             <option value="Singapore">Singapore</option>
           </Select>
         </InputGroup>
@@ -116,6 +126,7 @@ const BillingDetailsFields = ({ userDetails }) => {
             type="text"
             name="zip"
             label="zip"
+            value={getPostalCode(address)}
             placeholder=""
             required
           ></Input>

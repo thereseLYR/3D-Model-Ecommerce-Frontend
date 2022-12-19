@@ -53,7 +53,7 @@ export default function CartDetail() {
       }
       const modelDataItemsList = modelNamesArr.map((key) => {
         return (
-          <li key={key}>
+          <li key={`uuid-${key}`}>
             <strong>{key}</strong>:{" "}
             {modelDataItem.length > 0
               ? modelDataItem[0][1][key]

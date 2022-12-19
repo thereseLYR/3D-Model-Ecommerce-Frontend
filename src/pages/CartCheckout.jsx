@@ -15,7 +15,7 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
 export default function CartCheckoutPage({ user }) {
   const navigate = useNavigate();
   const [clientSecret, setClientSecret] = useState("");
-  const [cookies, setCookie] = useCookies(["saved-models"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["saved-models"]);
   const [userDetails, setUserDetails] = useState({});
   const cartCookies = useRef(cookies.temp_cart || []);
 
@@ -81,8 +81,8 @@ export default function CartCheckoutPage({ user }) {
   };
 
   const clearCookiesCheckout = () => {
-    setCookie("temp_cart", [], { path: "/" });
-    setCookie("saved-models", [], { path: "/" });
+    removeCookie("temp_cart");
+    removeCookie("saved-models");
   };
 
   const appearance = {
@@ -90,9 +90,7 @@ export default function CartCheckoutPage({ user }) {
   };
   const options = {
     clientSecret: clientSecret,
-    appearance: {
-      theme: "flat",
-    },
+    appearance: appearance,
   };
 
   return (
@@ -119,12 +117,12 @@ export default function CartCheckoutPage({ user }) {
                   cartCookies.current[0]["ppu"] *
                   cartCookies.current[0]["quantity"]
                 }
-                onSuccessfulCheckout={() => {
-                  postNewOrder();
-                  clearCookiesCheckout();
-                  navigate("/success-checkout");
-                }}
-                clientSecret={clientSecret}
+                // TODO: Move this out to success checkout page
+                // onSuccessfulCheckout={() => {
+                //   postNewOrder();
+                //   clearCookiesCheckout();
+                //   navigate("/success-checkout");
+                // }}
                 userDetails={userDetails}
               />
             </Elements>
