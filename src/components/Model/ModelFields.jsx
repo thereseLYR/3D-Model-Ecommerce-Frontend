@@ -104,6 +104,7 @@ export default function ModelFields({ modelDataForOrderCookie }) {
                 <Th>No.</Th>
                 <Th>Part Name</Th>
                 <Th>Color</Th>
+                <Th>Sample</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -119,6 +120,11 @@ export default function ModelFields({ modelDataForOrderCookie }) {
                       ? colourDataFromConfigurator[1][m]
                       : defaultClickyColours[m]}
                   </Td>
+                  <Td><div style={{"backgroundColor":colourDataFromConfigurator[1]
+                      ? colourDataFromConfigurator[1][m]
+                      : defaultClickyColours[m], "color":colourDataFromConfigurator[1]
+                      ? colourDataFromConfigurator[1][m]
+                      : defaultClickyColours[m]}}>TEST TEXT</div></Td>
                 </Tr>
               ))}
             </Tbody>

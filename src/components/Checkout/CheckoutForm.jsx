@@ -1,120 +1,151 @@
 import { Box, Button, Text, VStack } from "@chakra-ui/react";
-import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import {
+  PaymentElement,
+  useElements,
+  useStripe,
+} from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import { FiCreditCard } from "react-icons/fi";
 import BillingDetailsFields from "./BillingDetailsFields";
-import CheckoutErrorContainer from "./CheckoutErrorContainer";
 
-const CheckoutForm = ({
-  price,
-  onSuccessfulCheckout,
-  clientSecret,
-  userDetails,
-}) => {
-  const [isProcessing, setProcessingTo] = useState(false);
-  const [checkoutError, setCheckoutError] = useState("");
+const CardPayment = ({ paymentElementOptions }) => {
+  return (
+    <Box minW={{ base: "90%", md: "550px" }}>
+      <Text
+        color={"#FF5876"}
+        textTransform={"uppercase"}
+        fontWeight={800}
+        letterSpacing={1.1}
+        fontSize="2xl"
+        marginBottom={"16px"}
+      >
+        Card Payment
+      </Text>
+      <PaymentElement id="payment-element" options={paymentElementOptions} />
+    </Box>
+  );
+};
 
+const CheckoutForm = ({ price, userDetails }) => {
   const stripe = useStripe();
   const elements = useElements();
 
+  const [message, setMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
+    console.log("xxx checking stripe");
+
     if (!stripe) {
+      console.log("xxx no stripe");
       return;
     }
-    if (!clientSecret) {
+    const urlClientSecret = new URLSearchParams(window.location.search).get(
+      "payment_intent_client_secret"
+    );
+    console.log(new URLSearchParams(window.location.search));
+    console.log("xxx url client secret in checkout form: ", urlClientSecret);
+    console.log("xxx checking client secret");
+
+    const clientSecretToUse = urlClientSecret;
+
+    if (!clientSecretToUse) {
+      console.log("xxx no client secret");
       return;
     }
+
+    console.log("xxx retriveing payment intent");
+    stripe
+      .retrievePaymentIntent(clientSecretToUse)
+      .then(({ paymentIntent }) => {
+        console.log("xxx paymentIntent.status", paymentIntent);
+        switch (paymentIntent.status) {
+          case "succeeded":
+            setMessage("Payment succeeded!");
+            break;
+          case "processing":
+            setMessage("Your payment is processing.");
+            break;
+          case "requires_payment_method":
+            setMessage("Your payment was not successful, please try again.");
+            break;
+          default:
+            setMessage("Something went wrong.");
+            break;
+        }
+      });
   }, [stripe]);
 
-  const handleCardDetailsChange = (ev) => {
-    ev.error ? setCheckoutError(ev.error.message) : setCheckoutError("");
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("xxxx submit button pressed");
 
-  const handleFormSubmit = async (ev) => {
-    ev.preventDefault();
+    console.log("xxxx stripe: ", stripe);
+    console.log("xxxx elements: ", elements);
 
     if (!stripe || !elements) {
+      // stripe has not yet loaded
+      console.log("xxxx stripe and elements not loaded");
+      console.log("xxxx stripe: ", stripe);
+      console.log("xxxx elements: ", elements);
       return;
     }
 
-    setProcessingTo(true);
-    const cardElement = elements.getElement("card");
-
+    setIsLoading(true);
+    // TODO: see if we can pass billingDetails somewhere to postNewOrder
     const billingDetails = {
-      name: ev.target.name.value,
-      email: ev.target.email.value,
+      name: e.target.name.value,
+      email: e.target.email.value,
       address: {
-        city: "Singapore",
-        line1: ev.target.address.value, // billing address line1, line2...
-        state: "Singapore",
-        postal_code: ev.target.zip.value,
+        city: e.target.city.value,
+        line1: e.target.address.value, // billing address line1, line2...
+        state: e.target.state.value,
+        postal_code: e.target.zip.value,
       },
     };
 
+    console.log("xxxx confirming payment..");
+
     try {
-      const paymentMethodReq = await stripe.createPaymentMethod({
-        type: "card",
-        card: cardElement,
-        billing_details: billingDetails,
+      const { error } = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          // shipping: billingDetails,
+          // Make sure to change this to your payment completion page
+          return_url: "http://localhost:3000/success-checkout",
+        },
       });
 
-      if (paymentMethodReq.error) {
-        setCheckoutError(paymentMethodReq.error.message);
-        setProcessingTo(false);
-        return;
-      }
-
-      const { error } = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: paymentMethodReq.paymentMethod.id,
-      });
+      // This point will only be reached if there is an immediate error when
+      // confirming the payment. Otherwise, your customer will be redirected to
+      // your `return_url`. For some payment methods like iDEAL, your customer will
+      // be redirected to an intermediate site first to authorize the payment, then
+      // redirected to the `return_url`.
 
       if (error) {
         error.type === "card_error" || error.type === "validation_error"
-          ? setCheckoutError(error.message)
-          : setCheckoutError(error);
-        setProcessingTo(false);
+          ? setMessage(error.message)
+          : setMessage(error);
+        setIsLoading(false);
         return;
       }
-      onSuccessfulCheckout();
+      setIsLoading(false);
+      // TODO: Move this to success checkout page
+      // onSuccessfulCheckout();
     } catch (err) {
-      setCheckoutError(err.message);
+      console.log("xxxx error in payment:", err);
     }
   };
 
-  const cardElementOpts = {
-    iconStyle: "solid",
-    hidePostalCode: true,
-  };
-
-  const CardPayment = () => {
-    return (
-      <Box minW={{ base: "90%", md: "550px" }}>
-        <Text
-          color={"#FF5876"}
-          textTransform={"uppercase"}
-          fontWeight={800}
-          letterSpacing={1.1}
-          fontSize="2xl"
-          marginBottom={"16px"}
-        >
-          Card Payment
-        </Text>
-        <CardElement
-          options={cardElementOpts}
-          onChange={handleCardDetailsChange}
-        />
-      </Box>
-    );
+  const paymentElementOptions = {
+    layout: "tabs",
   };
 
   return (
-    <form onSubmit={handleFormSubmit}>
+    <form onSubmit={handleSubmit}>
       <VStack>
         <BillingDetailsFields userDetails={userDetails} />
-        <CardPayment />
-        {checkoutError && (
-          <CheckoutErrorContainer>{checkoutError}</CheckoutErrorContainer>
-        )}
+        <CardPayment paymentElementOptions={paymentElementOptions} />
         <Box>
           <Button
             type="submit"
@@ -122,13 +153,21 @@ const CheckoutForm = ({
             color={"white"}
             _hover={{ bg: "#FF8BA0" }}
             size="md"
-            disabled={isProcessing || !stripe}
+            disabled={isLoading || !stripe}
             leftIcon={<FiCreditCard />}
             marginTop={"10px"}
           >
-            {isProcessing ? "Processing..." : `Pay $${price}`}
+            {isLoading ? "Processing..." : `Pay $${price}`}
           </Button>
         </Box>
+        <Text
+          id="payment-message"
+          color={"#FF5876"}
+          fontWeight={800}
+          fontSize="sm"
+        >
+          {message ? message : ""}
+        </Text>
       </VStack>
     </form>
   );

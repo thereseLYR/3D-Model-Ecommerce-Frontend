@@ -54,7 +54,7 @@ export default function Models() {
       <Grid templateColumns="repeat(5, 1fr)" gap={4} style={{ margin: "10px" }}>
         <GridItem rowSpan={2} colSpan={1}>
           <List>
-            <ListItem>
+            <ListItem key={`uuid-${selectedCategory}`}>
               <Box
                 className={
                   selectedCategory === 0
