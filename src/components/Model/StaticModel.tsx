@@ -18,7 +18,7 @@ import ModelTabs from "./ModelTabs";
 export default function StaticModel() {
   const navigate = useNavigate();
   const { backendUrl } = useContext(BackendUrlContext);
-  const [model, setModel] = useState("");
+  const [model, setModel] = useState<{ [key: string]: any }>({});
 
   const boxWidth = "500px";
   const boxHeight = "800px";
@@ -29,7 +29,7 @@ export default function StaticModel() {
 
   useEffect(() => {
     axios.get(`${backendUrl}/api/models/1`).then((result) => {
-      let modelDataForOrderCookie = {};
+      let modelDataForOrderCookie: { [key: string]: any } = {};
       const data = result.data["modelData"];
       // populate additional fields with data from DB
       modelDataForOrderCookie["model_name"] = data["model_name"];

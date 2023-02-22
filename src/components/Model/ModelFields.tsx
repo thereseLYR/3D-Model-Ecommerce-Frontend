@@ -23,7 +23,7 @@ import {
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 
-const defaultClickyColours = {
+const defaultClickyColours: { [key: string]: string } = {
   Case_A_v3: "coral",
   Spring_Normal: "darkmagenta",
   Wheel_40T: "lightblue",
@@ -37,18 +37,26 @@ const defaultModelNew = {
   material: "",
 };
 
-export default function ModelFields({ modelDataForOrderCookie }) {
+export default function ModelFields({
+  modelDataForOrderCookie,
+}: {
+  modelDataForOrderCookie: { [key: string]: any };
+}) {
   const [material, setMaterial] = useState("PLA");
   const [price, setPrice] = useState(modelDataForOrderCookie["ppu"] || 15); // TODO: bug here, to discover why price is undefined
   const [quantity, setQuantity] = useState(1);
   const [successfulAddCart, setSuccessfulAddCart] = useState(false);
-  const [cookies, setCookie] = useCookies(["temp-cart"]);
+  const [cookies, setCookie] = useCookies<string>(["temp-cart"]);
 
   // TODO: reset button to remove customized config and restore defaults
+  // console.log(cookies);
   const colourDataFromConfigurator = cookies["saved-models"] || "";
+  // const colourDataFromConfigurator = [] || "";
 
   const handleAddToCartClick = () => {
-    const componentBreakDownCopy = { ...defaultModelNew.component_breakdown };
+    const componentBreakDownCopy: { [key: string]: string } = {
+      ...defaultModelNew.component_breakdown,
+    };
     for (const p in componentBreakDownCopy) {
       // if colourDataFromConfigurator[1] exists, assign that value to componentBreakDownCopy[p]
       // else, take default colour
@@ -69,16 +77,16 @@ export default function ModelFields({ modelDataForOrderCookie }) {
     ];
 
     // TODO: this overrides cartModelNew, we should append to array instead
-    setCookie("temp_cart", cartModelNew, { path: "/" });
+    setCookie("temp-cart", cartModelNew, { path: "/" });
     setSuccessfulAddCart(true);
   };
 
-  const handleOnMaterialChange = (ev) => {
+  const handleOnMaterialChange = (ev: React.ChangeEvent<HTMLSelectElement>) => {
     setMaterial(ev.target.value);
   };
 
-  const handleOnQuantityChange = (ev) => {
-    setQuantity(ev);
+  const handleOnQuantityChange = (ev: string) => {
+    setQuantity(Number(ev));
   };
 
   const ModelBreakdown = () => {
@@ -120,11 +128,20 @@ export default function ModelFields({ modelDataForOrderCookie }) {
                       ? colourDataFromConfigurator[1][m]
                       : defaultClickyColours[m]}
                   </Td>
-                  <Td><div style={{"backgroundColor":colourDataFromConfigurator[1]
-                      ? colourDataFromConfigurator[1][m]
-                      : defaultClickyColours[m], "color":colourDataFromConfigurator[1]
-                      ? colourDataFromConfigurator[1][m]
-                      : defaultClickyColours[m]}}>TEST TEXT</div></Td>
+                  <Td>
+                    <div
+                      style={{
+                        backgroundColor: colourDataFromConfigurator[1]
+                          ? colourDataFromConfigurator[1][m]
+                          : defaultClickyColours[m],
+                        color: colourDataFromConfigurator[1]
+                          ? colourDataFromConfigurator[1][m]
+                          : defaultClickyColours[m],
+                      }}
+                    >
+                      TEST TEXT
+                    </div>
+                  </Td>
                 </Tr>
               ))}
             </Tbody>

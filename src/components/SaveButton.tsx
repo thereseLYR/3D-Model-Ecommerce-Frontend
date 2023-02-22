@@ -1,6 +1,6 @@
 import { Button, useToast } from "@chakra-ui/react";
 
-export default function SaveButton(props) {
+export default function SaveButton(props: any) {
   const { onSaveCustomClick, onExitClick } = props;
   const toast = useToast();
   return (

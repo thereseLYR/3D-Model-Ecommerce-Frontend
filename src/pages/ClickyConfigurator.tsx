@@ -9,8 +9,8 @@ import { useState } from "react";
 import { SketchPicker } from "react-color";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import Clicky from "../components/Clicky.js";
-import SaveButton from "../components/SaveButton.jsx";
+import Clicky from "../components/Clicky";
+import SaveButton from "../components/SaveButton";
 
 const initialModelState: ModelState = {
   currentItem: "Case_A_v3",
