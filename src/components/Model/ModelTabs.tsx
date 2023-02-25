@@ -82,7 +82,11 @@ const ReviewCard = () => {
   );
 };
 
-export default function ModelTabs({ modelDescription }) {
+export default function ModelTabs({
+  modelDescription,
+}: {
+  modelDescription: string;
+}) {
   return (
     <Tabs
       size="md"

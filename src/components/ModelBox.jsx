@@ -2,6 +2,8 @@ import { StarIcon } from "@chakra-ui/icons";
 import { Badge, Box, Image } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
+// thumbnail box to show model image and details on landing page + models page
+
 export default function ModelBox({
   imageUrl,
   modelId,

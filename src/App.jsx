@@ -13,7 +13,7 @@ import Delivery from "./pages/admin/Delivery";
 import ReturnsPolicy from "./pages/admin/ReturnsPolicy";
 import CartPage from "./pages/Cart.jsx";
 import CartCheckoutPage from "./pages/CartCheckout.jsx";
-import ClickyConfigurator from "./pages/ClickyConfigurator.jsx";
+import ClickyConfigurator from "./pages/ClickyConfigurator.tsx";
 import Landing from "./pages/Landing.jsx";
 import Login from "./pages/Login.jsx";
 import Models from "./pages/Models.jsx";
