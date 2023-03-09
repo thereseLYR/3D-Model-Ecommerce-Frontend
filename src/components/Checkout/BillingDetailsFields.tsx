@@ -11,7 +11,19 @@ import {
 
 import { useState } from "react";
 
-const BillingDetailsFields = ({ userDetails }) => {
+interface UserDetails {
+  firstName: string;
+  lastName: string;
+  address: string;
+  phone: string;
+  email: string;
+}
+
+const BillingDetailsFields = ({
+  userDetails,
+}: {
+  userDetails: UserDetails;
+}) => {
   const [fullname, setFullname] = useState(
     userDetails.firstName + " " + userDetails.lastName
   );
@@ -19,7 +31,7 @@ const BillingDetailsFields = ({ userDetails }) => {
   const [phone, setPhone] = useState(userDetails.phone);
   const [email, setEmail] = useState(userDetails.email);
 
-  const getPostalCode = (a) => a.substr(-6);
+  const getPostalCode = (a: string) => a.substr(-6);
 
   return (
     <Box minW={{ base: "90%", md: "550px" }}>
@@ -42,7 +54,7 @@ const BillingDetailsFields = ({ userDetails }) => {
           <Input
             type="text"
             name="name"
-            label="name"
+            placeholder="name"
             value={fullname}
             onChange={(e) => setFullname(e.target.value)}
             required
@@ -56,7 +68,7 @@ const BillingDetailsFields = ({ userDetails }) => {
           <Input
             type="email"
             name="email"
-            label="email"
+            placeholder="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -70,7 +82,7 @@ const BillingDetailsFields = ({ userDetails }) => {
           <Input
             type="text"
             name="phone"
-            label="phone"
+            placeholder="phone"
             value={phone}
             onChange={(e) => {
               setPhone(e.target.value);
@@ -83,9 +95,9 @@ const BillingDetailsFields = ({ userDetails }) => {
             children="Address"
           ></InputLeftAddon>
           <Textarea
-            type="text"
+            // type="text"
             name="address"
-            label="address"
+            placeholder="address"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
             required
@@ -125,9 +137,9 @@ const BillingDetailsFields = ({ userDetails }) => {
           <Input
             type="text"
             name="zip"
-            label="zip"
+            placeholder="zip"
             value={getPostalCode(address)}
-            placeholder=""
+            // placeholder=""
             required
           ></Input>
         </InputGroup>

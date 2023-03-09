@@ -54,7 +54,6 @@ export default function ModelFields({
   // const colourDataFromConfigurator = [] || "";
 
   const handleAddToCartClick = () => {
-    console.log("ADDING TO CART");
     const componentBreakDownCopy: { [key: string]: string } = {
       ...defaultModelNew.component_breakdown,
     };

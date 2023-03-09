@@ -1,6 +1,21 @@
 import { Box, HStack, StackDivider, Text } from "@chakra-ui/react";
 
-export default function CartItem({ item }) {
+// TODO: change anonymous type definition to interface
+// item (temp-cart data) will ahve the following format:
+// const cartModelNew = [
+//   {
+//     ...defaultModelNew,
+//     component_breakdown: componentBreakDownCopy,
+//     quantity: quantity,
+//     material: material,
+//     model_name: modelDataForOrderCookie["model_name"],
+//     model_description: modelDataForOrderCookie["model_description"],
+//     ppu: modelDataForOrderCookie["ppu"],
+//   },
+// ];
+
+// currently breaks on the CartCheckoutPage
+export default function CartItem({ item }: { item: { [key: string]: any } }) {
   return (
     <HStack
       divider={<StackDivider borderColor="gray.200" />}
