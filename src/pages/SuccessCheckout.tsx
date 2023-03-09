@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 
 const SuccessCheckoutPage = () => {
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
-  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  const [cookies, setCookie, removeCookie] = useCookies<string>(["user"]);
   const [orderId, setOrderId] = useState("");
   const navigate = useNavigate();
   const userId = cookies.user.id;

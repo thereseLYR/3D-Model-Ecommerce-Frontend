@@ -37,12 +37,12 @@ export default function CartDrawer() {
   const cartBtnRef = useRef();
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [cookies, setCookie] = useCookies(["temp_cart"]);
-  const [cartCookie, setCartCookie] = useState(cookies.temp_cart || []);
+  const [cookies, setCookie] = useCookies(["temp-cart"]);
+  const [cartCookie, setCartCookie] = useState(cookies["temp-cart"] || []);
 
   useEffect(() => {
-    if (cookies.temp_cart && cookies.temp_cart.length > 0) {
-      setCartCookie(cookies.temp_cart);
+    if (cookies["temp-cart"] && cookies["temp-cart"].length > 0) {
+      setCartCookie(cookies["temp-cart"]);
     } else {
       setCartCookie([]);
     }

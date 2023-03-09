@@ -21,6 +21,7 @@ export default function CartCheckoutPage({ user }) {
 
   useEffect(() => {
     cartCookies.current = cookies.temp_cart;
+    console.log(`CART COOKIE ITEM THINGY IS ${cartCookies.current}`);
   });
 
   useEffect(() => {

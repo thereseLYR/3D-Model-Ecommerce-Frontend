@@ -11,7 +11,7 @@ import AboutUs from "./pages/admin/AboutUs";
 import ContactUs from "./pages/admin/ContactUs";
 import Delivery from "./pages/admin/Delivery";
 import ReturnsPolicy from "./pages/admin/ReturnsPolicy";
-import CartPage from "./pages/Cart.jsx";
+import CartPage from "./pages/Cart.tsx";
 import CartCheckoutPage from "./pages/CartCheckout.jsx";
 import ClickyConfigurator from "./pages/ClickyConfigurator.tsx";
 import Landing from "./pages/Landing.jsx";
@@ -21,7 +21,7 @@ import Profile from "./pages/Profile.jsx";
 import Purchase from "./pages/Purchase.jsx";
 import Signup from "./pages/Signup.jsx";
 import SingleModel from "./pages/SingleModel.jsx";
-import SuccessCheckoutPage from "./pages/SuccessCheckout.jsx";
+import SuccessCheckoutPage from "./pages/SuccessCheckout.tsx";
 
 // make sure that axios always sends the cookies to the backend server
 axios.defaults.withCredentials = true;

@@ -14,15 +14,15 @@ import { useNavigate } from "react-router-dom";
 
 export default function CartDetail() {
   const navigate = useNavigate();
-  const [cookies, setCookie] = useCookies(["temp_cart"]);
+  const [cookies, setCookie] = useCookies(["temp-cart"]);
   const colourCartCookie = useRef(cookies["saved-models"] || []);
-  const cartCookie = useRef(cookies["temp_cart"] || []);
+  const cartCookie = useRef(cookies["temp-cart"] || []);
   // use cartCookie.current for model ID/material/quantity data
   // use saved-models for colour options
 
   useEffect(() => {
     if (cartCookie.length > 0) {
-      cartCookie.current = cookies["temp_cart"];
+      cartCookie.current = cookies["temp-cart"];
     }
     if (colourCartCookie.length > 0) {
       colourCartCookie.current = cookies["saved-models"];
@@ -37,7 +37,7 @@ export default function CartDetail() {
         cartCookie.current.splice(i, 1);
       }
     }
-    setCookie("temp_cart", cartCookie.current, { path: "/" });
+    setCookie("temp-cart", cartCookie.current, { path: "/" });
   };
 
   const CartItem = ({ cartDataItem, modelDataItem }) => {
