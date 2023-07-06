@@ -3,10 +3,12 @@
 ![PorkyPrints](/public/porky_prints_full_pink.svg)
 
 An Ecommerce Website for personalized 3D printed models, with full user customization via a 3D configurator, and integrated Stripe payments.
+![](public/porkyprints_index.png)
 
 ## Features
 
 - Live renders of user-customized models via [react-three-fibre](https://github.com/pmndrs/react-three-fiber)
+![](public/porkyprints_clicky_demo.gif)
 - Order placement and checkout via Stripe
 - Order status tracking on user's own Profile page
 
